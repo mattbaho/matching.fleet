@@ -26,11 +26,14 @@ select:focus,input[type=number]:focus{outline:none;border-color:var(--color-bord
 .kpi-lbl{font-size:11px;color:var(--color-text-secondary,#666);margin-bottom:3px}
 .kpi-val{font-size:20px;font-weight:500}
 .kpi-sub{font-size:11px;color:var(--color-text-secondary,#666);margin-top:2px}
-.breakdown-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary,rgba(0,0,0,.1));font-size:13px}
-.breakdown-row:last-child{border-bottom:none}
-.breakdown-key{color:var(--color-text-secondary,#666)}
-.breakdown-val{font-weight:500}
-.bar-track{height:8px;background:var(--color-background-secondary,#f0f0ec);border-radius:4px;overflow:hidden;margin-top:3px}
+.bd-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.bd-table tr{border-bottom:0.5px solid var(--color-border-tertiary,rgba(0,0,0,.1))}
+.bd-table tr:last-child{border-bottom:none}
+.bd-table td{padding:5px 0;font-size:13px;vertical-align:middle}
+.bd-key{color:var(--color-text-secondary,#666);white-space:nowrap;width:130px;padding-right:10px}
+.bd-bar{padding:0 8px}
+.bd-val{white-space:nowrap;text-align:right;font-weight:500;width:110px}
+.bar-track{height:8px;background:var(--color-background-secondary,#f0f0ec);border-radius:4px;overflow:hidden}
 .bar-fill{height:100%;border-radius:4px;transition:width .3s}
 .status-badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:12px;font-weight:500}
 .divider{border:none;border-top:0.5px solid var(--color-border-tertiary,rgba(0,0,0,.1));margin:.75rem 0}
@@ -39,9 +42,10 @@ select:focus,input[type=number]:focus{outline:none;border-color:var(--color-bord
 .hauler-table td{padding:5px 6px;border-bottom:0.5px solid var(--color-border-tertiary,rgba(0,0,0,.1))}
 .hauler-table tr:last-child td{border-bottom:none}
 .section-label{font-size:11px;font-weight:500;color:var(--color-text-secondary,#666);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.5rem;margin-top:.25rem}
-.preset-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem;margin-bottom:.85rem}
-.bucket-toggle{display:flex;align-items:center;gap:8px;margin-bottom:.75rem}
 .badge-edited{font-size:10px;background:#FAEEDA;color:#854F0B;padding:2px 7px;border-radius:6px;font-weight:500;margin-left:6px;display:none}
+.minsec{display:flex;gap:4px;align-items:center}
+.minsec input{width:56px;flex-shrink:0}
+.minsec span{font-size:12px;color:var(--color-text-secondary,#666)}
 </style>
 </head>
 <body>
@@ -49,7 +53,7 @@ select:focus,input[type=number]:focus{outline:none;border-color:var(--color-bord
 
 <div class="card">
   <div class="card-title">Loader</div>
-  <div class="preset-row">
+  <div class="grid2" style="margin-bottom:.75rem">
     <div class="field">
       <label>Merek</label>
       <select id="loaderBrand" onchange="onLoaderBrand()">
@@ -66,29 +70,31 @@ select:focus,input[type=number]:focus{outline:none;border-color:var(--color-bord
         <option value="">— pilih model —</option>
       </select>
     </div>
+  </div>
+  <div class="grid3" style="margin-bottom:.75rem">
     <div class="field">
       <label>Bucket capacity <span class="badge-edited" id="bucketEditedBadge">edited</span></label>
       <div style="display:flex;gap:6px;align-items:center">
-        <input type="number" id="bucketCap" value="10" step="0.1" style="flex:1" oninput="onBucketEdit()">
+        <input type="number" id="bucketCap" value="10" step="0.1" style="flex:1;min-width:0" oninput="onBucketEdit()">
         <div class="seg" style="flex-shrink:0">
           <button class="on" id="btn-ton" onclick="setBucketMode('ton')">ton</button>
           <button id="btn-m3" onclick="setBucketMode('m3')">m³</button>
         </div>
       </div>
     </div>
-  </div>
-  <div id="density-field" style="display:none;margin-bottom:.75rem;max-width:200px">
-    <div class="field"><label>Material density</label><input type="number" id="density" value="1.8" step="0.05"><div class="unit">t/m³</div></div>
-  </div>
-  <div class="grid2">
+    <div id="density-field" style="display:none">
+      <div class="field"><label>Material density</label><input type="number" id="density" value="1.8" step="0.05"><div class="unit">t/m³</div></div>
+    </div>
     <div class="field"><label>Fill factor</label><input type="number" id="fillFactor" value="0.9" step="0.01" min="0.1" max="1.5"><div class="unit">ratio</div></div>
+  </div>
+  <div style="max-width:200px">
     <div class="field"><label>Loader cycle time</label><input type="number" id="loaderCycle" value="30" step="1"><div class="unit">seconds/bucket</div></div>
   </div>
 </div>
 
 <div class="card">
   <div class="card-title">Hauler</div>
-  <div class="preset-row" style="margin-bottom:.75rem">
+  <div class="grid3" style="margin-bottom:.75rem">
     <div class="field">
       <label>Jenis</label>
       <select id="haulerType" onchange="onHaulerType()">
@@ -111,17 +117,15 @@ select:focus,input[type=number]:focus{outline:none;border-color:var(--color-bord
       </select>
     </div>
   </div>
-  <div class="grid2" style="margin-bottom:.75rem">
+  <div class="grid3" style="margin-bottom:.75rem">
     <div class="field">
       <label>Vessel capacity <span class="badge-edited" id="vesselEditedBadge">edited</span></label>
       <input type="number" id="haulerCap" value="100" step="5" oninput="onVesselEdit()"><div class="unit">ton</div>
     </div>
     <div class="field"><label>Spotting time</label><input type="number" id="spottingTime" value="30" step="5"><div class="unit">seconds</div></div>
+    <div class="field"><label>Dumping time</label><input type="number" id="dumpTime" value="60" step="5"><div class="unit">seconds</div></div>
   </div>
-  <div class="field" style="margin-bottom:.75rem;max-width:200px">
-    <label>Dumping time</label>
-    <input type="number" id="dumpTime" value="60" step="5"><div class="unit">seconds</div>
-  </div>
+
   <hr class="divider">
   <div class="toggle-row">
     <span class="toggle-label">Haul cycle time —</span>
@@ -130,6 +134,7 @@ select:focus,input[type=number]:focus{outline:none;border-color:var(--color-bord
       <button id="btn-direct" onclick="setMode('direct')">Input direct</button>
     </div>
   </div>
+
   <div id="mode-breakdown">
     <div class="section-label">Travel</div>
     <div class="grid3">
@@ -138,14 +143,62 @@ select:focus,input[type=number]:focus{outline:none;border-color:var(--color-bord
       <div class="field"><label>Speed empty</label><input type="number" id="speedEmpty" value="35" step="1"><div class="unit">km/h</div></div>
     </div>
     <div class="section-label" style="margin-top:.75rem">Queue</div>
-    <div class="field" style="max-width:200px"><label>Queuing time (avg per cycle)</label><input type="number" id="queueTime" value="0" step="5"><div class="unit">seconds (optional)</div></div>
-  </div>
-  <div id="mode-direct" style="display:none">
-    <div class="grid2">
-      <div class="field"><label>Travel time loaded</label><input type="number" id="travelLoaded" value="288" step="1"><div class="unit">seconds</div></div>
-      <div class="field"><label>Travel time empty</label><input type="number" id="travelEmpty" value="206" step="1"><div class="unit">seconds</div></div>
+    <div style="max-width:220px">
+      <div class="field"><label>Queuing time (avg per cycle)</label><input type="number" id="queueTime" value="0" step="5"><div class="unit">seconds (optional)</div></div>
     </div>
-    <div class="field" style="margin-top:.5rem;max-width:200px"><label>Queuing time (avg per cycle)</label><input type="number" id="queueTimeDirect" value="0" step="5"><div class="unit">seconds (optional)</div></div>
+  </div>
+
+  <div id="mode-direct" style="display:none">
+    <div class="toggle-row" style="margin-bottom:.75rem">
+      <span class="toggle-label">Mode input —</span>
+      <div class="seg">
+        <button class="on" id="btn-seg" onclick="setDirectMode('segment')">Per segmen</button>
+        <button id="btn-total" onclick="setDirectMode('total')">Total siklus</button>
+      </div>
+    </div>
+
+    <div id="direct-segment">
+      <div class="section-label">Travel time (menit : detik)</div>
+      <div class="grid2" style="margin-bottom:.75rem">
+        <div class="field">
+          <label>Travel loaded</label>
+          <div class="minsec">
+            <input type="number" id="tlM" value="4" min="0" step="1" oninput="calc()">
+            <span>m</span>
+            <input type="number" id="tlS" value="48" min="0" max="59" step="1" oninput="calc()">
+            <span>s</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Travel empty</label>
+          <div class="minsec">
+            <input type="number" id="teM" value="3" min="0" step="1" oninput="calc()">
+            <span>m</span>
+            <input type="number" id="teS" value="26" min="0" max="59" step="1" oninput="calc()">
+            <span>s</span>
+          </div>
+        </div>
+      </div>
+      <div style="max-width:220px">
+        <div class="field"><label>Queuing time (avg per cycle)</label><input type="number" id="queueTimeSeg" value="0" step="5"><div class="unit">seconds (optional)</div></div>
+      </div>
+    </div>
+
+    <div id="direct-total" style="display:none">
+      <div class="section-label">Total durasi 1 siklus penuh (menit : detik)</div>
+      <div style="max-width:280px">
+        <div class="field">
+          <label>Total CTH</label>
+          <div class="minsec">
+            <input type="number" id="cthM" value="15" min="0" step="1" oninput="calc()">
+            <span>m</span>
+            <input type="number" id="cthS" value="44" min="0" max="59" step="1" oninput="calc()">
+            <span>s</span>
+          </div>
+          <div class="unit">spotting + loading + travel + dump + return sudah termasuk</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -160,366 +213,213 @@ select:focus,input[type=number]:focus{outline:none;border-color:var(--color-bord
 <div id="result-section"></div>
 
 </div>
-
 <script>
 const LOADERS = {
-  komatsu: [
-    {model:'PC200',   bucketM3:0.93,  bucketTon:1.6},
-    {model:'PC400',   bucketM3:1.9,   bucketTon:3.2},
-    {model:'PC800',   bucketM3:4.0,   bucketTon:6.8},
-    {model:'PC1250',  bucketM3:5.8,   bucketTon:9.9},
-    {model:'PC2000',  bucketM3:10.0,  bucketTon:17.0},
-    {model:'PC3000',  bucketM3:15.0,  bucketTon:25.5},
-    {model:'PC4000',  bucketM3:22.0,  bucketTon:37.4},
+  komatsu:[
+    {model:'PC200',  bucketM3:0.93,bucketTon:1.6},
+    {model:'PC400',  bucketM3:1.9, bucketTon:3.2},
+    {model:'PC800',  bucketM3:4.0, bucketTon:6.8},
+    {model:'PC1250', bucketM3:5.8, bucketTon:9.9},
+    {model:'PC2000', bucketM3:10.0,bucketTon:17.0},
+    {model:'PC3000', bucketM3:15.0,bucketTon:25.5},
+    {model:'PC4000', bucketM3:22.0,bucketTon:37.4},
   ],
-  hitachi: [
-    {model:'EX1200',  bucketM3:5.6,   bucketTon:9.5},
-    {model:'EX1900',  bucketM3:10.5,  bucketTon:17.9},
-    {model:'EX2500',  bucketM3:15.0,  bucketTon:25.5},
-    {model:'EX3600',  bucketM3:21.0,  bucketTon:35.7},
-    {model:'EX5500',  bucketM3:29.0,  bucketTon:49.3},
-    {model:'EX8000',  bucketM3:42.0,  bucketTon:71.4},
+  hitachi:[
+    {model:'EX1200', bucketM3:5.6, bucketTon:9.5},
+    {model:'EX1900', bucketM3:10.5,bucketTon:17.9},
+    {model:'EX2500', bucketM3:15.0,bucketTon:25.5},
+    {model:'EX3600', bucketM3:21.0,bucketTon:35.7},
+    {model:'EX5500', bucketM3:29.0,bucketTon:49.3},
+    {model:'EX8000', bucketM3:42.0,bucketTon:71.4},
   ],
-  cat: [
-    {model:'390F',    bucketM3:3.8,   bucketTon:6.5},
-    {model:'395',     bucketM3:4.2,   bucketTon:7.1},
-    {model:'6015B',   bucketM3:15.0,  bucketTon:25.5},
-    {model:'6020B',   bucketM3:20.0,  bucketTon:34.0},
-    {model:'6030',    bucketM3:28.0,  bucketTon:47.6},
-    {model:'6040',    bucketM3:36.5,  bucketTon:62.1},
-    {model:'6060',    bucketM3:52.0,  bucketTon:88.4},
+  cat:[
+    {model:'390F',   bucketM3:3.8, bucketTon:6.5},
+    {model:'395',    bucketM3:4.2, bucketTon:7.1},
+    {model:'6015B',  bucketM3:15.0,bucketTon:25.5},
+    {model:'6020B',  bucketM3:20.0,bucketTon:34.0},
+    {model:'6030',   bucketM3:28.0,bucketTon:47.6},
+    {model:'6040',   bucketM3:36.5,bucketTon:62.1},
+    {model:'6060',   bucketM3:52.0,bucketTon:88.4},
   ],
 };
-
 const HAULERS = {
-  rigid: {
-    cat:     [{model:'777G',payload:99},{model:'785D',payload:136},{model:'789D',payload:181},{model:'793F',payload:227},{model:'795F AC',payload:272},{model:'797F',payload:363}],
-    komatsu: [{model:'HD785-8',payload:91},{model:'HD985-7',payload:100},{model:'930E-5',payload:291},{model:'960E-2',payload:327},{model:'980E-5',payload:363}],
+  rigid:{
+    cat:    [{model:'777G',payload:99},{model:'785D',payload:136},{model:'789D',payload:181},{model:'793F',payload:227},{model:'795F AC',payload:272},{model:'797F',payload:363}],
+    komatsu:[{model:'HD785-8',payload:91},{model:'HD985-7',payload:100},{model:'930E-5',payload:291},{model:'960E-2',payload:327},{model:'980E-5',payload:363}],
     liebherr:[{model:'T 236',payload:100},{model:'T 264',payload:227},{model:'T 274',payload:272},{model:'T 284',payload:363}],
   },
-  articulated: {
-    bell:  [{model:'B25E',payload:24},{model:'B30E',payload:28},{model:'B35E',payload:32},{model:'B45E',payload:41},{model:'B50E',payload:45}],
-    volvo: [{model:'A30G',payload:27.5},{model:'A35G',payload:33.5},{model:'A40G',payload:38.5},{model:'A45G',payload:41.5},{model:'A60H',payload:55}],
-    cat:   [{model:'730',payload:28},{model:'735',payload:32.7},{model:'740',payload:39.5},{model:'745',payload:41.8}],
+  articulated:{
+    bell: [{model:'B25E',payload:24},{model:'B30E',payload:28},{model:'B35E',payload:32},{model:'B45E',payload:41},{model:'B50E',payload:45}],
+    volvo:[{model:'A30G',payload:27.5},{model:'A35G',payload:33.5},{model:'A40G',payload:38.5},{model:'A45G',payload:41.5},{model:'A60H',payload:55}],
+    cat:  [{model:'730',payload:28},{model:'735',payload:32.7},{model:'740',payload:39.5},{model:'745',payload:41.8}],
   },
 };
+const HAULER_BRAND_LABELS={cat:'Caterpillar',komatsu:'Komatsu',liebherr:'Liebherr',bell:'Bell',volvo:'Volvo'};
 
-const HAULER_BRAND_LABELS = {
-  cat:'Caterpillar', komatsu:'Komatsu', liebherr:'Liebherr', bell:'Bell', volvo:'Volvo'
-};
+let bucketMode='ton', mode='breakdown', directMode='segment';
+let loaderPresetBucket=null, haulerPresetVessel=null;
 
-let bucketMode = 'ton';
-let mode = 'breakdown';
-let loaderPresetBucket = null;
-let haulerPresetVessel = null;
-
-function setBucketMode(m) {
-  bucketMode = m;
-  document.getElementById('btn-ton').className = m==='ton' ? 'on' : '';
-  document.getElementById('btn-m3').className = m==='m3' ? 'on' : '';
-  document.getElementById('density-field').style.display = m==='m3' ? '' : 'none';
-  if (loaderPresetBucket) {
-    const d = LOADERS[document.getElementById('loaderBrand').value]
-                ?.find(x=>x.model===document.getElementById('loaderModel').value);
-    if (d) {
-      document.getElementById('bucketCap').value = m==='ton' ? d.bucketTon : d.bucketM3;
-      document.getElementById('bucketEditedBadge').style.display = 'none';
-      loaderPresetBucket = m==='ton' ? d.bucketTon : d.bucketM3;
-    }
+function setBucketMode(m){
+  bucketMode=m;
+  document.getElementById('btn-ton').className=m==='ton'?'on':'';
+  document.getElementById('btn-m3').className=m==='m3'?'on':'';
+  document.getElementById('density-field').style.display=m==='m3'?'':'none';
+  if(loaderPresetBucket!==null){
+    const b=document.getElementById('loaderBrand').value;
+    const md=document.getElementById('loaderModel').value;
+    const d=LOADERS[b]?.find(x=>x.model===md);
+    if(d){const val=m==='ton'?d.bucketTon:d.bucketM3;document.getElementById('bucketCap').value=val;document.getElementById('bucketEditedBadge').style.display='none';loaderPresetBucket=val;}
   }
   calc();
 }
-
-function onBucketEdit() {
-  const cur = parseFloat(document.getElementById('bucketCap').value);
-  document.getElementById('bucketEditedBadge').style.display =
-    (loaderPresetBucket !== null && cur !== loaderPresetBucket) ? 'inline-block' : 'none';
+function onBucketEdit(){
+  const cur=parseFloat(document.getElementById('bucketCap').value);
+  document.getElementById('bucketEditedBadge').style.display=(loaderPresetBucket!==null&&cur!==loaderPresetBucket)?'inline-block':'none';
   calc();
 }
-
-function onVesselEdit() {
-  const cur = parseFloat(document.getElementById('haulerCap').value);
-  document.getElementById('vesselEditedBadge').style.display =
-    (haulerPresetVessel !== null && cur !== haulerPresetVessel) ? 'inline-block' : 'none';
+function onVesselEdit(){
+  const cur=parseFloat(document.getElementById('haulerCap').value);
+  document.getElementById('vesselEditedBadge').style.display=(haulerPresetVessel!==null&&cur!==haulerPresetVessel)?'inline-block':'none';
   calc();
 }
-
-function onLoaderBrand() {
-  const brand = document.getElementById('loaderBrand').value;
-  const modelSel = document.getElementById('loaderModel');
-  modelSel.innerHTML = '<option value="">— pilih model —</option>';
-  modelSel.disabled = !brand || brand==='custom';
-  loaderPresetBucket = null;
-  document.getElementById('bucketEditedBadge').style.display = 'none';
-  if (brand && brand !== 'custom') {
-    LOADERS[brand].forEach(d => {
-      const o = document.createElement('option');
-      o.value = d.model;
-      o.textContent = `${d.model} (${bucketMode==='ton'?d.bucketTon+' t':d.bucketM3+' m³'})`;
-      modelSel.appendChild(o);
-    });
-  }
+function onLoaderBrand(){
+  const brand=document.getElementById('loaderBrand').value;
+  const sel=document.getElementById('loaderModel');
+  sel.innerHTML='<option value="">— pilih model —</option>';
+  sel.disabled=!brand||brand==='custom';
+  loaderPresetBucket=null;
+  document.getElementById('bucketEditedBadge').style.display='none';
+  if(brand&&brand!=='custom') LOADERS[brand].forEach(d=>{const o=document.createElement('option');o.value=d.model;o.textContent=`${d.model} (${bucketMode==='ton'?d.bucketTon+' t':d.bucketM3+' m³'})`;sel.appendChild(o);});
   calc();
 }
-
-function onLoaderModel() {
-  const brand = document.getElementById('loaderBrand').value;
-  const model = document.getElementById('loaderModel').value;
-  if (!model || !LOADERS[brand]) return;
-  const d = LOADERS[brand].find(x=>x.model===model);
-  if (!d) return;
-  const val = bucketMode==='ton' ? d.bucketTon : d.bucketM3;
-  document.getElementById('bucketCap').value = val;
-  loaderPresetBucket = val;
-  document.getElementById('bucketEditedBadge').style.display = 'none';
+function onLoaderModel(){
+  const b=document.getElementById('loaderBrand').value,md=document.getElementById('loaderModel').value;
+  if(!md||!LOADERS[b])return;
+  const d=LOADERS[b].find(x=>x.model===md);if(!d)return;
+  const val=bucketMode==='ton'?d.bucketTon:d.bucketM3;
+  document.getElementById('bucketCap').value=val;loaderPresetBucket=val;document.getElementById('bucketEditedBadge').style.display='none';calc();
+}
+function onHaulerType(){
+  const type=document.getElementById('haulerType').value;
+  const bSel=document.getElementById('haulerBrand'),mSel=document.getElementById('haulerModel');
+  bSel.innerHTML='<option value="">— pilih merek —</option>';mSel.innerHTML='<option value="">— pilih model —</option>';
+  bSel.disabled=!type||type==='custom';mSel.disabled=true;haulerPresetVessel=null;
+  document.getElementById('vesselEditedBadge').style.display='none';
+  if(type&&type!=='custom') Object.keys(HAULERS[type]).forEach(b=>{const o=document.createElement('option');o.value=b;o.textContent=HAULER_BRAND_LABELS[b]||b;bSel.appendChild(o);});
   calc();
 }
-
-function onHaulerType() {
-  const type = document.getElementById('haulerType').value;
-  const brandSel = document.getElementById('haulerBrand');
-  const modelSel = document.getElementById('haulerModel');
-  brandSel.innerHTML = '<option value="">— pilih merek —</option>';
-  modelSel.innerHTML = '<option value="">— pilih model —</option>';
-  brandSel.disabled = !type || type==='custom';
-  modelSel.disabled = true;
-  haulerPresetVessel = null;
-  document.getElementById('vesselEditedBadge').style.display = 'none';
-  if (type && type !== 'custom') {
-    Object.keys(HAULERS[type]).forEach(b => {
-      const o = document.createElement('option');
-      o.value = b;
-      o.textContent = HAULER_BRAND_LABELS[b] || b;
-      brandSel.appendChild(o);
-    });
-  }
+function onHaulerBrand(){
+  const type=document.getElementById('haulerType').value,brand=document.getElementById('haulerBrand').value;
+  const mSel=document.getElementById('haulerModel');
+  mSel.innerHTML='<option value="">— pilih model —</option>';mSel.disabled=!brand;haulerPresetVessel=null;
+  document.getElementById('vesselEditedBadge').style.display='none';
+  if(brand&&HAULERS[type]?.[brand]) HAULERS[type][brand].forEach(d=>{const o=document.createElement('option');o.value=d.model;o.textContent=`${d.model} (${d.payload} t)`;mSel.appendChild(o);});
   calc();
 }
-
-function onHaulerBrand() {
-  const type = document.getElementById('haulerType').value;
-  const brand = document.getElementById('haulerBrand').value;
-  const modelSel = document.getElementById('haulerModel');
-  modelSel.innerHTML = '<option value="">— pilih model —</option>';
-  modelSel.disabled = !brand;
-  haulerPresetVessel = null;
-  document.getElementById('vesselEditedBadge').style.display = 'none';
-  if (brand && HAULERS[type]?.[brand]) {
-    HAULERS[type][brand].forEach(d => {
-      const o = document.createElement('option');
-      o.value = d.model;
-      o.textContent = `${d.model} (${d.payload} t)`;
-      modelSel.appendChild(o);
-    });
-  }
+function onHaulerModel(){
+  const type=document.getElementById('haulerType').value,brand=document.getElementById('haulerBrand').value,mdl=document.getElementById('haulerModel').value;
+  if(!mdl||!HAULERS[type]?.[brand])return;
+  const d=HAULERS[type][brand].find(x=>x.model===mdl);if(!d)return;
+  document.getElementById('haulerCap').value=d.payload;haulerPresetVessel=d.payload;document.getElementById('vesselEditedBadge').style.display='none';calc();
+}
+function setMode(m){
+  mode=m;
+  document.getElementById('mode-breakdown').style.display=m==='breakdown'?'':'none';
+  document.getElementById('mode-direct').style.display=m==='direct'?'':'none';
+  document.getElementById('btn-breakdown').className=m==='breakdown'?'on':'';
+  document.getElementById('btn-direct').className=m==='direct'?'on':'';
   calc();
 }
-
-function onHaulerModel() {
-  const type = document.getElementById('haulerType').value;
-  const brand = document.getElementById('haulerBrand').value;
-  const model = document.getElementById('haulerModel').value;
-  if (!model || !HAULERS[type]?.[brand]) return;
-  const d = HAULERS[type][brand].find(x=>x.model===model);
-  if (!d) return;
-  document.getElementById('haulerCap').value = d.payload;
-  haulerPresetVessel = d.payload;
-  document.getElementById('vesselEditedBadge').style.display = 'none';
+function setDirectMode(m){
+  directMode=m;
+  document.getElementById('direct-segment').style.display=m==='segment'?'':'none';
+  document.getElementById('direct-total').style.display=m==='total'?'':'none';
+  document.getElementById('btn-seg').className=m==='segment'?'on':'';
+  document.getElementById('btn-total').className=m==='total'?'on':'';
   calc();
 }
+function v(id){return parseFloat(document.getElementById(id).value)||0;}
+function ms(mId,sId){return v(mId)*60+v(sId);}
 
-function setMode(m) {
-  mode = m;
-  document.getElementById('mode-breakdown').style.display = m==='breakdown' ? '' : 'none';
-  document.getElementById('mode-direct').style.display = m==='direct' ? '' : 'none';
-  document.getElementById('btn-breakdown').className = m==='breakdown' ? 'on' : '';
-  document.getElementById('btn-direct').className = m==='direct' ? 'on' : '';
-  calc();
-}
-
-function v(id){ return parseFloat(document.getElementById(id).value) || 0; }
-
-function calc() {
-  const fillFactor = v('fillFactor');
-  const loaderCycle = v('loaderCycle');
-  const haulerCap = v('haulerCap');
-  const spotting = v('spottingTime');
-  const dumping = v('dumpTime');
-  const targetMF = v('targetMF');
-  const opHours = v('opHours');
-
-  let bucketCapTon;
-  if (bucketMode === 'ton') {
-    bucketCapTon = v('bucketCap');
+function calc(){
+  const fillFactor=v('fillFactor'),loaderCycle=v('loaderCycle'),haulerCap=v('haulerCap');
+  const spotting=v('spottingTime'),dumping=v('dumpTime'),targetMF=v('targetMF'),opHours=v('opHours');
+  const bucketCapTon=bucketMode==='ton'?v('bucketCap'):v('bucketCap')*v('density');
+  const bucketFill=bucketCapTon*fillFactor;
+  if(bucketFill<=0||haulerCap<=0)return;
+  const bucketsPerTruck=Math.ceil(haulerCap/bucketFill);
+  const payload=bucketsPerTruck*bucketFill;
+  const loadingTime=bucketsPerTruck*loaderCycle;
+  const ctLoader=spotting+loadingTime;
+  let travelL,travelE,queueT,ctHauler;
+  if(mode==='breakdown'){
+    const dist=v('distance'),spL=v('speedLoaded'),spE=v('speedEmpty');
+    travelL=spL>0?(dist/spL)*3600:0;travelE=spE>0?(dist/spE)*3600:0;queueT=v('queueTime');
+    ctHauler=spotting+loadingTime+travelL+dumping+travelE+queueT;
+  } else if(directMode==='segment'){
+    travelL=ms('tlM','tlS');travelE=ms('teM','teS');queueT=v('queueTimeSeg');
+    ctHauler=spotting+loadingTime+travelL+dumping+travelE+queueT;
   } else {
-    bucketCapTon = v('bucketCap') * v('density');
+    ctHauler=ms('cthM','cthS');
+    const travelTotal=Math.max(0,ctHauler-spotting-loadingTime-dumping);
+    travelL=travelTotal*0.55;travelE=travelTotal*0.45;queueT=0;
   }
-
-  const bucketFill = bucketCapTon * fillFactor;
-  if (bucketFill <= 0 || haulerCap <= 0) return;
-  const bucketsPerTruck = Math.ceil(haulerCap / bucketFill);
-  const payload = bucketsPerTruck * bucketFill;
-  const loadingTime = bucketsPerTruck * loaderCycle;
-
-  let travelL, travelE, queueT;
-  if (mode === 'breakdown') {
-    const dist = v('distance');
-    const spL = v('speedLoaded');
-    const spE = v('speedEmpty');
-    travelL = spL > 0 ? (dist / spL) * 3600 : 0;
-    travelE = spE > 0 ? (dist / spE) * 3600 : 0;
-    queueT = v('queueTime');
-  } else {
-    travelL = v('travelLoaded');
-    travelE = v('travelEmpty');
-    queueT = v('queueTimeDirect');
+  if(ctLoader<=0||ctHauler<=0)return;
+  const mfPerTruck=ctHauler/ctLoader;
+  const nHaulerExact=targetMF*mfPerTruck;
+  const nHaulerFloor=Math.max(1,Math.floor(nHaulerExact));
+  const nHaulerCeil=Math.ceil(nHaulerExact);
+  const prodPerTruckPH=(3600/ctHauler)*payload;
+  const loaderOutputPH=(3600/ctLoader)*payload;
+  function statusBadge(mf){
+    if(mf<0.85)return['background:#FCEBEB;color:#A32D2D','Loader idle'];
+    if(mf<=1.0)return['background:#EAF3DE;color:#3B6D11','Optimal'];
+    if(mf<=1.15)return['background:#FAEEDA;color:#854F0B','Slight over-truck'];
+    return['background:#FCEBEB;color:#A32D2D','Over-trucked'];
   }
-
-  const ctLoader = spotting + loadingTime;
-  const ctHauler = spotting + loadingTime + travelL + dumping + travelE + queueT;
-  if (ctLoader <= 0 || ctHauler <= 0) return;
-
-  const mfPerTruck = ctHauler / ctLoader;
-  const nHaulerExact = targetMF * mfPerTruck;
-  const nHaulerFloor = Math.max(1, Math.floor(nHaulerExact));
-  const nHaulerCeil = Math.ceil(nHaulerExact);
-
-  const prodPerTruckPerHour = (3600 / ctHauler) * payload;
-  const loaderOutputPerHour = (3600 / ctLoader) * payload;
-
-  function statusBadge(mf) {
-    if (mf < 0.85) return ['background:#FCEBEB;color:#A32D2D','Loader idle'];
-    if (mf <= 1.0)  return ['background:#EAF3DE;color:#3B6D11','Optimal'];
-    if (mf <= 1.15) return ['background:#FAEEDA;color:#854F0B','Slight over-truck'];
-    return ['background:#FCEBEB;color:#A32D2D','Over-trucked'];
-  }
-
-  function fmtT(s) {
-    const m = Math.floor(s/60), sec = Math.round(s%60);
-    return m>0 ? `${m}m ${sec}s` : `${sec}s`;
-  }
-
-  const minN = Math.max(1, nHaulerFloor - 1);
-  const maxN = nHaulerCeil + 2;
-  const allRows = [];
-  for (let n = minN; n <= maxN; n++) {
-    allRows.push([n, n * ctLoader / ctHauler]);
-  }
-
-  const loaderModelLabel = (() => {
-    const b = document.getElementById('loaderBrand').value;
-    const m = document.getElementById('loaderModel').value;
-    if (m && b && b !== 'custom') return `${b.charAt(0).toUpperCase()+b.slice(1)} ${m}`;
-    return null;
-  })();
-
-  const haulerModelLabel = (() => {
-    const m = document.getElementById('haulerModel').value;
-    const b = document.getElementById('haulerBrand').value;
-    if (m && b) return `${HAULER_BRAND_LABELS[b]||b} ${m}`;
-    return null;
-  })();
-
-  const bucketDisplay = bucketMode==='ton'
-    ? `${v('bucketCap').toFixed(1)} t`
-    : `${v('bucketCap').toFixed(2)} m³ × ${v('density')} t/m³ = ${bucketCapTon.toFixed(2)} t`;
-
-  const html = `
+  function fmtT(s){const m=Math.floor(s/60),sec=Math.round(s%60);return m>0?`${m}m ${sec}s`:`${sec}s`;}
+  const minN=Math.max(1,nHaulerFloor-1),maxN=nHaulerCeil+2;
+  const allRows=[];for(let n=minN;n<=maxN;n++)allRows.push([n,n*ctLoader/ctHauler]);
+  const loaderLabel=(()=>{const b=document.getElementById('loaderBrand').value,m=document.getElementById('loaderModel').value;return(m&&b&&b!=='custom')?`${b.charAt(0).toUpperCase()+b.slice(1)} ${m}`:null;})();
+  const haulerLabel=(()=>{const b=document.getElementById('haulerBrand').value,m=document.getElementById('haulerModel').value;return(m&&b)?`${HAULER_BRAND_LABELS[b]||b} ${m}`:null;})();
+  const bucketDisplay=bucketMode==='ton'?`${v('bucketCap').toFixed(1)} t`:`${v('bucketCap').toFixed(2)} m³ × ${v('density')} t/m³ = ${bucketCapTon.toFixed(2)} t`;
+  const isTotalMode=mode==='direct'&&directMode==='total';
+  const bdRows=[
+    ['Spotting',       spotting,   '#B5D4F4'],
+    ['Loading',        loadingTime,'#FAC775'],
+    ['Travel (loaded)',travelL,    '#5DCAA5'],
+    ['Dumping',        dumping,    '#AFA9EC'],
+    ['Travel (empty)', travelE,    '#9FE1CB'],
+    queueT>0?['Queuing',queueT,'#F09595']:null,
+  ].filter(Boolean);
+  const html=`
   <div class="kpi-row">
-    <div class="kpi">
-      <div class="kpi-lbl">Loader service time (CTL)</div>
-      <div class="kpi-val">${fmtT(ctLoader)}</div>
-      <div class="kpi-sub">${bucketsPerTruck} passes × ${loaderCycle}s + spot</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-lbl">Hauler cycle time (CTH)</div>
-      <div class="kpi-val">${fmtT(ctHauler)}</div>
-      <div class="kpi-sub">full round trip</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-lbl">Payload per trip</div>
-      <div class="kpi-val">${payload.toFixed(1)} t</div>
-      <div class="kpi-sub">${bucketsPerTruck} passes × ${bucketFill.toFixed(1)} t</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-lbl">Loader output</div>
-      <div class="kpi-val">${Math.round(loaderOutputPerHour * opHours).toLocaleString()} t</div>
-      <div class="kpi-sub">per ${opHours}h shift</div>
-    </div>
+    <div class="kpi"><div class="kpi-lbl">Loader service time (CTL)</div><div class="kpi-val">${fmtT(ctLoader)}</div><div class="kpi-sub">${bucketsPerTruck} passes × ${loaderCycle}s + spot</div></div>
+    <div class="kpi"><div class="kpi-lbl">Hauler cycle time (CTH)</div><div class="kpi-val">${fmtT(ctHauler)}</div><div class="kpi-sub">full round trip</div></div>
+    <div class="kpi"><div class="kpi-lbl">Payload per trip</div><div class="kpi-val">${payload.toFixed(1)} t</div><div class="kpi-sub">${bucketsPerTruck} passes × ${bucketFill.toFixed(1)} t</div></div>
+    <div class="kpi"><div class="kpi-lbl">Loader output</div><div class="kpi-val">${Math.round(loaderOutputPH*opHours).toLocaleString()} t</div><div class="kpi-sub">per ${opHours}h shift</div></div>
   </div>
-
   <div class="card">
-    <div class="card-title">Hauler cycle time breakdown</div>
-    ${[
-      ['Spotting',   spotting,     '#B5D4F4'],
-      ['Loading',    loadingTime,  '#FAC775'],
-      ['Travel (loaded)', travelL, '#5DCAA5'],
-      ['Dumping',    dumping,      '#AFA9EC'],
-      ['Travel (empty)',  travelE, '#9FE1CB'],
-      queueT>0 ? ['Queuing', queueT, '#F09595'] : null,
-    ].filter(Boolean).map(([lbl,val,col])=>`
-      <div class="breakdown-row">
-        <span class="breakdown-key">${lbl}</span>
-        <div style="flex:1;margin:0 12px">
-          <div class="bar-track"><div class="bar-fill" style="width:${(val/ctHauler*100).toFixed(1)}%;background:${col}"></div></div>
-        </div>
-        <span class="breakdown-val">${fmtT(val)} <span style="color:var(--color-text-secondary,#666);font-weight:400;font-size:11px">${(val/ctHauler*100).toFixed(1)}%</span></span>
-      </div>`).join('')}
-    <div class="breakdown-row" style="margin-top:4px">
-      <span style="font-weight:500">Total CTH</span><span></span>
-      <span class="breakdown-val">${fmtT(ctHauler)}</span>
-    </div>
+    <div class="card-title">Hauler cycle time breakdown${isTotalMode?' <span style="font-size:11px;font-weight:400;color:var(--color-text-secondary,#666)">(travel estimasi dari total CTH)</span>':''}</div>
+    <table class="bd-table">
+      ${bdRows.map(([lbl,val,col])=>`<tr><td class="bd-key">${lbl}</td><td class="bd-bar"><div class="bar-track"><div class="bar-fill" style="width:${(val/ctHauler*100).toFixed(1)}%;background:${col}"></div></div></td><td class="bd-val">${fmtT(val)} <span style="color:var(--color-text-secondary,#666);font-weight:400;font-size:11px">${(val/ctHauler*100).toFixed(1)}%</span></td></tr>`).join('')}
+      <tr style="border-top:0.5px solid var(--color-border-secondary,rgba(0,0,0,.2))"><td class="bd-key" style="font-weight:500;color:var(--color-text-primary,#1a1a1a)">Total CTH</td><td class="bd-bar"></td><td class="bd-val">${fmtT(ctHauler)}</td></tr>
+    </table>
   </div>
-
   <div class="card">
     <div class="card-title">Match factor result</div>
-    ${loaderModelLabel||haulerModelLabel ? `
-    <div style="font-size:12px;color:var(--color-text-secondary,#666);margin-bottom:.6rem;display:flex;gap:12px;flex-wrap:wrap">
-      ${loaderModelLabel ? `<span>Loader: <strong style="color:var(--color-text-primary,#1a1a1a)">${loaderModelLabel}</strong> — bucket ${bucketDisplay}</span>` : ''}
-      ${haulerModelLabel ? `<span>Hauler: <strong style="color:var(--color-text-primary,#1a1a1a)">${haulerModelLabel}</strong> — ${haulerCap.toFixed(0)} t</span>` : ''}
-    </div>` : ''}
-    <div style="font-size:13px;color:var(--color-text-secondary,#666);margin-bottom:.4rem">
-      MF per truck = CTH / CTL = ${ctHauler.toFixed(1)}s / ${ctLoader.toFixed(1)}s = <strong style="font-size:15px;color:var(--color-text-primary,#1a1a1a)">${mfPerTruck.toFixed(3)}</strong>
-    </div>
-    <div style="font-size:13px;color:var(--color-text-secondary,#666);margin-bottom:1rem">
-      Haulers needed = Target MF × MF per truck = ${targetMF} × ${mfPerTruck.toFixed(3)} = <strong style="font-size:15px;color:var(--color-text-primary,#1a1a1a)">${nHaulerExact.toFixed(2)} trucks</strong>
-    </div>
-
+    ${loaderLabel||haulerLabel?`<div style="font-size:12px;color:var(--color-text-secondary,#666);margin-bottom:.6rem;display:flex;gap:12px;flex-wrap:wrap">${loaderLabel?`<span>Loader: <strong style="color:var(--color-text-primary,#1a1a1a)">${loaderLabel}</strong> — bucket ${bucketDisplay}</span>`:''} ${haulerLabel?`<span>Hauler: <strong style="color:var(--color-text-primary,#1a1a1a)">${haulerLabel}</strong> — ${haulerCap.toFixed(0)} t</span>`:''}</div>`:''}
+    <div style="font-size:13px;color:var(--color-text-secondary,#666);margin-bottom:.4rem">MF per truck = CTH / CTL = ${ctHauler.toFixed(1)}s / ${ctLoader.toFixed(1)}s = <strong style="font-size:15px;color:var(--color-text-primary,#1a1a1a)">${mfPerTruck.toFixed(3)}</strong></div>
+    <div style="font-size:13px;color:var(--color-text-secondary,#666);margin-bottom:1rem">Haulers needed = ${targetMF} × ${mfPerTruck.toFixed(3)} = <strong style="font-size:15px;color:var(--color-text-primary,#1a1a1a)">${nHaulerExact.toFixed(2)} trucks</strong></div>
     <table class="hauler-table">
-      <thead>
-        <tr>
-          <th>Fleet size</th>
-          <th>MF achieved</th>
-          <th>Loader util.</th>
-          <th>Prod/shift (t)</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${allRows.map(([n, mf]) => {
-          const [st, lbl] = statusBadge(mf);
-          const loaderUtil = Math.min(1, mf);
-          const effProd = Math.min(n * prodPerTruckPerHour, loaderOutputPerHour) * opHours;
-          const isTarget = (n === nHaulerFloor || n === nHaulerCeil);
-          return `<tr style="${isTarget?'background:var(--color-background-secondary,#f0f0ec)':''}">
-            <td style="font-weight:${isTarget?500:400}">${n} unit${isTarget?' ★':''}</td>
-            <td>${mf.toFixed(3)}</td>
-            <td>${(loaderUtil*100).toFixed(1)}%</td>
-            <td>${Math.round(effProd).toLocaleString()}</td>
-            <td><span class="status-badge" style="${st}">${lbl}</span></td>
-          </tr>`;
-        }).join('')}
-      </tbody>
+      <thead><tr><th>Fleet size</th><th>MF achieved</th><th>Loader util.</th><th>Prod/shift (t)</th><th>Status</th></tr></thead>
+      <tbody>${allRows.map(([n,mf])=>{const[st,lbl]=statusBadge(mf);const effProd=Math.min(n*prodPerTruckPH,loaderOutputPH)*opHours;const isTarget=n===nHaulerFloor||n===nHaulerCeil;return`<tr style="${isTarget?'background:var(--color-background-secondary,#f0f0ec)':''}"><td style="font-weight:${isTarget?500:400}">${n} unit${isTarget?' ★':''}</td><td>${mf.toFixed(3)}</td><td>${(Math.min(1,mf)*100).toFixed(1)}%</td><td>${Math.round(effProd).toLocaleString()}</td><td><span class="status-badge" style="${st}">${lbl}</span></td></tr>`;}).join('')}</tbody>
     </table>
     <div style="font-size:11px;color:var(--color-text-secondary,#666);margin-top:.5rem">★ = closest to target MF ${targetMF}</div>
   </div>`;
-
-  document.getElementById('result-section').innerHTML = html;
+  document.getElementById('result-section').innerHTML=html;
 }
-
-document.querySelectorAll('input[type=number]').forEach(el => {
-  if (!['bucketCap','haulerCap'].includes(el.id)) el.addEventListener('input', calc);
-});
+document.querySelectorAll('input[type=number]').forEach(el=>{if(!['bucketCap','haulerCap'].includes(el.id))el.addEventListener('input',calc);});
 calc();
 </script>
 </body>
