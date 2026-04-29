@@ -1,426 +1,1155 @@
 <!DOCTYPE html>
-<html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Match Factor Calculator</title>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>MINETOOLS</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-sans,system-ui,sans-serif);color:var(--color-text-primary,#1a1a1a);background:var(--color-background-tertiary,#f5f5f2)}
-.page{padding:1rem;max-width:860px;margin:0 auto}
-.card{background:var(--color-background-primary,#fff);border:0.5px solid var(--color-border-tertiary,rgba(0,0,0,.15));border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
-.card-title{font-size:15px;font-weight:500;margin-bottom:.85rem;color:var(--color-text-primary,#1a1a1a)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}
-.field{display:flex;flex-direction:column;gap:4px}
-label{font-size:12px;color:var(--color-text-secondary,#666)}
-select,input[type=number]{width:100%;padding:6px 8px;border:0.5px solid var(--color-border-secondary,rgba(0,0,0,.25));border-radius:8px;background:var(--color-background-primary,#fff);color:var(--color-text-primary,#1a1a1a);font-size:13px;height:34px;font-family:inherit}
-select:focus,input[type=number]:focus{outline:none;border-color:var(--color-border-primary,rgba(0,0,0,.4))}
-.unit{font-size:11px;color:var(--color-text-tertiary,#999);margin-top:1px}
-.toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:.85rem;flex-wrap:wrap}
-.toggle-label{font-size:13px;color:var(--color-text-secondary,#666)}
-.seg{display:flex;border:0.5px solid var(--color-border-secondary,rgba(0,0,0,.25));border-radius:8px;overflow:hidden}
-.seg button{padding:5px 14px;border:none;background:transparent;color:var(--color-text-secondary,#666);font-size:12px;cursor:pointer;border-right:0.5px solid var(--color-border-secondary,rgba(0,0,0,.25));font-family:inherit}
+:root {
+  --bg: #0f1117;
+  --bg2: #161b26;
+  --bg3: #1e2535;
+  --bg4: #252d3d;
+  --gold: #f0b429;
+  --gold2: #fcd34d;
+  --gold-dim: rgba(240,180,41,0.12);
+  --gold-border: rgba(240,180,41,0.25);
+  --text: #f0f4ff;
+  --text2: #8a94a8;
+  --text3: #5a6478;
+  --success: #4ade80;
+  --danger: #f87171;
+  --warn: #fb923c;
+  --info: #60a5fa;
+  --border: rgba(255,255,255,0.07);
+  --card-r: 16px;
+  --font-display: 'Rajdhani', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg);color:var(--text);font-family:var(--font-body)}
+body{min-height:100vh;overflow-x:hidden}
+
+/* ===== SCREENS ===== */
+.screen{display:none;min-height:100vh;padding-bottom:80px;animation:fadeIn .25s ease}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== NAV BAR ===== */
+.nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);display:flex;z-index:100;padding:8px 0 12px;max-width:500px;margin:0 auto}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:none;color:var(--text3);font-family:var(--font-body);font-size:10px;cursor:pointer;padding:4px 0;transition:color .2s}
+.nav-btn svg{width:22px;height:22px;stroke-width:1.8}
+.nav-btn.active{color:var(--gold)}
+.nav-btn.active .nav-icon-wrap{background:rgba(240,180,41,0.15);border-radius:12px;padding:6px 14px}
+
+/* ===== PAGE HEADER ===== */
+.page-header{padding:16px 16px 8px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg);z-index:50;border-bottom:1px solid var(--border)}
+.page-title{font-family:var(--font-display);font-size:22px;font-weight:700;letter-spacing:.02em}
+.logo-text{font-family:var(--font-display);font-size:22px;font-weight:700}
+.logo-text span{color:var(--gold)}
+
+/* ===== CONTENT WRAPPER ===== */
+.content{padding:12px 12px 0;max-width:500px;margin:0 auto}
+
+/* ===== NOTICE BANNER ===== */
+.notice{background:var(--bg3);border:1px solid var(--gold-border);border-radius:var(--card-r);padding:12px 14px;margin-bottom:12px;position:relative}
+.notice-close{position:absolute;right:10px;top:10px;background:none;border:none;color:var(--text2);cursor:pointer;font-size:16px;line-height:1}
+.notice-title{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--gold);margin-bottom:4px}
+.notice-text{font-size:12px;color:var(--text2);line-height:1.5}
+
+/* ===== SECTION LABEL ===== */
+.section-label{font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;margin-top:4px}
+
+/* ===== GRID CARDS (HOME) ===== */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.home-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--card-r);padding:14px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;min-height:110px}
+.home-card:hover,.home-card:active{border-color:var(--gold-border);background:var(--bg3);transform:translateY(-1px)}
+.home-card.coming-soon{opacity:.55;cursor:default}
+.home-card.coming-soon:hover{transform:none;border-color:var(--border)}
+.card-icon{width:38px;height:38px;background:var(--gold-dim);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card-icon svg{width:18px;height:18px;color:var(--gold)}
+.card-name{font-family:var(--font-display);font-size:16px;font-weight:600;line-height:1.1;margin-top:auto}
+.card-desc{font-size:11px;color:var(--text2);line-height:1.4}
+.card-badge{position:absolute;top:8px;right:8px;font-size:9px;font-weight:600;padding:2px 7px;border-radius:6px}
+.badge-soon{background:rgba(255,255,255,0.08);color:var(--text3)}
+.badge-new{background:rgba(240,180,41,0.2);color:var(--gold)}
+
+/* ===== TOOL SCREEN SHARED ===== */
+.tool-back{background:none;border:none;color:var(--text2);cursor:pointer;display:flex;align-items:center;gap:6px;font-size:13px;font-family:var(--font-body);padding:0}
+.tool-back:hover{color:var(--text)}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--card-r);padding:14px 16px;margin-bottom:10px}
+.card-title{font-family:var(--font-display);font-size:15px;font-weight:600;margin-bottom:12px;color:var(--text)}
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.field:last-child{margin-bottom:0}
+label{font-size:11px;color:var(--text2);letter-spacing:.02em}
+input[type=number],select{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--font-body);font-size:13px;height:36px;padding:0 10px;-webkit-appearance:none}
+input[type=number]:focus,select:focus{outline:none;border-color:var(--gold-border)}
+select option{background:var(--bg3)}
+.unit{font-size:10px;color:var(--text3);margin-top:2px}
+.grid2f{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3f{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+
+/* ===== SEG CONTROL ===== */
+.seg{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;flex-shrink:0}
+.seg button{padding:5px 12px;border:none;background:transparent;color:var(--text2);font-size:11px;cursor:pointer;font-family:var(--font-body);border-right:1px solid var(--border);transition:all .15s}
 .seg button:last-child{border-right:none}
-.seg button.on{background:var(--color-background-secondary,#f0f0ec);color:var(--color-text-primary,#1a1a1a);font-weight:500}
-.kpi-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1rem}
-.kpi{background:var(--color-background-secondary,#f0f0ec);border-radius:8px;padding:.75rem 1rem}
-.kpi-lbl{font-size:11px;color:var(--color-text-secondary,#666);margin-bottom:3px}
-.kpi-val{font-size:20px;font-weight:500}
-.kpi-sub{font-size:11px;color:var(--color-text-secondary,#666);margin-top:2px}
-.bd-table{width:100%;border-collapse:collapse;table-layout:fixed}
-.bd-table tr{border-bottom:0.5px solid var(--color-border-tertiary,rgba(0,0,0,.1))}
-.bd-table tr:last-child{border-bottom:none}
-.bd-table td{padding:5px 0;font-size:13px;vertical-align:middle}
-.bd-key{color:var(--color-text-secondary,#666);white-space:nowrap;width:130px;padding-right:10px}
-.bd-bar{padding:0 8px}
-.bd-val{white-space:nowrap;text-align:right;font-weight:500;width:110px}
-.bar-track{height:8px;background:var(--color-background-secondary,#f0f0ec);border-radius:4px;overflow:hidden}
-.bar-fill{height:100%;border-radius:4px;transition:width .3s}
-.status-badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:12px;font-weight:500}
-.divider{border:none;border-top:0.5px solid var(--color-border-tertiary,rgba(0,0,0,.1));margin:.75rem 0}
-.hauler-table{width:100%;font-size:12px;border-collapse:collapse}
-.hauler-table th{font-size:11px;color:var(--color-text-secondary,#666);font-weight:500;text-align:left;padding:5px 6px;border-bottom:0.5px solid var(--color-border-tertiary,rgba(0,0,0,.1))}
-.hauler-table td{padding:5px 6px;border-bottom:0.5px solid var(--color-border-tertiary,rgba(0,0,0,.1))}
-.hauler-table tr:last-child td{border-bottom:none}
-.section-label{font-size:11px;font-weight:500;color:var(--color-text-secondary,#666);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.5rem;margin-top:.25rem}
-.badge-edited{font-size:10px;background:#FAEEDA;color:#854F0B;padding:2px 7px;border-radius:6px;font-weight:500;margin-left:6px;display:none}
-.minsec{display:flex;gap:4px;align-items:center}
-.minsec input{width:56px;flex-shrink:0}
-.minsec span{font-size:12px;color:var(--color-text-secondary,#666)}
+.seg button.on{background:rgba(240,180,41,0.15);color:var(--gold);font-weight:600}
+
+/* ===== KPI ROW ===== */
+.kpi-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px}
+.kpi{background:var(--bg3);border-radius:10px;padding:10px 12px;border:1px solid var(--border)}
+.kpi-lbl{font-size:10px;color:var(--text2);margin-bottom:3px;line-height:1.3}
+.kpi-val{font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--text)}
+.kpi-sub{font-size:10px;color:var(--text3);margin-top:2px}
+.kpi-val.gold{color:var(--gold)}
+
+/* ===== STATUS BADGE ===== */
+.status-badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600}
+
+/* ===== BREAKDOWN ROW ===== */
+.breakdown-row{display:flex;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;gap:8px}
+.breakdown-row:last-child{border-bottom:none}
+.bk-label{color:var(--text2);width:110px;flex-shrink:0}
+.bk-bar{flex:1;height:7px;background:var(--bg4);border-radius:4px;overflow:hidden}
+.bk-fill{height:100%;border-radius:4px;transition:width .4s}
+.bk-val{color:var(--text);font-weight:500;text-align:right;width:60px;flex-shrink:0;font-size:11px}
+
+/* ===== TABLE ===== */
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{font-size:10px;color:var(--text3);font-weight:500;text-align:left;padding:6px 6px 8px;border-bottom:1px solid var(--border);letter-spacing:.04em;text-transform:uppercase}
+.data-table td{padding:7px 6px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr.highlight td{background:rgba(240,180,41,0.06)}
+
+/* ===== DIVIDER ===== */
+.divider{border:none;border-top:1px solid var(--border);margin:12px 0}
+
+/* ===== TOGGLE ROW ===== */
+.toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.toggle-label{font-size:12px;color:var(--text2)}
+
+/* ===== CALC BUTTON ===== */
+.calc-btn{width:100%;background:var(--gold);color:#0f1117;font-family:var(--font-display);font-size:16px;font-weight:700;border:none;border-radius:12px;padding:12px;cursor:pointer;letter-spacing:.04em;transition:opacity .2s;margin-top:4px}
+.calc-btn:active{opacity:.85}
+
+/* ===== RESULT BOX ===== */
+.result-box{background:var(--bg3);border:1px solid var(--gold-border);border-radius:12px;padding:14px;margin-bottom:10px}
+.result-title{font-size:11px;color:var(--text3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.result-val{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--gold)}
+.result-sub{font-size:11px;color:var(--text2);margin-top:3px}
+
+/* ===== BADGE EDITED ===== */
+.badge-edited{font-size:9px;background:rgba(240,180,41,0.2);color:var(--gold);padding:2px 6px;border-radius:5px;font-weight:600;margin-left:5px;display:none}
+
+/* ===== SEARCH BAR ===== */
+.search-bar{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:9px 14px;margin-bottom:12px}
+.search-bar svg{width:16px;height:16px;color:var(--text3);flex-shrink:0}
+.search-bar input{background:none;border:none;color:var(--text);font-size:13px;font-family:var(--font-body);flex:1;outline:none}
+.search-bar input::placeholder{color:var(--text3)}
+
+/* ===== STAT CARDS (PDT) ===== */
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px;cursor:pointer;transition:all .2s}
+.stat-card:hover{border-color:var(--gold-border);background:var(--bg3)}
+.stat-card-icon{width:36px;height:36px;background:var(--gold-dim);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.stat-card-icon svg{width:18px;height:18px;color:var(--gold)}
+.stat-card-name{font-family:var(--font-display);font-size:16px;font-weight:600}
+.stat-card-desc{font-size:11px;color:var(--text2);margin-top:2px;line-height:1.4}
+
+/* ===== SETUP ===== */
+.setup-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.setup-item:last-child{border-bottom:none}
+.setup-label{font-size:13px}
+.setup-sub{font-size:11px;color:var(--text2);margin-top:2px}
+.setup-val{font-size:12px;color:var(--gold);font-weight:500}
+
+/* Input row flex */
+.input-row{display:flex;gap:6px;align-items:flex-end}
+.input-row .field{flex:1;margin-bottom:0}
 </style>
 </head>
 <body>
-<div class="page">
 
-<div class="card">
-  <div class="card-title">Loader</div>
-  <div class="grid2" style="margin-bottom:.75rem">
-    <div class="field">
-      <label>Merek</label>
-      <select id="loaderBrand" onchange="onLoaderBrand()">
-        <option value="">— pilih merek —</option>
-        <option value="komatsu">Komatsu</option>
-        <option value="hitachi">Hitachi</option>
-        <option value="cat">Caterpillar</option>
-        <option value="custom">Manual / lainnya</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Model</label>
-      <select id="loaderModel" onchange="onLoaderModel()" disabled>
-        <option value="">— pilih model —</option>
-      </select>
-    </div>
+<!-- ========== SCREEN: HOME ========== -->
+<div class="screen active" id="screen-home">
+  <div class="page-header">
+    <div class="logo-text">MINE<span>TOOLS</span></div>
+    <div style="font-size:11px;color:var(--text3)">v1.0</div>
   </div>
-  <div class="grid3" style="margin-bottom:.75rem">
-    <div class="field">
-      <label>Bucket capacity <span class="badge-edited" id="bucketEditedBadge">edited</span></label>
-      <div style="display:flex;gap:6px;align-items:center">
-        <input type="number" id="bucketCap" value="10" step="0.1" style="flex:1;min-width:0" oninput="onBucketEdit()">
-        <div class="seg" style="flex-shrink:0">
-          <button class="on" id="btn-ton" onclick="setBucketMode('ton')">ton</button>
-          <button id="btn-m3" onclick="setBucketMode('m3')">m³</button>
-        </div>
+  <div class="content">
+    <div class="notice" id="notice-home">
+      <button class="notice-close" onclick="this.parentElement.style.display='none'">×</button>
+      <div class="notice-title">Selamat datang di MINETOOLS</div>
+      <div class="notice-text">Kalkulator dan tool teknis mining untuk keputusan operasional harian. Pilih tool yang sesuai kebutuhan lapangan Anda.</div>
+    </div>
+
+    <div class="section-label">Kalkulator Utama</div>
+    <div class="grid2">
+      <div class="home-card" onclick="openTool('match-factor')">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="5" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="6" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="18"/></svg></div>
+        <div class="card-name">Match Factor</div>
+        <div class="card-desc">Keseimbangan fleet loader & hauler</div>
+      </div>
+      <div class="home-card" onclick="openTool('hauling-cycle')">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="card-name">Hauling Cycle</div>
+        <div class="card-desc">Hitung siklus, trip & produksi hauler</div>
+      </div>
+      <div class="home-card" onclick="openTool('tonase')">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <div class="card-name">Tonase Coal/Ore</div>
+        <div class="card-desc">Estimasi tonase ROM & clean coal</div>
+      </div>
+      <div class="home-card" onclick="openTool('ob-volume')">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+        <div class="card-name">OB Volume</div>
+        <div class="card-desc">Volume overburden bank & loose</div>
+        <span class="card-badge badge-soon">Soon</span>
       </div>
     </div>
-    <div id="density-field" style="display:none">
-      <div class="field"><label>Material density</label><input type="number" id="density" value="1.8" step="0.05"><div class="unit">t/m³</div></div>
+
+    <div class="section-label">Produktivitas Alat</div>
+    <div class="grid2">
+      <div class="home-card" onclick="openTool('pdt-excavator')">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 20h20"/><path d="M6 20V10l6-7 4 4-4 4v9"/><path d="M6 14h8"/></svg></div>
+        <div class="card-name">Produktivitas Excavator</div>
+        <div class="card-desc">Output excavator & loader per jam</div>
+      </div>
+      <div class="home-card" onclick="openTool('pdt-hauler')">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="card-name">Produktivitas Hauler</div>
+        <div class="card-desc">Output dump truck per jam & shift</div>
+      </div>
+      <div class="home-card coming-soon">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6l9-4 9 4v6c0 5.5-3.8 10.7-9 12C6.8 22.7 3 17.5 3 12V6z"/></svg></div>
+        <div class="card-name">Stripping Ratio</div>
+        <div class="card-desc">Evaluasi rasio pengupasan OB</div>
+        <span class="card-badge badge-soon">Soon</span>
+      </div>
+      <div class="home-card coming-soon">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="card-name">Road Grade</div>
+        <div class="card-desc">Evaluasi grade & status jalan</div>
+        <span class="card-badge badge-soon">Soon</span>
+      </div>
     </div>
-    <div class="field"><label>Fill factor</label><input type="number" id="fillFactor" value="0.9" step="0.01" min="0.1" max="1.5"><div class="unit">ratio</div></div>
-  </div>
-  <div style="max-width:200px">
-    <div class="field"><label>Loader cycle time</label><input type="number" id="loaderCycle" value="30" step="1"><div class="unit">seconds/bucket</div></div>
+
+    <div class="section-label">Lainnya</div>
+    <div class="grid2">
+      <div class="home-card coming-soon">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="card-name">Cut & Fill</div>
+        <div class="card-desc">Volume cut, fill & net balance</div>
+        <span class="card-badge badge-soon">Soon</span>
+      </div>
+      <div class="home-card coming-soon">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+        <div class="card-name">Konverter Koordinat</div>
+        <div class="card-desc">LatLong, UTM, DMS</div>
+        <span class="card-badge badge-soon">Soon</span>
+      </div>
+      <div class="home-card coming-soon">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
+        <div class="card-name">Air Limpasan</div>
+        <div class="card-desc">Estimasi debit limpasan permukaan</div>
+        <span class="card-badge badge-soon">Soon</span>
+      </div>
+      <div class="home-card coming-soon">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <div class="card-name">Clinometer</div>
+        <div class="card-desc">Slope bench & strike dip batubara</div>
+        <span class="card-badge badge-soon">Soon</span>
+      </div>
+    </div>
+    <div style="height:8px"></div>
   </div>
 </div>
 
-<div class="card">
-  <div class="card-title">Hauler</div>
-  <div class="grid3" style="margin-bottom:.75rem">
-    <div class="field">
-      <label>Jenis</label>
-      <select id="haulerType" onchange="onHaulerType()">
-        <option value="">— pilih jenis —</option>
-        <option value="rigid">Rigid dump truck</option>
-        <option value="articulated">Articulated dump truck</option>
-        <option value="custom">Manual / lainnya</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Merek</label>
-      <select id="haulerBrand" onchange="onHaulerBrand()" disabled>
-        <option value="">— pilih merek —</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Model</label>
-      <select id="haulerModel" onchange="onHaulerModel()" disabled>
-        <option value="">— pilih model —</option>
-      </select>
-    </div>
+<!-- ========== SCREEN: CALC LIST ========== -->
+<div class="screen" id="screen-calc">
+  <div class="page-header">
+    <div class="page-title">Kalkulator</div>
   </div>
-  <div class="grid3" style="margin-bottom:.75rem">
-    <div class="field">
-      <label>Vessel capacity <span class="badge-edited" id="vesselEditedBadge">edited</span></label>
-      <input type="number" id="haulerCap" value="100" step="5" oninput="onVesselEdit()"><div class="unit">ton</div>
+  <div class="content">
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Cari kalkulator..." id="calc-search" oninput="filterCalc(this.value)">
     </div>
-    <div class="field"><label>Spotting time</label><input type="number" id="spottingTime" value="30" step="5"><div class="unit">seconds</div></div>
-    <div class="field"><label>Dumping time</label><input type="number" id="dumpTime" value="60" step="5"><div class="unit">seconds</div></div>
-  </div>
-
-  <hr class="divider">
-  <div class="toggle-row">
-    <span class="toggle-label">Haul cycle time —</span>
-    <div class="seg">
-      <button class="on" id="btn-breakdown" onclick="setMode('breakdown')">From breakdown</button>
-      <button id="btn-direct" onclick="setMode('direct')">Input direct</button>
+    <div class="notice" id="notice-calc">
+      <button class="notice-close" onclick="this.parentElement.style.display='none'">×</button>
+      <div class="notice-title">Gunakan kalkulator sesuai kebutuhan</div>
+      <div class="notice-text">Gunakan kalkulator sesuai kebutuhan operasional, estimasi teknis, atau pengambilan keputusan di lapangan.</div>
     </div>
-  </div>
-
-  <div id="mode-breakdown">
-    <div class="section-label">Travel</div>
-    <div class="grid3">
-      <div class="field"><label>Haul distance (one way)</label><input type="number" id="distance" value="2" step="0.1"><div class="unit">km</div></div>
-      <div class="field"><label>Speed loaded</label><input type="number" id="speedLoaded" value="25" step="1"><div class="unit">km/h</div></div>
-      <div class="field"><label>Speed empty</label><input type="number" id="speedEmpty" value="35" step="1"><div class="unit">km/h</div></div>
-    </div>
-    <div class="section-label" style="margin-top:.75rem">Queue</div>
-    <div style="max-width:220px">
-      <div class="field"><label>Queuing time (avg per cycle)</label><input type="number" id="queueTime" value="0" step="5"><div class="unit">seconds (optional)</div></div>
-    </div>
-  </div>
-
-  <div id="mode-direct" style="display:none">
-    <div class="toggle-row" style="margin-bottom:.75rem">
-      <span class="toggle-label">Mode input —</span>
-      <div class="seg">
-        <button class="on" id="btn-seg" onclick="setDirectMode('segment')">Per segmen</button>
-        <button id="btn-total" onclick="setDirectMode('total')">Total siklus</button>
+    <div id="calc-grid" class="grid2">
+      <div class="home-card" onclick="openTool('match-factor')" data-name="match factor fleet loader hauler">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="5" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="6" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="18"/></svg></div>
+        <div class="card-name">Match Factor</div>
+        <div class="card-desc">Keseimbangan fleet loader & hauler</div>
+      </div>
+      <div class="home-card" onclick="openTool('hauling-cycle')" data-name="hauling cycle siklus trip produksi hauler">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="card-name">Hauling Cycle</div>
+        <div class="card-desc">Hitung siklus, trip & produksi hauler</div>
+      </div>
+      <div class="home-card" onclick="openTool('tonase')" data-name="tonase coal ore rom clean">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <div class="card-name">Tonase Coal/Ore</div>
+        <div class="card-desc">Estimasi tonase ROM & clean coal</div>
+      </div>
+      <div class="home-card coming-soon" data-name="ob volume overburden bank loose">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+        <div class="card-name">OB Volume</div>
+        <div class="card-desc">Volume overburden bank & loose</div>
+        <span class="card-badge badge-soon">Soon</span>
+      </div>
+      <div class="home-card coming-soon" data-name="stripping ratio pengupasan ob">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6l9-4 9 4v6c0 5.5-3.8 10.7-9 12C6.8 22.7 3 17.5 3 12V6z"/></svg></div>
+        <div class="card-name">Stripping Ratio</div>
+        <div class="card-desc">Evaluasi rasio pengupasan OB</div>
+        <span class="card-badge badge-soon">Soon</span>
+      </div>
+      <div class="home-card coming-soon" data-name="road grade jalan evaluasi">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="card-name">Road Grade</div>
+        <div class="card-desc">Evaluasi grade & status jalan</div>
+        <span class="card-badge badge-soon">Soon</span>
+      </div>
+      <div class="home-card coming-soon" data-name="cut fill volume net balance">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="card-name">Cut & Fill</div>
+        <div class="card-desc">Volume cut, fill & net balance</div>
+        <span class="card-badge badge-soon">Soon</span>
+      </div>
+      <div class="home-card coming-soon" data-name="clinometer slope bench strike dip">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="12" x2="16" y2="14"/></svg></div>
+        <div class="card-name">Clinometer</div>
+        <div class="card-desc">Slope bench & strike dip batubara</div>
+        <span class="card-badge badge-soon">Soon</span>
+      </div>
+      <div class="home-card coming-soon" data-name="koordinat latlong utm dms konversi">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+        <div class="card-name">Konverter Koordinat</div>
+        <div class="card-desc">LatLong, UTM, DMS</div>
+        <span class="card-badge badge-soon">Soon</span>
+      </div>
+      <div class="home-card coming-soon" data-name="air limpasan debit permukaan">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
+        <div class="card-name">Air Limpasan</div>
+        <div class="card-desc">Estimasi debit limpasan permukaan</div>
+        <span class="card-badge badge-soon">Soon</span>
       </div>
     </div>
+    <div style="height:8px"></div>
+  </div>
+</div>
 
-    <div id="direct-segment">
-      <div class="section-label">Travel time (menit : detik)</div>
-      <div class="grid2" style="margin-bottom:.75rem">
+<!-- ========== SCREEN: PDT ========== -->
+<div class="screen" id="screen-pdt">
+  <div class="page-header">
+    <div class="page-title">Produktivitas</div>
+  </div>
+  <div class="content">
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Cari workflow produktivitas...">
+    </div>
+    <div class="notice" id="notice-pdt">
+      <button class="notice-close" onclick="this.parentElement.style.display='none'">×</button>
+      <div class="notice-title">Gunakan menu produktivitas sesuai kebutuhan</div>
+      <div class="notice-text">Gunakan menu ini untuk mengevaluasi kinerja alat, keseimbangan fleet, dan parameter kerja yang sesuai dengan kondisi fleet Anda.</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-card" onclick="openTool('pdt-excavator')">
+        <div class="stat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 20h20"/><path d="M6 20V10l6-7 4 4-4 4v9"/><path d="M6 14h8"/></svg></div>
+        <div class="stat-card-name">Excavator</div>
+        <div class="stat-card-desc">Produktivitas excavator dan loader</div>
+      </div>
+      <div class="stat-card" onclick="openTool('pdt-hauler')">
+        <div class="stat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="stat-card-name">Hauler</div>
+        <div class="stat-card-desc">Produktivitas dump truck dan hauler</div>
+      </div>
+      <div class="stat-card" onclick="openTool('match-factor')">
+        <div class="stat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="5" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+        <div class="stat-card-name">Match Factor</div>
+        <div class="stat-card-desc">Keseimbangan loader & hauler</div>
+      </div>
+      <div class="stat-card" style="opacity:.5;cursor:default">
+        <div class="stat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="stat-card-name">Cycle Time</div>
+        <div class="stat-card-desc">Stopwatch siklus loading & hauling</div>
+      </div>
+      <div class="stat-card" style="opacity:.5;cursor:default">
+        <div class="stat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 20h20"/><rect x="6" y="14" width="4" height="6"/><rect x="10" y="8" width="4" height="12"/><rect x="14" y="4" width="4" height="16"/></svg></div>
+        <div class="stat-card-name">Bulldozer</div>
+        <div class="stat-card-desc">Produktivitas dozing & ripping</div>
+      </div>
+      <div class="stat-card" style="opacity:.5;cursor:default">
+        <div class="stat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22V12M12 12L4 7M12 12l8-5M4 17l8 5 8-5M4 7V17M20 7v10"/></svg></div>
+        <div class="stat-card-name">Compactor</div>
+        <div class="stat-card-desc">Produktivitas pemadatan jalan</div>
+      </div>
+    </div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<!-- ========== SCREEN: SETUP ========== -->
+<div class="screen" id="screen-setup">
+  <div class="page-header">
+    <div class="page-title">Pengaturan</div>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="card-title">Aplikasi</div>
+      <div class="setup-item">
+        <div><div class="setup-label">Versi</div><div class="setup-sub">MINETOOLS Web App</div></div>
+        <div class="setup-val">v1.0</div>
+      </div>
+      <div class="setup-item">
+        <div><div class="setup-label">Status tools</div><div class="setup-sub">5 aktif / 10 total</div></div>
+        <div class="setup-val">50%</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Satuan Default</div>
+      <div class="field">
+        <label>Berat</label>
+        <select><option>Ton (metrik)</option><option>Short ton</option></select>
+      </div>
+      <div class="field">
+        <label>Volume</label>
+        <select><option>m³</option><option>BCM</option><option>LCM</option></select>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label>Jarak</label>
+        <select><option>Kilometer (km)</option><option>Meter (m)</option></select>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Tentang</div>
+      <div class="setup-item">
+        <div><div class="setup-label">Tools aktif</div></div>
+        <div class="setup-val">Match Factor, Hauling Cycle, Tonase, PDT Excavator, PDT Hauler</div>
+      </div>
+      <div class="setup-item" style="border:none">
+        <div><div class="setup-label" style="color:var(--text3)">Tools segera hadir</div></div>
+        <div style="font-size:11px;color:var(--text3)">OB Volume, SR, Road Grade, Cut & Fill, Clinometer, Koordinat, Air Limpasan</div>
+      </div>
+    </div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<!-- ========== TOOL: MATCH FACTOR ========== -->
+<div class="screen" id="tool-match-factor">
+  <div class="page-header">
+    <button class="tool-back" onclick="closeTool()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali
+    </button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Match Factor</div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="content">
+
+    <!-- Loader -->
+    <div class="card">
+      <div class="card-title">Loader</div>
+      <div class="grid3f">
         <div class="field">
-          <label>Travel loaded</label>
-          <div class="minsec">
-            <input type="number" id="tlM" value="4" min="0" step="1" oninput="calc()">
-            <span>m</span>
-            <input type="number" id="tlS" value="48" min="0" max="59" step="1" oninput="calc()">
-            <span>s</span>
+          <label>Merek</label>
+          <select id="mf-loaderBrand" onchange="mfOnLoaderBrand()">
+            <option value="">— merek —</option>
+            <option value="komatsu">Komatsu</option>
+            <option value="hitachi">Hitachi</option>
+            <option value="cat">Caterpillar</option>
+            <option value="custom">Manual</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Model</label>
+          <select id="mf-loaderModel" onchange="mfOnLoaderModel()" disabled>
+            <option value="">— model —</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Bucket cap <span class="badge-edited" id="mf-bucketBadge">edited</span></label>
+          <div class="input-row">
+            <input type="number" id="mf-bucketCap" value="10" step="0.1" oninput="mfOnBucketEdit()">
+            <div class="seg">
+              <button class="on" id="mf-btn-ton" onclick="mfSetBucketMode('ton')">t</button>
+              <button id="mf-btn-m3" onclick="mfSetBucketMode('m3')">m³</button>
+            </div>
           </div>
         </div>
-        <div class="field">
-          <label>Travel empty</label>
-          <div class="minsec">
-            <input type="number" id="teM" value="3" min="0" step="1" oninput="calc()">
-            <span>m</span>
-            <input type="number" id="teS" value="26" min="0" max="59" step="1" oninput="calc()">
-            <span>s</span>
-          </div>
-        </div>
       </div>
-      <div style="max-width:220px">
-        <div class="field"><label>Queuing time (avg per cycle)</label><input type="number" id="queueTimeSeg" value="0" step="5"><div class="unit">seconds (optional)</div></div>
+      <div id="mf-density-field" style="display:none;max-width:180px;margin-bottom:10px">
+        <div class="field"><label>Densitas material</label><input type="number" id="mf-density" value="1.8" step="0.05" oninput="mfCalc()"><div class="unit">t/m³</div></div>
+      </div>
+      <div class="grid2f">
+        <div class="field"><label>Fill factor</label><input type="number" id="mf-fillFactor" value="0.9" step="0.01" oninput="mfCalc()"><div class="unit">ratio</div></div>
+        <div class="field"><label>Cycle time loader</label><input type="number" id="mf-loaderCycle" value="30" step="1" oninput="mfCalc()"><div class="unit">detik/bucket</div></div>
       </div>
     </div>
 
-    <div id="direct-total" style="display:none">
-      <div class="section-label">Total durasi 1 siklus penuh (menit : detik)</div>
-      <div style="max-width:280px">
+    <!-- Hauler -->
+    <div class="card">
+      <div class="card-title">Hauler</div>
+      <div class="grid3f" style="margin-bottom:10px">
         <div class="field">
-          <label>Total CTH</label>
-          <div class="minsec">
-            <input type="number" id="cthM" value="15" min="0" step="1" oninput="calc()">
-            <span>m</span>
-            <input type="number" id="cthS" value="44" min="0" max="59" step="1" oninput="calc()">
-            <span>s</span>
-          </div>
-          <div class="unit">spotting + loading + travel + dump + return sudah termasuk</div>
+          <label>Jenis</label>
+          <select id="mf-haulerType" onchange="mfOnHaulerType()">
+            <option value="">— jenis —</option>
+            <option value="rigid">Rigid DT</option>
+            <option value="articulated">Articulated DT</option>
+            <option value="custom">Manual</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Merek</label>
+          <select id="mf-haulerBrand" onchange="mfOnHaulerBrand()" disabled><option value="">— merek —</option></select>
+        </div>
+        <div class="field">
+          <label>Model</label>
+          <select id="mf-haulerModel" onchange="mfOnHaulerModel()" disabled><option value="">— model —</option></select>
+        </div>
+      </div>
+      <div class="grid2f" style="margin-bottom:10px">
+        <div class="field">
+          <label>Vessel capacity <span class="badge-edited" id="mf-vesselBadge">edited</span></label>
+          <input type="number" id="mf-haulerCap" value="100" step="5" oninput="mfOnVesselEdit()"><div class="unit">ton</div>
+        </div>
+        <div class="field"><label>Spotting time</label><input type="number" id="mf-spotting" value="30" step="5" oninput="mfCalc()"><div class="unit">detik</div></div>
+      </div>
+      <div class="field" style="max-width:180px;margin-bottom:10px">
+        <label>Dumping time</label><input type="number" id="mf-dumping" value="60" step="5" oninput="mfCalc()"><div class="unit">detik</div>
+      </div>
+      <hr class="divider">
+      <div class="toggle-row">
+        <span class="toggle-label">Haul cycle time —</span>
+        <div class="seg">
+          <button class="on" id="mf-btn-breakdown" onclick="mfSetMode('breakdown')">Breakdown</button>
+          <button id="mf-btn-direct" onclick="mfSetMode('direct')">Direct</button>
+        </div>
+      </div>
+      <div id="mf-mode-breakdown">
+        <div class="grid3f">
+          <div class="field"><label>Jarak (one way)</label><input type="number" id="mf-distance" value="2" step="0.1" oninput="mfCalc()"><div class="unit">km</div></div>
+          <div class="field"><label>Speed loaded</label><input type="number" id="mf-speedLoaded" value="25" step="1" oninput="mfCalc()"><div class="unit">km/h</div></div>
+          <div class="field"><label>Speed empty</label><input type="number" id="mf-speedEmpty" value="35" step="1" oninput="mfCalc()"><div class="unit">km/h</div></div>
+        </div>
+        <div class="field" style="max-width:180px;margin-top:4px"><label>Queue time (avg/cycle)</label><input type="number" id="mf-queueTime" value="0" step="5" oninput="mfCalc()"><div class="unit">detik (opsional)</div></div>
+      </div>
+      <div id="mf-mode-direct" style="display:none">
+        <div class="grid2f">
+          <div class="field"><label>Travel loaded</label><input type="number" id="mf-travelLoaded" value="288" step="1" oninput="mfCalc()"><div class="unit">detik</div></div>
+          <div class="field"><label>Travel empty</label><input type="number" id="mf-travelEmpty" value="206" step="1" oninput="mfCalc()"><div class="unit">detik</div></div>
+        </div>
+        <div class="field" style="max-width:180px;margin-top:4px"><label>Queue time (avg/cycle)</label><input type="number" id="mf-queueTimeDirect" value="0" step="5" oninput="mfCalc()"><div class="unit">detik (opsional)</div></div>
+      </div>
+    </div>
+
+    <!-- Target -->
+    <div class="card">
+      <div class="card-title">Target</div>
+      <div class="grid2f">
+        <div class="field"><label>Target MF</label><input type="number" id="mf-targetMF" value="1.0" step="0.05" min="0.1" oninput="mfCalc()"><div class="unit">rekomendasi 1.0–1.1</div></div>
+        <div class="field"><label>Jam operasi / shift</label><input type="number" id="mf-opHours" value="10" step="0.5" oninput="mfCalc()"><div class="unit">jam</div></div>
+      </div>
+    </div>
+
+    <div id="mf-result"></div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<!-- ========== TOOL: HAULING CYCLE ========== -->
+<div class="screen" id="tool-hauling-cycle">
+  <div class="page-header">
+    <button class="tool-back" onclick="closeTool()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali
+    </button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Hauling Cycle</div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="card-title">Parameter Hauler</div>
+      <div class="grid2f">
+        <div class="field"><label>Payload per trip</label><input type="number" id="hc-payload" value="100" step="5" oninput="hcCalc()"><div class="unit">ton</div></div>
+        <div class="field"><label>Jam operasi / shift</label><input type="number" id="hc-hours" value="10" step="0.5" oninput="hcCalc()"><div class="unit">jam</div></div>
+      </div>
+      <div class="grid2f">
+        <div class="field"><label>Jumlah hauler</label><input type="number" id="hc-n" value="5" step="1" oninput="hcCalc()"><div class="unit">unit</div></div>
+        <div class="field"><label>Mechanical availability</label><input type="number" id="hc-ma" value="85" step="1" oninput="hcCalc()"><div class="unit">%</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Komponen Waktu Siklus</div>
+      <div class="grid2f">
+        <div class="field"><label>Loading time</label><input type="number" id="hc-loading" value="180" step="10" oninput="hcCalc()"><div class="unit">detik</div></div>
+        <div class="field"><label>Spotting time</label><input type="number" id="hc-spot" value="30" step="5" oninput="hcCalc()"><div class="unit">detik</div></div>
+      </div>
+      <div class="grid3f">
+        <div class="field"><label>Jarak haul (one way)</label><input type="number" id="hc-dist" value="2" step="0.1" oninput="hcCalc()"><div class="unit">km</div></div>
+        <div class="field"><label>Speed loaded</label><input type="number" id="hc-speedL" value="25" step="1" oninput="hcCalc()"><div class="unit">km/h</div></div>
+        <div class="field"><label>Speed empty</label><input type="number" id="hc-speedE" value="35" step="1" oninput="hcCalc()"><div class="unit">km/h</div></div>
+      </div>
+      <div class="grid2f">
+        <div class="field"><label>Dumping time</label><input type="number" id="hc-dump" value="60" step="5" oninput="hcCalc()"><div class="unit">detik</div></div>
+        <div class="field"><label>Queue time</label><input type="number" id="hc-queue" value="0" step="5" oninput="hcCalc()"><div class="unit">detik (opsional)</div></div>
+      </div>
+    </div>
+    <div id="hc-result"></div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<!-- ========== TOOL: TONASE COAL/ORE ========== -->
+<div class="screen" id="tool-tonase">
+  <div class="page-header">
+    <button class="tool-back" onclick="closeTool()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali
+    </button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Tonase Coal / Ore</div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="card-title">Mode Perhitungan</div>
+      <div class="toggle-row">
+        <div class="seg">
+          <button class="on" id="tn-btn-volume" onclick="tnSetMode('volume')">Dari Volume</button>
+          <button id="tn-btn-seam" onclick="tnSetMode('seam')">Dari Seam</button>
+        </div>
+      </div>
+
+      <div id="tn-mode-volume">
+        <div class="grid2f">
+          <div class="field"><label>Volume bank</label><input type="number" id="tn-volume" value="1000" step="100" oninput="tnCalc()"><div class="unit">m³ (BCM)</div></div>
+          <div class="field"><label>Densitas in-situ</label><input type="number" id="tn-density" value="1.35" step="0.01" oninput="tnCalc()"><div class="unit">t/m³</div></div>
+        </div>
+      </div>
+
+      <div id="tn-mode-seam" style="display:none">
+        <div class="grid3f">
+          <div class="field"><label>Panjang area</label><input type="number" id="tn-length" value="100" step="10" oninput="tnCalc()"><div class="unit">meter</div></div>
+          <div class="field"><label>Lebar area</label><input type="number" id="tn-width" value="50" step="10" oninput="tnCalc()"><div class="unit">meter</div></div>
+          <div class="field"><label>Tebal seam</label><input type="number" id="tn-thick" value="3" step="0.1" oninput="tnCalc()"><div class="unit">meter</div></div>
+        </div>
+        <div class="field" style="max-width:180px"><label>Densitas in-situ</label><input type="number" id="tn-density2" value="1.35" step="0.01" oninput="tnCalc()"><div class="unit">t/m³</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Parameter Kualitas</div>
+      <div class="grid2f">
+        <div class="field"><label>Total moisture (TM)</label><input type="number" id="tn-tm" value="28" step="0.5" oninput="tnCalc()"><div class="unit">%</div></div>
+        <div class="field"><label>Ash content (dry basis)</label><input type="number" id="tn-ash" value="5" step="0.5" oninput="tnCalc()"><div class="unit">%</div></div>
+      </div>
+      <div class="grid2f">
+        <div class="field"><label>Recovery factor</label><input type="number" id="tn-recovery" value="90" step="1" oninput="tnCalc()"><div class="unit">%</div></div>
+        <div class="field"><label>Dilution factor</label><input type="number" id="tn-dilution" value="0" step="0.5" oninput="tnCalc()"><div class="unit">% (opsional)</div></div>
+      </div>
+    </div>
+
+    <div id="tn-result"></div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<!-- ========== TOOL: PDT EXCAVATOR ========== -->
+<div class="screen" id="tool-pdt-excavator">
+  <div class="page-header">
+    <button class="tool-back" onclick="closeTool()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali
+    </button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Produktivitas Excavator</div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="card-title">Spesifikasi Unit</div>
+      <div class="grid3f">
+        <div class="field"><label>Kapasitas bucket</label><input type="number" id="ex-bucket" value="4.0" step="0.1" oninput="exCalc()"><div class="unit">m³</div></div>
+        <div class="field"><label>Fill factor</label><input type="number" id="ex-fill" value="0.9" step="0.01" oninput="exCalc()"><div class="unit">ratio</div></div>
+        <div class="field"><label>Densitas material</label><input type="number" id="ex-density" value="1.8" step="0.05" oninput="exCalc()"><div class="unit">t/m³</div></div>
+      </div>
+      <div class="grid2f">
+        <div class="field"><label>Cycle time</label><input type="number" id="ex-cycle" value="25" step="1" oninput="exCalc()"><div class="unit">detik/siklus</div></div>
+        <div class="field"><label>Swing angle</label>
+          <select id="ex-swing" onchange="exCalc()">
+            <option value="1.0">45°–90° (1.00)</option>
+            <option value="0.96">90°–120° (0.96)</option>
+            <option value="0.91">120°–150° (0.91)</option>
+            <option value="0.87">150°–180° (0.87)</option>
+          </select>
         </div>
       </div>
     </div>
+    <div class="card">
+      <div class="card-title">Parameter Operasi</div>
+      <div class="grid2f">
+        <div class="field"><label>Jam operasi / shift</label><input type="number" id="ex-hours" value="10" step="0.5" oninput="exCalc()"><div class="unit">jam</div></div>
+        <div class="field"><label>Job efficiency</label><input type="number" id="ex-eff" value="83" step="1" oninput="exCalc()"><div class="unit">% (50min/jam = 83%)</div></div>
+      </div>
+      <div class="grid2f">
+        <div class="field"><label>Mechanical availability (MA)</label><input type="number" id="ex-ma" value="85" step="1" oninput="exCalc()"><div class="unit">%</div></div>
+        <div class="field"><label>Use of availability (UA)</label><input type="number" id="ex-ua" value="90" step="1" oninput="exCalc()"><div class="unit">%</div></div>
+      </div>
+    </div>
+    <div id="ex-result"></div>
+    <div style="height:8px"></div>
   </div>
 </div>
 
-<div class="card">
-  <div class="card-title">Target</div>
-  <div class="grid2">
-    <div class="field"><label>Target Match Factor (MF)</label><input type="number" id="targetMF" value="1.0" step="0.05" min="0.1" max="3"><div class="unit">recommended: 1.0–1.1</div></div>
-    <div class="field"><label>Operating hours / shift</label><input type="number" id="opHours" value="10" step="0.5"><div class="unit">hours</div></div>
+<!-- ========== TOOL: PDT HAULER ========== -->
+<div class="screen" id="tool-pdt-hauler">
+  <div class="page-header">
+    <button class="tool-back" onclick="closeTool()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali
+    </button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Produktivitas Hauler</div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="card-title">Spesifikasi Unit</div>
+      <div class="grid2f">
+        <div class="field"><label>Payload / vessel capacity</label><input type="number" id="ph-payload" value="100" step="5" oninput="phCalc()"><div class="unit">ton</div></div>
+        <div class="field"><label>Jumlah hauler</label><input type="number" id="ph-n" value="5" step="1" oninput="phCalc()"><div class="unit">unit</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Komponen Siklus</div>
+      <div class="grid2f">
+        <div class="field"><label>Loading time</label><input type="number" id="ph-loading" value="180" step="10" oninput="phCalc()"><div class="unit">detik</div></div>
+        <div class="field"><label>Spotting time</label><input type="number" id="ph-spot" value="30" step="5" oninput="phCalc()"><div class="unit">detik</div></div>
+      </div>
+      <div class="grid3f">
+        <div class="field"><label>Jarak haul</label><input type="number" id="ph-dist" value="2" step="0.1" oninput="phCalc()"><div class="unit">km</div></div>
+        <div class="field"><label>Speed loaded</label><input type="number" id="ph-speedL" value="25" step="1" oninput="phCalc()"><div class="unit">km/h</div></div>
+        <div class="field"><label>Speed empty</label><input type="number" id="ph-speedE" value="35" step="1" oninput="phCalc()"><div class="unit">km/h</div></div>
+      </div>
+      <div class="grid2f">
+        <div class="field"><label>Dumping time</label><input type="number" id="ph-dump" value="60" step="5" oninput="phCalc()"><div class="unit">detik</div></div>
+        <div class="field"><label>Queue time</label><input type="number" id="ph-queue" value="0" step="5" oninput="phCalc()"><div class="unit">detik (opsional)</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Parameter Operasi</div>
+      <div class="grid3f">
+        <div class="field"><label>Jam operasi / shift</label><input type="number" id="ph-hours" value="10" step="0.5" oninput="phCalc()"><div class="unit">jam</div></div>
+        <div class="field"><label>Mechanical availability</label><input type="number" id="ph-ma" value="85" step="1" oninput="phCalc()"><div class="unit">%</div></div>
+        <div class="field"><label>Job efficiency</label><input type="number" id="ph-eff" value="83" step="1" oninput="phCalc()"><div class="unit">%</div></div>
+      </div>
+    </div>
+    <div id="ph-result"></div>
+    <div style="height:8px"></div>
   </div>
 </div>
 
-<div id="result-section"></div>
-
+<!-- ========== BOTTOM NAV ========== -->
+<div class="nav" id="main-nav">
+  <button class="nav-btn active" id="nav-home" onclick="showScreen('home')">
+    <div class="nav-icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </div>
+    HOME
+  </button>
+  <button class="nav-btn" id="nav-calc" onclick="showScreen('calc')">
+    <div class="nav-icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg>
+    </div>
+    CALC
+  </button>
+  <button class="nav-btn" id="nav-pdt" onclick="showScreen('pdt')">
+    <div class="nav-icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    </div>
+    PDT'Y
+  </button>
+  <button class="nav-btn" id="nav-setup" onclick="showScreen('setup')">
+    <div class="nav-icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+    </div>
+    SETUP
+  </button>
 </div>
+
 <script>
-const LOADERS = {
-  komatsu:[
-    {model:'PC200',  bucketM3:0.93,bucketTon:1.6},
-    {model:'PC400',  bucketM3:1.9, bucketTon:3.2},
-    {model:'PC800',  bucketM3:4.0, bucketTon:6.8},
-    {model:'PC1250', bucketM3:5.8, bucketTon:9.9},
-    {model:'PC2000', bucketM3:10.0,bucketTon:17.0},
-    {model:'PC3000', bucketM3:15.0,bucketTon:25.5},
-    {model:'PC4000', bucketM3:22.0,bucketTon:37.4},
-  ],
-  hitachi:[
-    {model:'EX1200', bucketM3:5.6, bucketTon:9.5},
-    {model:'EX1900', bucketM3:10.5,bucketTon:17.9},
-    {model:'EX2500', bucketM3:15.0,bucketTon:25.5},
-    {model:'EX3600', bucketM3:21.0,bucketTon:35.7},
-    {model:'EX5500', bucketM3:29.0,bucketTon:49.3},
-    {model:'EX8000', bucketM3:42.0,bucketTon:71.4},
-  ],
-  cat:[
-    {model:'390F',   bucketM3:3.8, bucketTon:6.5},
-    {model:'395',    bucketM3:4.2, bucketTon:7.1},
-    {model:'6015B',  bucketM3:15.0,bucketTon:25.5},
-    {model:'6020B',  bucketM3:20.0,bucketTon:34.0},
-    {model:'6030',   bucketM3:28.0,bucketTon:47.6},
-    {model:'6040',   bucketM3:36.5,bucketTon:62.1},
-    {model:'6060',   bucketM3:52.0,bucketTon:88.4},
-  ],
+// ==================== NAVIGATION ====================
+let prevScreen = 'home';
+let currentScreen = 'home';
+
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('nav-' + name).classList.add('active');
+  document.getElementById('main-nav').style.display = 'flex';
+  currentScreen = name;
+}
+
+function openTool(name) {
+  prevScreen = currentScreen;
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('tool-' + name).classList.add('active');
+  document.getElementById('main-nav').style.display = 'none';
+  window.scrollTo(0,0);
+  if(name==='match-factor') mfCalc();
+  if(name==='hauling-cycle') hcCalc();
+  if(name==='tonase') tnCalc();
+  if(name==='pdt-excavator') exCalc();
+  if(name==='pdt-hauler') phCalc();
+}
+
+function closeTool() {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + prevScreen).classList.add('active');
+  document.getElementById('main-nav').style.display = 'flex';
+  window.scrollTo(0,0);
+}
+
+function filterCalc(q) {
+  const cards = document.querySelectorAll('#calc-grid .home-card');
+  cards.forEach(c => {
+    const name = c.dataset.name || '';
+    c.style.display = name.includes(q.toLowerCase()) ? '' : 'none';
+  });
+}
+
+// ==================== HELPERS ====================
+function v(id){ return parseFloat(document.getElementById(id).value)||0; }
+function fmtT(s){ const m=Math.floor(s/60),sec=Math.round(s%60); return m>0?`${m}m ${sec}s`:`${sec}s`; }
+function fmtN(n){ return n.toLocaleString('id-ID'); }
+
+// ==================== MATCH FACTOR DATA ====================
+const MF_LOADERS = {
+  komatsu:[{model:'PC200',bM3:0.93,bT:1.6},{model:'PC400',bM3:1.9,bT:3.2},{model:'PC800',bM3:4.0,bT:6.8},{model:'PC1250',bM3:5.8,bT:9.9},{model:'PC2000',bM3:10.0,bT:17.0},{model:'PC3000',bM3:15.0,bT:25.5},{model:'PC4000',bM3:22.0,bT:37.4}],
+  hitachi:[{model:'EX1200',bM3:5.6,bT:9.5},{model:'EX1900',bM3:10.5,bT:17.9},{model:'EX2500',bM3:15.0,bT:25.5},{model:'EX3600',bM3:21.0,bT:35.7},{model:'EX5500',bM3:29.0,bT:49.3},{model:'EX8000',bM3:42.0,bT:71.4}],
+  cat:[{model:'390F',bM3:3.8,bT:6.5},{model:'395',bM3:4.2,bT:7.1},{model:'6015B',bM3:15.0,bT:25.5},{model:'6020B',bM3:20.0,bT:34.0},{model:'6030',bM3:28.0,bT:47.6},{model:'6040',bM3:36.5,bT:62.1},{model:'6060',bM3:52.0,bT:88.4}],
 };
-const HAULERS = {
+const MF_HAULERS = {
   rigid:{
-    cat:    [{model:'777G',payload:99},{model:'785D',payload:136},{model:'789D',payload:181},{model:'793F',payload:227},{model:'795F AC',payload:272},{model:'797F',payload:363}],
-    komatsu:[{model:'HD785-8',payload:91},{model:'HD985-7',payload:100},{model:'930E-5',payload:291},{model:'960E-2',payload:327},{model:'980E-5',payload:363}],
-    liebherr:[{model:'T 236',payload:100},{model:'T 264',payload:227},{model:'T 274',payload:272},{model:'T 284',payload:363}],
+    cat:[{model:'777G',p:99},{model:'785D',p:136},{model:'789D',p:181},{model:'793F',p:227},{model:'795F AC',p:272},{model:'797F',p:363}],
+    komatsu:[{model:'HD785-8',p:91},{model:'HD985-7',p:100},{model:'930E-5',p:291},{model:'960E-2',p:327},{model:'980E-5',p:363}],
+    liebherr:[{model:'T 236',p:100},{model:'T 264',p:227},{model:'T 274',p:272},{model:'T 284',p:363}],
   },
   articulated:{
-    bell: [{model:'B25E',payload:24},{model:'B30E',payload:28},{model:'B35E',payload:32},{model:'B45E',payload:41},{model:'B50E',payload:45}],
-    volvo:[{model:'A30G',payload:27.5},{model:'A35G',payload:33.5},{model:'A40G',payload:38.5},{model:'A45G',payload:41.5},{model:'A60H',payload:55}],
-    cat:  [{model:'730',payload:28},{model:'735',payload:32.7},{model:'740',payload:39.5},{model:'745',payload:41.8}],
+    bell:[{model:'B25E',p:24},{model:'B30E',p:28},{model:'B35E',p:32},{model:'B45E',p:41},{model:'B50E',p:45}],
+    volvo:[{model:'A30G',p:27.5},{model:'A35G',p:33.5},{model:'A40G',p:38.5},{model:'A45G',p:41.5},{model:'A60H',p:55}],
+    cat:[{model:'730',p:28},{model:'735',p:32.7},{model:'740',p:39.5},{model:'745',p:41.8}],
   },
 };
-const HAULER_BRAND_LABELS={cat:'Caterpillar',komatsu:'Komatsu',liebherr:'Liebherr',bell:'Bell',volvo:'Volvo'};
+const MF_HLABELS = {cat:'Caterpillar',komatsu:'Komatsu',liebherr:'Liebherr',bell:'Bell',volvo:'Volvo'};
+let mfBucketMode='ton',mfMode='breakdown',mfLoaderPreset=null,mfHaulerPreset=null;
 
-let bucketMode='ton', mode='breakdown', directMode='segment';
-let loaderPresetBucket=null, haulerPresetVessel=null;
-
-function setBucketMode(m){
-  bucketMode=m;
-  document.getElementById('btn-ton').className=m==='ton'?'on':'';
-  document.getElementById('btn-m3').className=m==='m3'?'on':'';
-  document.getElementById('density-field').style.display=m==='m3'?'':'none';
-  if(loaderPresetBucket!==null){
-    const b=document.getElementById('loaderBrand').value;
-    const md=document.getElementById('loaderModel').value;
-    const d=LOADERS[b]?.find(x=>x.model===md);
-    if(d){const val=m==='ton'?d.bucketTon:d.bucketM3;document.getElementById('bucketCap').value=val;document.getElementById('bucketEditedBadge').style.display='none';loaderPresetBucket=val;}
+function mfSetBucketMode(m){
+  mfBucketMode=m;
+  document.getElementById('mf-btn-ton').className=m==='ton'?'on':'';
+  document.getElementById('mf-btn-m3').className=m==='m3'?'on':'';
+  document.getElementById('mf-density-field').style.display=m==='m3'?'':'none';
+  if(mfLoaderPreset){
+    const b=document.getElementById('mf-loaderBrand').value;
+    const mod=document.getElementById('mf-loaderModel').value;
+    const d=MF_LOADERS[b]?.find(x=>x.model===mod);
+    if(d){const val=m==='ton'?d.bT:d.bM3;document.getElementById('mf-bucketCap').value=val;mfLoaderPreset=val;document.getElementById('mf-bucketBadge').style.display='none';}
   }
-  calc();
+  mfCalc();
 }
-function onBucketEdit(){
-  const cur=parseFloat(document.getElementById('bucketCap').value);
-  document.getElementById('bucketEditedBadge').style.display=(loaderPresetBucket!==null&&cur!==loaderPresetBucket)?'inline-block':'none';
-  calc();
+function mfSetMode(m){
+  mfMode=m;
+  document.getElementById('mf-mode-breakdown').style.display=m==='breakdown'?'':'none';
+  document.getElementById('mf-mode-direct').style.display=m==='direct'?'':'none';
+  document.getElementById('mf-btn-breakdown').className=m==='breakdown'?'on':'';
+  document.getElementById('mf-btn-direct').className=m==='direct'?'on':'';
+  mfCalc();
 }
-function onVesselEdit(){
-  const cur=parseFloat(document.getElementById('haulerCap').value);
-  document.getElementById('vesselEditedBadge').style.display=(haulerPresetVessel!==null&&cur!==haulerPresetVessel)?'inline-block':'none';
-  calc();
+function mfOnBucketEdit(){
+  const cur=parseFloat(document.getElementById('mf-bucketCap').value);
+  document.getElementById('mf-bucketBadge').style.display=(mfLoaderPreset!==null&&cur!==mfLoaderPreset)?'inline-block':'none';
+  mfCalc();
 }
-function onLoaderBrand(){
-  const brand=document.getElementById('loaderBrand').value;
-  const sel=document.getElementById('loaderModel');
-  sel.innerHTML='<option value="">— pilih model —</option>';
-  sel.disabled=!brand||brand==='custom';
-  loaderPresetBucket=null;
-  document.getElementById('bucketEditedBadge').style.display='none';
-  if(brand&&brand!=='custom') LOADERS[brand].forEach(d=>{const o=document.createElement('option');o.value=d.model;o.textContent=`${d.model} (${bucketMode==='ton'?d.bucketTon+' t':d.bucketM3+' m³'})`;sel.appendChild(o);});
-  calc();
+function mfOnVesselEdit(){
+  const cur=parseFloat(document.getElementById('mf-haulerCap').value);
+  document.getElementById('mf-vesselBadge').style.display=(mfHaulerPreset!==null&&cur!==mfHaulerPreset)?'inline-block':'none';
+  mfCalc();
 }
-function onLoaderModel(){
-  const b=document.getElementById('loaderBrand').value,md=document.getElementById('loaderModel').value;
-  if(!md||!LOADERS[b])return;
-  const d=LOADERS[b].find(x=>x.model===md);if(!d)return;
-  const val=bucketMode==='ton'?d.bucketTon:d.bucketM3;
-  document.getElementById('bucketCap').value=val;loaderPresetBucket=val;document.getElementById('bucketEditedBadge').style.display='none';calc();
+function mfOnLoaderBrand(){
+  const b=document.getElementById('mf-loaderBrand').value;
+  const sel=document.getElementById('mf-loaderModel');
+  sel.innerHTML='<option value="">— model —</option>';
+  sel.disabled=!b||b==='custom';
+  mfLoaderPreset=null;
+  document.getElementById('mf-bucketBadge').style.display='none';
+  if(b&&b!=='custom') MF_LOADERS[b].forEach(d=>{const o=document.createElement('option');o.value=d.model;o.textContent=`${d.model} (${mfBucketMode==='ton'?d.bT+' t':d.bM3+' m³'})`;sel.appendChild(o);});
+  mfCalc();
 }
-function onHaulerType(){
-  const type=document.getElementById('haulerType').value;
-  const bSel=document.getElementById('haulerBrand'),mSel=document.getElementById('haulerModel');
-  bSel.innerHTML='<option value="">— pilih merek —</option>';mSel.innerHTML='<option value="">— pilih model —</option>';
-  bSel.disabled=!type||type==='custom';mSel.disabled=true;haulerPresetVessel=null;
-  document.getElementById('vesselEditedBadge').style.display='none';
-  if(type&&type!=='custom') Object.keys(HAULERS[type]).forEach(b=>{const o=document.createElement('option');o.value=b;o.textContent=HAULER_BRAND_LABELS[b]||b;bSel.appendChild(o);});
-  calc();
+function mfOnLoaderModel(){
+  const b=document.getElementById('mf-loaderBrand').value;const m=document.getElementById('mf-loaderModel').value;
+  if(!m||!MF_LOADERS[b])return;
+  const d=MF_LOADERS[b].find(x=>x.model===m);if(!d)return;
+  const val=mfBucketMode==='ton'?d.bT:d.bM3;
+  document.getElementById('mf-bucketCap').value=val;mfLoaderPreset=val;document.getElementById('mf-bucketBadge').style.display='none';mfCalc();
 }
-function onHaulerBrand(){
-  const type=document.getElementById('haulerType').value,brand=document.getElementById('haulerBrand').value;
-  const mSel=document.getElementById('haulerModel');
-  mSel.innerHTML='<option value="">— pilih model —</option>';mSel.disabled=!brand;haulerPresetVessel=null;
-  document.getElementById('vesselEditedBadge').style.display='none';
-  if(brand&&HAULERS[type]?.[brand]) HAULERS[type][brand].forEach(d=>{const o=document.createElement('option');o.value=d.model;o.textContent=`${d.model} (${d.payload} t)`;mSel.appendChild(o);});
-  calc();
+function mfOnHaulerType(){
+  const t=document.getElementById('mf-haulerType').value;
+  const bs=document.getElementById('mf-haulerBrand');const ms=document.getElementById('mf-haulerModel');
+  bs.innerHTML='<option value="">— merek —</option>';ms.innerHTML='<option value="">— model —</option>';
+  bs.disabled=!t||t==='custom';ms.disabled=true;mfHaulerPreset=null;document.getElementById('mf-vesselBadge').style.display='none';
+  if(t&&t!=='custom') Object.keys(MF_HAULERS[t]).forEach(b=>{const o=document.createElement('option');o.value=b;o.textContent=MF_HLABELS[b]||b;bs.appendChild(o);});
+  mfCalc();
 }
-function onHaulerModel(){
-  const type=document.getElementById('haulerType').value,brand=document.getElementById('haulerBrand').value,mdl=document.getElementById('haulerModel').value;
-  if(!mdl||!HAULERS[type]?.[brand])return;
-  const d=HAULERS[type][brand].find(x=>x.model===mdl);if(!d)return;
-  document.getElementById('haulerCap').value=d.payload;haulerPresetVessel=d.payload;document.getElementById('vesselEditedBadge').style.display='none';calc();
+function mfOnHaulerBrand(){
+  const t=document.getElementById('mf-haulerType').value;const b=document.getElementById('mf-haulerBrand').value;
+  const ms=document.getElementById('mf-haulerModel');ms.innerHTML='<option value="">— model —</option>';
+  ms.disabled=!b;mfHaulerPreset=null;document.getElementById('mf-vesselBadge').style.display='none';
+  if(b&&MF_HAULERS[t]?.[b]) MF_HAULERS[t][b].forEach(d=>{const o=document.createElement('option');o.value=d.model;o.textContent=`${d.model} (${d.p} t)`;ms.appendChild(o);});
+  mfCalc();
 }
-function setMode(m){
-  mode=m;
-  document.getElementById('mode-breakdown').style.display=m==='breakdown'?'':'none';
-  document.getElementById('mode-direct').style.display=m==='direct'?'':'none';
-  document.getElementById('btn-breakdown').className=m==='breakdown'?'on':'';
-  document.getElementById('btn-direct').className=m==='direct'?'on':'';
-  calc();
+function mfOnHaulerModel(){
+  const t=document.getElementById('mf-haulerType').value;const b=document.getElementById('mf-haulerBrand').value;const m=document.getElementById('mf-haulerModel').value;
+  if(!m||!MF_HAULERS[t]?.[b])return;
+  const d=MF_HAULERS[t][b].find(x=>x.model===m);if(!d)return;
+  document.getElementById('mf-haulerCap').value=d.p;mfHaulerPreset=d.p;document.getElementById('mf-vesselBadge').style.display='none';mfCalc();
 }
-function setDirectMode(m){
-  directMode=m;
-  document.getElementById('direct-segment').style.display=m==='segment'?'':'none';
-  document.getElementById('direct-total').style.display=m==='total'?'':'none';
-  document.getElementById('btn-seg').className=m==='segment'?'on':'';
-  document.getElementById('btn-total').className=m==='total'?'on':'';
-  calc();
-}
-function v(id){return parseFloat(document.getElementById(id).value)||0;}
-function ms(mId,sId){return v(mId)*60+v(sId);}
 
-function calc(){
-  const fillFactor=v('fillFactor'),loaderCycle=v('loaderCycle'),haulerCap=v('haulerCap');
-  const spotting=v('spottingTime'),dumping=v('dumpTime'),targetMF=v('targetMF'),opHours=v('opHours');
-  const bucketCapTon=bucketMode==='ton'?v('bucketCap'):v('bucketCap')*v('density');
+function mfStatusBadge(mf){
+  if(mf<0.85)return['background:rgba(248,113,113,.15);color:#f87171','Loader idle'];
+  if(mf<=1.0)return['background:rgba(74,222,128,.15);color:#4ade80','Optimal'];
+  if(mf<=1.15)return['background:rgba(251,146,60,.15);color:#fb923c','Slight over-truck'];
+  return['background:rgba(248,113,113,.15);color:#f87171','Over-trucked'];
+}
+
+function mfCalc(){
+  const fillFactor=v('mf-fillFactor'),loaderCycle=v('mf-loaderCycle'),haulerCap=v('mf-haulerCap');
+  const spotting=v('mf-spotting'),dumping=v('mf-dumping'),targetMF=v('mf-targetMF'),opHours=v('mf-opHours');
+  let bucketCapTon=mfBucketMode==='ton'?v('mf-bucketCap'):v('mf-bucketCap')*v('mf-density');
   const bucketFill=bucketCapTon*fillFactor;
   if(bucketFill<=0||haulerCap<=0)return;
   const bucketsPerTruck=Math.ceil(haulerCap/bucketFill);
   const payload=bucketsPerTruck*bucketFill;
   const loadingTime=bucketsPerTruck*loaderCycle;
+  let travelL,travelE,queueT;
+  if(mfMode==='breakdown'){
+    const dist=v('mf-distance'),spL=v('mf-speedLoaded'),spE=v('mf-speedEmpty');
+    travelL=spL>0?(dist/spL)*3600:0;travelE=spE>0?(dist/spE)*3600:0;queueT=v('mf-queueTime');
+  } else {travelL=v('mf-travelLoaded');travelE=v('mf-travelEmpty');queueT=v('mf-queueTimeDirect');}
   const ctLoader=spotting+loadingTime;
-  let travelL,travelE,queueT,ctHauler;
-  if(mode==='breakdown'){
-    const dist=v('distance'),spL=v('speedLoaded'),spE=v('speedEmpty');
-    travelL=spL>0?(dist/spL)*3600:0;travelE=spE>0?(dist/spE)*3600:0;queueT=v('queueTime');
-    ctHauler=spotting+loadingTime+travelL+dumping+travelE+queueT;
-  } else if(directMode==='segment'){
-    travelL=ms('tlM','tlS');travelE=ms('teM','teS');queueT=v('queueTimeSeg');
-    ctHauler=spotting+loadingTime+travelL+dumping+travelE+queueT;
-  } else {
-    ctHauler=ms('cthM','cthS');
-    const travelTotal=Math.max(0,ctHauler-spotting-loadingTime-dumping);
-    travelL=travelTotal*0.55;travelE=travelTotal*0.45;queueT=0;
-  }
+  const ctHauler=spotting+loadingTime+travelL+dumping+travelE+queueT;
   if(ctLoader<=0||ctHauler<=0)return;
   const mfPerTruck=ctHauler/ctLoader;
-  const nHaulerExact=targetMF*mfPerTruck;
-  const nHaulerFloor=Math.max(1,Math.floor(nHaulerExact));
-  const nHaulerCeil=Math.ceil(nHaulerExact);
-  const prodPerTruckPH=(3600/ctHauler)*payload;
-  const loaderOutputPH=(3600/ctLoader)*payload;
-  function statusBadge(mf){
-    if(mf<0.85)return['background:#FCEBEB;color:#A32D2D','Loader idle'];
-    if(mf<=1.0)return['background:#EAF3DE;color:#3B6D11','Optimal'];
-    if(mf<=1.15)return['background:#FAEEDA;color:#854F0B','Slight over-truck'];
-    return['background:#FCEBEB;color:#A32D2D','Over-trucked'];
-  }
-  function fmtT(s){const m=Math.floor(s/60),sec=Math.round(s%60);return m>0?`${m}m ${sec}s`:`${sec}s`;}
-  const minN=Math.max(1,nHaulerFloor-1),maxN=nHaulerCeil+2;
-  const allRows=[];for(let n=minN;n<=maxN;n++)allRows.push([n,n*ctLoader/ctHauler]);
-  const loaderLabel=(()=>{const b=document.getElementById('loaderBrand').value,m=document.getElementById('loaderModel').value;return(m&&b&&b!=='custom')?`${b.charAt(0).toUpperCase()+b.slice(1)} ${m}`:null;})();
-  const haulerLabel=(()=>{const b=document.getElementById('haulerBrand').value,m=document.getElementById('haulerModel').value;return(m&&b)?`${HAULER_BRAND_LABELS[b]||b} ${m}`:null;})();
-  const bucketDisplay=bucketMode==='ton'?`${v('bucketCap').toFixed(1)} t`:`${v('bucketCap').toFixed(2)} m³ × ${v('density')} t/m³ = ${bucketCapTon.toFixed(2)} t`;
-  const isTotalMode=mode==='direct'&&directMode==='total';
-  const bdRows=[
-    ['Spotting',       spotting,   '#B5D4F4'],
-    ['Loading',        loadingTime,'#FAC775'],
-    ['Travel (loaded)',travelL,    '#5DCAA5'],
-    ['Dumping',        dumping,    '#AFA9EC'],
-    ['Travel (empty)', travelE,    '#9FE1CB'],
-    queueT>0?['Queuing',queueT,'#F09595']:null,
+  const nExact=targetMF*mfPerTruck;
+  const nFloor=Math.max(1,Math.floor(nExact));
+  const nCeil=Math.ceil(nExact);
+  const prodPerTruckH=(3600/ctHauler)*payload;
+  const loaderOutputH=(3600/ctLoader)*payload;
+  const minN=Math.max(1,nFloor-1),maxN=nCeil+2;
+  const rows=[];for(let n=minN;n<=maxN;n++)rows.push([n,n*ctLoader/ctHauler]);
+  const bkData=[
+    ['Spotting',spotting,'#60a5fa'],['Loading',loadingTime,'#f0b429'],
+    ['Travel (loaded)',travelL,'#4ade80'],['Dumping',dumping,'#c084fc'],['Travel (empty)',travelE,'#34d399'],
+    queueT>0?['Queuing',queueT,'#f87171']:null
   ].filter(Boolean);
-  const html=`
+  document.getElementById('mf-result').innerHTML=`
   <div class="kpi-row">
-    <div class="kpi"><div class="kpi-lbl">Loader service time (CTL)</div><div class="kpi-val">${fmtT(ctLoader)}</div><div class="kpi-sub">${bucketsPerTruck} passes × ${loaderCycle}s + spot</div></div>
-    <div class="kpi"><div class="kpi-lbl">Hauler cycle time (CTH)</div><div class="kpi-val">${fmtT(ctHauler)}</div><div class="kpi-sub">full round trip</div></div>
-    <div class="kpi"><div class="kpi-lbl">Payload per trip</div><div class="kpi-val">${payload.toFixed(1)} t</div><div class="kpi-sub">${bucketsPerTruck} passes × ${bucketFill.toFixed(1)} t</div></div>
-    <div class="kpi"><div class="kpi-lbl">Loader output</div><div class="kpi-val">${Math.round(loaderOutputPH*opHours).toLocaleString()} t</div><div class="kpi-sub">per ${opHours}h shift</div></div>
+    <div class="kpi"><div class="kpi-lbl">Loader service time (CTL)</div><div class="kpi-val gold">${fmtT(ctLoader)}</div><div class="kpi-sub">${bucketsPerTruck} pass × ${loaderCycle}s + spot</div></div>
+    <div class="kpi"><div class="kpi-lbl">Hauler cycle time (CTH)</div><div class="kpi-val gold">${fmtT(ctHauler)}</div><div class="kpi-sub">round trip penuh</div></div>
+    <div class="kpi"><div class="kpi-lbl">Payload per trip</div><div class="kpi-val">${payload.toFixed(1)} t</div><div class="kpi-sub">${bucketsPerTruck} passes</div></div>
+    <div class="kpi"><div class="kpi-lbl">Loader output</div><div class="kpi-val">${fmtN(Math.round(loaderOutputH*opHours))} t</div><div class="kpi-sub">per ${opHours}h shift</div></div>
   </div>
   <div class="card">
-    <div class="card-title">Hauler cycle time breakdown${isTotalMode?' <span style="font-size:11px;font-weight:400;color:var(--color-text-secondary,#666)">(travel estimasi dari total CTH)</span>':''}</div>
-    <table class="bd-table">
-      ${bdRows.map(([lbl,val,col])=>`<tr><td class="bd-key">${lbl}</td><td class="bd-bar"><div class="bar-track"><div class="bar-fill" style="width:${(val/ctHauler*100).toFixed(1)}%;background:${col}"></div></div></td><td class="bd-val">${fmtT(val)} <span style="color:var(--color-text-secondary,#666);font-weight:400;font-size:11px">${(val/ctHauler*100).toFixed(1)}%</span></td></tr>`).join('')}
-      <tr style="border-top:0.5px solid var(--color-border-secondary,rgba(0,0,0,.2))"><td class="bd-key" style="font-weight:500;color:var(--color-text-primary,#1a1a1a)">Total CTH</td><td class="bd-bar"></td><td class="bd-val">${fmtT(ctHauler)}</td></tr>
-    </table>
+    <div class="card-title">Breakdown Waktu Siklus Hauler</div>
+    ${bkData.map(([lbl,val,col])=>`
+    <div class="breakdown-row">
+      <span class="bk-label">${lbl}</span>
+      <div class="bk-bar"><div class="bk-fill" style="width:${(val/ctHauler*100).toFixed(1)}%;background:${col}"></div></div>
+      <span class="bk-val">${fmtT(val)} <span style="color:var(--text3);font-size:10px">${(val/ctHauler*100).toFixed(0)}%</span></span>
+    </div>`).join('')}
+    <div class="breakdown-row" style="margin-top:4px;border-top:1px solid var(--border);padding-top:8px;border-bottom:none">
+      <span class="bk-label" style="font-weight:600;color:var(--text)">Total CTH</span><div class="bk-bar"></div>
+      <span class="bk-val" style="color:var(--gold)">${fmtT(ctHauler)}</span>
+    </div>
   </div>
   <div class="card">
-    <div class="card-title">Match factor result</div>
-    ${loaderLabel||haulerLabel?`<div style="font-size:12px;color:var(--color-text-secondary,#666);margin-bottom:.6rem;display:flex;gap:12px;flex-wrap:wrap">${loaderLabel?`<span>Loader: <strong style="color:var(--color-text-primary,#1a1a1a)">${loaderLabel}</strong> — bucket ${bucketDisplay}</span>`:''} ${haulerLabel?`<span>Hauler: <strong style="color:var(--color-text-primary,#1a1a1a)">${haulerLabel}</strong> — ${haulerCap.toFixed(0)} t</span>`:''}</div>`:''}
-    <div style="font-size:13px;color:var(--color-text-secondary,#666);margin-bottom:.4rem">MF per truck = CTH / CTL = ${ctHauler.toFixed(1)}s / ${ctLoader.toFixed(1)}s = <strong style="font-size:15px;color:var(--color-text-primary,#1a1a1a)">${mfPerTruck.toFixed(3)}</strong></div>
-    <div style="font-size:13px;color:var(--color-text-secondary,#666);margin-bottom:1rem">Haulers needed = ${targetMF} × ${mfPerTruck.toFixed(3)} = <strong style="font-size:15px;color:var(--color-text-primary,#1a1a1a)">${nHaulerExact.toFixed(2)} trucks</strong></div>
-    <table class="hauler-table">
-      <thead><tr><th>Fleet size</th><th>MF achieved</th><th>Loader util.</th><th>Prod/shift (t)</th><th>Status</th></tr></thead>
-      <tbody>${allRows.map(([n,mf])=>{const[st,lbl]=statusBadge(mf);const effProd=Math.min(n*prodPerTruckPH,loaderOutputPH)*opHours;const isTarget=n===nHaulerFloor||n===nHaulerCeil;return`<tr style="${isTarget?'background:var(--color-background-secondary,#f0f0ec)':''}"><td style="font-weight:${isTarget?500:400}">${n} unit${isTarget?' ★':''}</td><td>${mf.toFixed(3)}</td><td>${(Math.min(1,mf)*100).toFixed(1)}%</td><td>${Math.round(effProd).toLocaleString()}</td><td><span class="status-badge" style="${st}">${lbl}</span></td></tr>`;}).join('')}</tbody>
+    <div class="card-title">Hasil Match Factor</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:8px">
+      MF per truck = CTH / CTL = ${ctHauler.toFixed(1)}s / ${ctLoader.toFixed(1)}s = <strong style="color:var(--text);font-size:14px">${mfPerTruck.toFixed(3)}</strong>
+    </div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:12px">
+      Hauler dibutuhkan = Target MF × MF per truck = ${targetMF} × ${mfPerTruck.toFixed(3)} = <strong style="color:var(--gold);font-size:14px">${nExact.toFixed(2)} unit</strong>
+    </div>
+    <table class="data-table">
+      <thead><tr><th>Fleet</th><th>MF</th><th>Util Loader</th><th>Prod/shift</th><th>Status</th></tr></thead>
+      <tbody>
+      ${rows.map(([n,mf])=>{
+        const [st,lbl]=mfStatusBadge(mf);
+        const effProd=Math.min(n*prodPerTruckH,loaderOutputH)*opHours;
+        const isT=n===nFloor||n===nCeil;
+        return`<tr class="${isT?'highlight':''}">
+          <td style="font-weight:${isT?600:400}">${n} unit${isT?' ★':''}</td>
+          <td>${mf.toFixed(3)}</td>
+          <td>${(Math.min(1,mf)*100).toFixed(1)}%</td>
+          <td>${fmtN(Math.round(effProd))}</td>
+          <td><span class="status-badge" style="${st}">${lbl}</span></td>
+        </tr>`;}).join('')}
+      </tbody>
     </table>
-    <div style="font-size:11px;color:var(--color-text-secondary,#666);margin-top:.5rem">★ = closest to target MF ${targetMF}</div>
+    <div style="font-size:10px;color:var(--text3);margin-top:8px">★ = paling dekat target MF ${targetMF}</div>
   </div>`;
-  document.getElementById('result-section').innerHTML=html;
 }
-document.querySelectorAll('input[type=number]').forEach(el=>{if(!['bucketCap','haulerCap'].includes(el.id))el.addEventListener('input',calc);});
-calc();
+
+// ==================== HAULING CYCLE ====================
+function hcCalc(){
+  const payload=v('hc-payload'),hours=v('hc-hours'),n=v('hc-n'),ma=v('hc-ma')/100;
+  const loading=v('hc-loading'),spot=v('hc-spot'),dist=v('hc-dist');
+  const spL=v('hc-speedL'),spE=v('hc-speedE'),dump=v('hc-dump'),queue=v('hc-queue');
+  const tL=spL>0?(dist/spL)*3600:0,tE=spE>0?(dist/spE)*3600:0;
+  const ct=spot+loading+tL+dump+tE+queue;
+  if(ct<=0||payload<=0)return;
+  const tripsPerHour=3600/ct;
+  const tripsPerShift=tripsPerHour*hours*ma;
+  const prodPerUnitH=tripsPerHour*payload;
+  const prodPerUnitShift=prodPerUnitH*hours*ma;
+  const totalProdShift=prodPerUnitShift*n;
+  const bkData=[
+    ['Spotting',spot,'#60a5fa'],['Loading',loading,'#f0b429'],
+    ['Travel (loaded)',tL,'#4ade80'],['Dumping',dump,'#c084fc'],['Travel (empty)',tE,'#34d399'],
+    queue>0?['Queuing',queue,'#f87171']:null
+  ].filter(Boolean);
+  document.getElementById('hc-result').innerHTML=`
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-lbl">Cycle time</div><div class="kpi-val gold">${fmtT(ct)}</div><div class="kpi-sub">per trip</div></div>
+    <div class="kpi"><div class="kpi-lbl">Trips / shift / unit</div><div class="kpi-val">${tripsPerShift.toFixed(1)}</div><div class="kpi-sub">dgn MA ${(ma*100).toFixed(0)}%</div></div>
+    <div class="kpi"><div class="kpi-lbl">Prod / unit / shift</div><div class="kpi-val">${fmtN(Math.round(prodPerUnitShift))} t</div><div class="kpi-sub">${tripsPerShift.toFixed(1)} trip × ${payload} t</div></div>
+    <div class="kpi"><div class="kpi-lbl">Total ${n} unit / shift</div><div class="kpi-val gold">${fmtN(Math.round(totalProdShift))} t</div><div class="kpi-sub">target produksi</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Breakdown Waktu Siklus</div>
+    ${bkData.map(([lbl,val,col])=>`
+    <div class="breakdown-row">
+      <span class="bk-label">${lbl}</span>
+      <div class="bk-bar"><div class="bk-fill" style="width:${(val/ct*100).toFixed(1)}%;background:${col}"></div></div>
+      <span class="bk-val">${fmtT(val)} <span style="color:var(--text3);font-size:10px">${(val/ct*100).toFixed(0)}%</span></span>
+    </div>`).join('')}
+    <div class="breakdown-row" style="margin-top:4px;border-top:1px solid var(--border);padding-top:8px;border-bottom:none">
+      <span class="bk-label" style="font-weight:600;color:var(--text)">Total CT</span><div class="bk-bar"></div>
+      <span class="bk-val" style="color:var(--gold)">${fmtT(ct)}</span>
+    </div>
+  </div>`;
+}
+
+// ==================== TONASE ====================
+let tnMode='volume';
+function tnSetMode(m){
+  tnMode=m;
+  document.getElementById('tn-mode-volume').style.display=m==='volume'?'':'none';
+  document.getElementById('tn-mode-seam').style.display=m==='seam'?'':'none';
+  document.getElementById('tn-btn-volume').className=m==='volume'?'on':'';
+  document.getElementById('tn-btn-seam').className=m==='seam'?'on':'';
+  tnCalc();
+}
+function tnCalc(){
+  let volBCM=0,density=0;
+  if(tnMode==='volume'){volBCM=v('tn-volume');density=v('tn-density');}
+  else{volBCM=v('tn-length')*v('tn-width')*v('tn-thick');density=v('tn-density2');}
+  const tm=v('tn-tm')/100,ash=v('tn-ash')/100,recovery=v('tn-recovery')/100,dilution=v('tn-dilution')/100;
+  if(volBCM<=0||density<=0)return;
+  const romTon=volBCM*density;
+  const grossTon=romTon*(1+dilution);
+  const airDried=grossTon*(1-tm);
+  const cleanTon=grossTon*recovery*(1-ash);
+  const cv=6700*(1-tm)*(1-ash)-600*tm;
+  document.getElementById('tn-result').innerHTML=`
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-lbl">Volume BCM</div><div class="kpi-val">${fmtN(Math.round(volBCM))} m³</div><div class="kpi-sub">in-situ bank</div></div>
+    <div class="kpi"><div class="kpi-lbl">ROM Tonase</div><div class="kpi-val gold">${fmtN(Math.round(romTon))} t</div><div class="kpi-sub">sebelum dilusi</div></div>
+    <div class="kpi"><div class="kpi-lbl">Gross Tonase</div><div class="kpi-val">${fmtN(Math.round(grossTon))} t</div><div class="kpi-sub">+dilusi ${(dilution*100).toFixed(1)}%</div></div>
+    <div class="kpi"><div class="kpi-lbl">Clean Coal/Ore</div><div class="kpi-val gold">${fmtN(Math.round(cleanTon))} t</div><div class="kpi-sub">recovery × (1-ash)</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Detail Kalkulasi</div>
+    <div class="breakdown-row"><span class="bk-label">Volume × Densitas</span><div class="bk-bar"></div><span class="bk-val">${fmtN(Math.round(volBCM))} × ${density} = ${fmtN(Math.round(romTon))} t</span></div>
+    <div class="breakdown-row"><span class="bk-label">Total moisture</span><div class="bk-bar"><div class="bk-fill" style="width:${(tm*100).toFixed(0)}%;background:#60a5fa"></div></div><span class="bk-val">${(tm*100).toFixed(1)}%</span></div>
+    <div class="breakdown-row"><span class="bk-label">Ash content</span><div class="bk-bar"><div class="bk-fill" style="width:${(ash*100).toFixed(0)}%;background:#f87171"></div></div><span class="bk-val">${(ash*100).toFixed(1)}%</span></div>
+    <div class="breakdown-row"><span class="bk-label">Recovery factor</span><div class="bk-bar"><div class="bk-fill" style="width:${(recovery*100).toFixed(0)}%;background:#4ade80"></div></div><span class="bk-val">${(recovery*100).toFixed(1)}%</span></div>
+    <div class="breakdown-row" style="border-bottom:none"><span class="bk-label">Est. Calorific Value</span><div class="bk-bar"></div><span class="bk-val" style="color:var(--gold)">${Math.round(cv).toLocaleString()} kcal/kg</span></div>
+  </div>`;
+}
+
+// ==================== PDT EXCAVATOR ====================
+function exCalc(){
+  const bucket=v('ex-bucket'),fill=v('ex-fill'),density=v('ex-density'),cycle=v('ex-cycle');
+  const swing=parseFloat(document.getElementById('ex-swing').value)||1.0;
+  const hours=v('ex-hours'),eff=v('ex-eff')/100,ma=v('ex-ma')/100,ua=v('ex-ua')/100;
+  if(bucket<=0||cycle<=0)return;
+  const effectiveCap=bucket*fill*density*swing;
+  const cyclesPerHour=3600/cycle;
+  const prodPerHour=cyclesPerHour*effectiveCap*eff;
+  const availability=ma*ua;
+  const prodPerShift=prodPerHour*hours*availability;
+  const prodPerHourGross=cyclesPerHour*effectiveCap;
+  document.getElementById('ex-result').innerHTML=`
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-lbl">Kapasitas efektif</div><div class="kpi-val gold">${effectiveCap.toFixed(2)} t</div><div class="kpi-sub">bucket × fill × density × swing</div></div>
+    <div class="kpi"><div class="kpi-lbl">Siklus / jam</div><div class="kpi-val">${cyclesPerHour.toFixed(0)}</div><div class="kpi-sub">${cycle}s cycle time</div></div>
+    <div class="kpi"><div class="kpi-lbl">Produksi / jam</div><div class="kpi-val">${fmtN(Math.round(prodPerHour))} t</div><div class="kpi-sub">efisiensi ${(eff*100).toFixed(0)}%</div></div>
+    <div class="kpi"><div class="kpi-lbl">Produksi / shift</div><div class="kpi-val gold">${fmtN(Math.round(prodPerShift))} t</div><div class="kpi-sub">MA ${(ma*100).toFixed(0)}% × UA ${(ua*100).toFixed(0)}%</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Detail Kalkulasi</div>
+    <div class="breakdown-row"><span class="bk-label">Kapasitas teoritis</span><div class="bk-bar"></div><span class="bk-val">${prodPerHourGross.toFixed(0)} t/jam</span></div>
+    <div class="breakdown-row"><span class="bk-label">× Job efficiency</span><div class="bk-bar"><div class="bk-fill" style="width:${(eff*100).toFixed(0)}%;background:#f0b429"></div></div><span class="bk-val">${(eff*100).toFixed(0)}%</span></div>
+    <div class="breakdown-row"><span class="bk-label">× MA</span><div class="bk-bar"><div class="bk-fill" style="width:${(ma*100).toFixed(0)}%;background:#4ade80"></div></div><span class="bk-val">${(ma*100).toFixed(0)}%</span></div>
+    <div class="breakdown-row"><span class="bk-label">× UA</span><div class="bk-bar"><div class="bk-fill" style="width:${(ua*100).toFixed(0)}%;background:#60a5fa"></div></div><span class="bk-val">${(ua*100).toFixed(0)}%</span></div>
+    <div class="breakdown-row" style="border-bottom:none"><span class="bk-label" style="color:var(--text);font-weight:600">Produksi / shift</span><div class="bk-bar"></div><span class="bk-val" style="color:var(--gold)">${fmtN(Math.round(prodPerShift))} t</span></div>
+  </div>`;
+}
+
+// ==================== PDT HAULER ====================
+function phCalc(){
+  const payload=v('ph-payload'),n=v('ph-n'),loading=v('ph-loading'),spot=v('ph-spot');
+  const dist=v('ph-dist'),spL=v('ph-speedL'),spE=v('ph-speedE'),dump=v('ph-dump'),queue=v('ph-queue');
+  const hours=v('ph-hours'),ma=v('ph-ma')/100,eff=v('ph-eff')/100;
+  const tL=spL>0?(dist/spL)*3600:0,tE=spE>0?(dist/spE)*3600:0;
+  const ct=spot+loading+tL+dump+tE+queue;
+  if(ct<=0||payload<=0)return;
+  const tripsPerHour=3600/ct;
+  const prodPerUnitH=tripsPerHour*payload*eff*ma;
+  const prodPerUnitShift=prodPerUnitH*hours;
+  const totalProdShift=prodPerUnitShift*n;
+  const tripsPerShift=(tripsPerHour*eff*ma)*hours;
+  const bkData=[
+    ['Spotting',spot,'#60a5fa'],['Loading',loading,'#f0b429'],
+    ['Travel (loaded)',tL,'#4ade80'],['Dumping',dump,'#c084fc'],['Travel (empty)',tE,'#34d399'],
+    queue>0?['Queuing',queue,'#f87171']:null
+  ].filter(Boolean);
+  document.getElementById('ph-result').innerHTML=`
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-lbl">Cycle time</div><div class="kpi-val gold">${fmtT(ct)}</div><div class="kpi-sub">per trip</div></div>
+    <div class="kpi"><div class="kpi-lbl">Trips / unit / shift</div><div class="kpi-val">${tripsPerShift.toFixed(1)}</div><div class="kpi-sub">MA+eff termasuk</div></div>
+    <div class="kpi"><div class="kpi-lbl">Prod / unit / shift</div><div class="kpi-val">${fmtN(Math.round(prodPerUnitShift))} t</div><div class="kpi-sub">${payload} t × ${tripsPerShift.toFixed(1)} trip</div></div>
+    <div class="kpi"><div class="kpi-lbl">Total ${n} unit / shift</div><div class="kpi-val gold">${fmtN(Math.round(totalProdShift))} t</div><div class="kpi-sub">seluruh fleet</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Breakdown Waktu Siklus</div>
+    ${bkData.map(([lbl,val,col])=>`
+    <div class="breakdown-row">
+      <span class="bk-label">${lbl}</span>
+      <div class="bk-bar"><div class="bk-fill" style="width:${(val/ct*100).toFixed(1)}%;background:${col}"></div></div>
+      <span class="bk-val">${fmtT(val)} <span style="color:var(--text3);font-size:10px">${(val/ct*100).toFixed(0)}%</span></span>
+    </div>`).join('')}
+    <div class="breakdown-row" style="margin-top:4px;border-top:1px solid var(--border);padding-top:8px;border-bottom:none">
+      <span class="bk-label" style="font-weight:600;color:var(--text)">Total CT</span><div class="bk-bar"></div>
+      <span class="bk-val" style="color:var(--gold)">${fmtT(ct)}</span>
+    </div>
+  </div>`;
+}
+
+// init
+mfCalc();hcCalc();tnCalc();exCalc();phCalc();
 </script>
 </body>
 </html>
