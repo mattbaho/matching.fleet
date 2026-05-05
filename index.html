@@ -6,76 +6,44 @@
 <title>MINETOOLS</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0f1117;
-  --bg2: #161b26;
-  --bg3: #1e2535;
-  --bg4: #252d3d;
-  --gold: #f0b429;
-  --gold2: #fcd34d;
-  --gold-dim: rgba(240,180,41,0.12);
-  --gold-border: rgba(240,180,41,0.25);
-  --text: #f0f4ff;
-  --text2: #8a94a8;
-  --text3: #5a6478;
-  --success: #4ade80;
-  --danger: #f87171;
-  --warn: #fb923c;
-  --info: #60a5fa;
-  --border: rgba(255,255,255,0.07);
-  --card-r: 16px;
-  --font-display: 'Rajdhani', sans-serif;
-  --font-body: 'Inter', sans-serif;
+:root{
+  --bg:#0f1117;--bg2:#161b26;--bg3:#1e2535;--bg4:#252d3d;
+  --gold:#f0b429;--gold2:#fcd34d;--gold-dim:rgba(240,180,41,0.12);--gold-border:rgba(240,180,41,0.25);
+  --text:#f0f4ff;--text2:#8a94a8;--text3:#5a6478;
+  --success:#4ade80;--danger:#f87171;--warn:#fb923c;--info:#60a5fa;
+  --border:rgba(255,255,255,0.07);--card-r:16px;
+  --font-display:'Rajdhani',sans-serif;--font-body:'Inter',sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{background:var(--bg);color:var(--text);font-family:var(--font-body)}
 body{min-height:100vh;overflow-x:hidden}
-
-/* ===== SCREENS ===== */
 .screen{display:none;min-height:100vh;padding-bottom:80px;animation:fadeIn .25s ease}
 .screen.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-
-/* ===== NAV BAR ===== */
 .nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);display:flex;z-index:100;padding:8px 0 12px;max-width:500px;margin:0 auto}
 .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:none;color:var(--text3);font-family:var(--font-body);font-size:10px;cursor:pointer;padding:4px 0;transition:color .2s}
 .nav-btn svg{width:22px;height:22px;stroke-width:1.8}
 .nav-btn.active{color:var(--gold)}
 .nav-btn.active .nav-icon-wrap{background:rgba(240,180,41,0.15);border-radius:12px;padding:6px 14px}
-
-/* ===== PAGE HEADER ===== */
 .page-header{padding:16px 16px 8px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg);z-index:50;border-bottom:1px solid var(--border)}
 .page-title{font-family:var(--font-display);font-size:22px;font-weight:700;letter-spacing:.02em}
 .logo-text{font-family:var(--font-display);font-size:22px;font-weight:700}
 .logo-text span{color:var(--gold)}
-
-/* ===== CONTENT WRAPPER ===== */
 .content{padding:12px 12px 0;max-width:500px;margin:0 auto}
-
-/* ===== NOTICE BANNER ===== */
 .notice{background:var(--bg3);border:1px solid var(--gold-border);border-radius:var(--card-r);padding:12px 14px;margin-bottom:12px;position:relative}
 .notice-close{position:absolute;right:10px;top:10px;background:none;border:none;color:var(--text2);cursor:pointer;font-size:16px;line-height:1}
 .notice-title{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--gold);margin-bottom:4px}
 .notice-text{font-size:12px;color:var(--text2);line-height:1.5}
-
-/* ===== SECTION LABEL ===== */
 .section-label{font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;margin-top:4px}
-
-/* ===== GRID CARDS (HOME) ===== */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
 .home-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--card-r);padding:14px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;min-height:110px}
 .home-card:hover,.home-card:active{border-color:var(--gold-border);background:var(--bg3);transform:translateY(-1px)}
-.home-card.coming-soon{opacity:.55;cursor:default}
-.home-card.coming-soon:hover{transform:none;border-color:var(--border)}
 .card-icon{width:38px;height:38px;background:var(--gold-dim);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .card-icon svg{width:18px;height:18px;color:var(--gold)}
 .card-name{font-family:var(--font-display);font-size:16px;font-weight:600;line-height:1.1;margin-top:auto}
 .card-desc{font-size:11px;color:var(--text2);line-height:1.4}
 .card-badge{position:absolute;top:8px;right:8px;font-size:9px;font-weight:600;padding:2px 7px;border-radius:6px}
-.badge-soon{background:rgba(255,255,255,0.08);color:var(--text3)}
 .badge-new{background:rgba(240,180,41,0.2);color:var(--gold)}
-
-/* ===== TOOL SCREEN SHARED ===== */
 .tool-back{background:none;border:none;color:var(--text2);cursor:pointer;display:flex;align-items:center;gap:6px;font-size:13px;font-family:var(--font-body);padding:0}
 .tool-back:hover{color:var(--text)}
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--card-r);padding:14px 16px;margin-bottom:10px}
@@ -89,66 +57,42 @@ select option{background:var(--bg3)}
 .unit{font-size:10px;color:var(--text3);margin-top:2px}
 .grid2f{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .grid3f{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-
-/* ===== SEG CONTROL ===== */
 .seg{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;flex-shrink:0}
 .seg button{padding:5px 12px;border:none;background:transparent;color:var(--text2);font-size:11px;cursor:pointer;font-family:var(--font-body);border-right:1px solid var(--border);transition:all .15s}
 .seg button:last-child{border-right:none}
 .seg button.on{background:rgba(240,180,41,0.15);color:var(--gold);font-weight:600}
-
-/* ===== KPI ROW ===== */
 .kpi-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px}
 .kpi{background:var(--bg3);border-radius:10px;padding:10px 12px;border:1px solid var(--border)}
 .kpi-lbl{font-size:10px;color:var(--text2);margin-bottom:3px;line-height:1.3}
 .kpi-val{font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--text)}
 .kpi-sub{font-size:10px;color:var(--text3);margin-top:2px}
 .kpi-val.gold{color:var(--gold)}
-
-/* ===== STATUS BADGE ===== */
 .status-badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600}
-
-/* ===== BREAKDOWN ROW ===== */
 .breakdown-row{display:flex;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;gap:8px}
 .breakdown-row:last-child{border-bottom:none}
-.bk-label{color:var(--text2);width:110px;flex-shrink:0}
+.bk-label{color:var(--text2);width:130px;flex-shrink:0}
 .bk-bar{flex:1;height:7px;background:var(--bg4);border-radius:4px;overflow:hidden}
 .bk-fill{height:100%;border-radius:4px;transition:width .4s}
-.bk-val{color:var(--text);font-weight:500;text-align:right;width:60px;flex-shrink:0;font-size:11px}
-
-/* ===== TABLE ===== */
+.bk-val{color:var(--text);font-weight:500;text-align:right;width:80px;flex-shrink:0;font-size:11px}
 .data-table{width:100%;border-collapse:collapse;font-size:12px}
 .data-table th{font-size:10px;color:var(--text3);font-weight:500;text-align:left;padding:6px 6px 8px;border-bottom:1px solid var(--border);letter-spacing:.04em;text-transform:uppercase}
 .data-table td{padding:7px 6px;border-bottom:1px solid rgba(255,255,255,0.04)}
 .data-table tr:last-child td{border-bottom:none}
 .data-table tr.highlight td{background:rgba(240,180,41,0.06)}
-
-/* ===== DIVIDER ===== */
 .divider{border:none;border-top:1px solid var(--border);margin:12px 0}
-
-/* ===== TOGGLE ROW ===== */
 .toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
 .toggle-label{font-size:12px;color:var(--text2)}
-
-/* ===== CALC BUTTON ===== */
 .calc-btn{width:100%;background:var(--gold);color:#0f1117;font-family:var(--font-display);font-size:16px;font-weight:700;border:none;border-radius:12px;padding:12px;cursor:pointer;letter-spacing:.04em;transition:opacity .2s;margin-top:4px}
 .calc-btn:active{opacity:.85}
-
-/* ===== RESULT BOX ===== */
 .result-box{background:var(--bg3);border:1px solid var(--gold-border);border-radius:12px;padding:14px;margin-bottom:10px}
 .result-title{font-size:11px;color:var(--text3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
 .result-val{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--gold)}
 .result-sub{font-size:11px;color:var(--text2);margin-top:3px}
-
-/* ===== BADGE EDITED ===== */
 .badge-edited{font-size:9px;background:rgba(240,180,41,0.2);color:var(--gold);padding:2px 6px;border-radius:5px;font-weight:600;margin-left:5px;display:none}
-
-/* ===== SEARCH BAR ===== */
 .search-bar{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:9px 14px;margin-bottom:12px}
 .search-bar svg{width:16px;height:16px;color:var(--text3);flex-shrink:0}
 .search-bar input{background:none;border:none;color:var(--text);font-size:13px;font-family:var(--font-body);flex:1;outline:none}
 .search-bar input::placeholder{color:var(--text3)}
-
-/* ===== STAT CARDS (PDT) ===== */
 .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
 .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px;cursor:pointer;transition:all .2s}
 .stat-card:hover{border-color:var(--gold-border);background:var(--bg3)}
@@ -156,17 +100,39 @@ select option{background:var(--bg3)}
 .stat-card-icon svg{width:18px;height:18px;color:var(--gold)}
 .stat-card-name{font-family:var(--font-display);font-size:16px;font-weight:600}
 .stat-card-desc{font-size:11px;color:var(--text2);margin-top:2px;line-height:1.4}
-
-/* ===== SETUP ===== */
 .setup-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
 .setup-item:last-child{border-bottom:none}
 .setup-label{font-size:13px}
 .setup-sub{font-size:11px;color:var(--text2);margin-top:2px}
 .setup-val{font-size:12px;color:var(--gold);font-weight:500}
-
-/* Input row flex */
 .input-row{display:flex;gap:6px;align-items:flex-end}
 .input-row .field{flex:1;margin-bottom:0}
+/* Stopwatch */
+.sw-timer{font-family:var(--font-display);font-size:52px;font-weight:700;color:var(--gold);text-align:center;padding:16px 0 4px;letter-spacing:.03em;line-height:1}
+.sw-phase-name{font-size:13px;color:var(--text2);text-align:center;margin-bottom:4px;min-height:20px}
+.sw-phase-elapsed{font-family:var(--font-display);font-size:18px;color:var(--text3);text-align:center;margin-bottom:16px}
+.sw-btn-row{display:flex;gap:8px;margin-bottom:10px}
+.sw-btn{flex:1;padding:13px 8px;border:none;border-radius:12px;font-family:var(--font-display);font-size:15px;font-weight:700;cursor:pointer;transition:opacity .15s;letter-spacing:.03em}
+.sw-btn:active{opacity:.8}
+.sw-start{background:var(--success);color:#0f1117}
+.sw-next{background:var(--gold);color:#0f1117}
+.sw-reset{background:var(--bg3);color:var(--text2);border:1px solid var(--border)}
+.sw-phases{margin-bottom:10px}
+.sw-phase-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)}
+.sw-phase-row:last-child{border-bottom:none}
+.sw-pdot{width:9px;height:9px;border-radius:50%;background:var(--bg4);flex-shrink:0;transition:background .2s}
+.sw-pdot.active{background:var(--gold)}
+.sw-pdot.done{background:var(--success)}
+.sw-plabel{font-size:12px;color:var(--text2);flex:1}
+.sw-plabel.active{color:var(--text);font-weight:600}
+.sw-ptime{font-family:var(--font-display);font-size:13px;color:var(--text3)}
+.sw-ptime.done{color:var(--text)}
+/* Info note */
+.info-note{background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.2);border-radius:10px;padding:10px 12px;font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:10px}
+/* Site-specific note — muncul di bawah field yang nilainya bergantung kondisi site */
+.site-note{background:rgba(251,146,60,0.07);border:1px solid rgba(251,146,60,0.22);border-radius:8px;padding:7px 10px;font-size:10.5px;color:var(--text2);line-height:1.55;margin-top:3px;margin-bottom:6px}
+.site-note b{color:var(--warn)}
+.site-note i{color:var(--text3)}
 </style>
 </head>
 <body>
@@ -175,113 +141,30 @@ select option{background:var(--bg3)}
 <div class="screen active" id="screen-home">
   <div class="page-header">
     <div class="logo-text">MINE<span>TOOLS</span></div>
-    <div style="font-size:11px;color:var(--text3)">v1.0</div>
+    <div style="font-size:11px;color:var(--text3)">v2.0</div>
   </div>
   <div class="content">
-    <div class="notice" id="notice-home">
-      <button class="notice-close" onclick="this.parentElement.style.display='none'">×</button>
-      <div class="notice-title">Selamat datang di MINETOOLS</div>
-      <div class="notice-text">Kalkulator dan tool teknis mining untuk keputusan operasional harian. Pilih tool yang sesuai kebutuhan lapangan Anda.</div>
-    </div>
-
-    <div class="section-label">Kalkulator Utama</div>
-    <div class="grid2">
-      <div class="home-card" onclick="openTool('match-factor')">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="5" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="6" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="18"/></svg></div>
-        <div class="card-name">Match Factor</div>
-        <div class="card-desc">Keseimbangan fleet loader & hauler</div>
-      </div>
-      <div class="home-card" onclick="openTool('hauling-cycle')">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-        <div class="card-name">Hauling Cycle</div>
-        <div class="card-desc">Hitung siklus, trip & produksi hauler</div>
-      </div>
-      <div class="home-card" onclick="openTool('tonase')">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-        <div class="card-name">Tonase Coal/Ore</div>
-        <div class="card-desc">Estimasi tonase ROM & clean coal</div>
-      </div>
-      <div class="home-card" onclick="openTool('ob-volume')">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
-        <div class="card-name">OB Volume</div>
-        <div class="card-desc">Volume overburden bank & loose</div>
-        <span class="card-badge badge-soon">Soon</span>
-      </div>
-    </div>
-
-    <div class="section-label">Produktivitas Alat</div>
-    <div class="grid2">
-      <div class="home-card" onclick="openTool('pdt-excavator')">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 20h20"/><path d="M6 20V10l6-7 4 4-4 4v9"/><path d="M6 14h8"/></svg></div>
-        <div class="card-name">Produktivitas Excavator</div>
-        <div class="card-desc">Output excavator & loader per jam</div>
-      </div>
-      <div class="home-card" onclick="openTool('pdt-hauler')">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-        <div class="card-name">Produktivitas Hauler</div>
-        <div class="card-desc">Output dump truck per jam & shift</div>
-      </div>
-      <div class="home-card coming-soon">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6l9-4 9 4v6c0 5.5-3.8 10.7-9 12C6.8 22.7 3 17.5 3 12V6z"/></svg></div>
-        <div class="card-name">Stripping Ratio</div>
-        <div class="card-desc">Evaluasi rasio pengupasan OB</div>
-        <span class="card-badge badge-soon">Soon</span>
-      </div>
-      <div class="home-card coming-soon">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <div class="card-name">Road Grade</div>
-        <div class="card-desc">Evaluasi grade & status jalan</div>
-        <span class="card-badge badge-soon">Soon</span>
-      </div>
-    </div>
-
-    <div class="section-label">Lainnya</div>
-    <div class="grid2">
-      <div class="home-card coming-soon">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div class="card-name">Cut & Fill</div>
-        <div class="card-desc">Volume cut, fill & net balance</div>
-        <span class="card-badge badge-soon">Soon</span>
-      </div>
-      <div class="home-card coming-soon">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
-        <div class="card-name">Konverter Koordinat</div>
-        <div class="card-desc">LatLong, UTM, DMS</div>
-        <span class="card-badge badge-soon">Soon</span>
-      </div>
-      <div class="home-card coming-soon">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
-        <div class="card-name">Air Limpasan</div>
-        <div class="card-desc">Estimasi debit limpasan permukaan</div>
-        <span class="card-badge badge-soon">Soon</span>
-      </div>
-      <div class="home-card coming-soon">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-        <div class="card-name">Clinometer</div>
-        <div class="card-desc">Slope bench & strike dip batubara</div>
-        <span class="card-badge badge-soon">Soon</span>
-      </div>
-    </div>
+    <div class="section-label">Terakhir Dibuka</div>
+    <div class="grid2" id="home-recent"></div>
+    <button onclick="showScreen('tools')" style="width:100%;margin-top:4px;padding:11px;background:none;border:1px solid var(--border);border-radius:12px;color:var(--text2);font-family:var(--font-body);font-size:12px;cursor:pointer;text-align:center;transition:all .2s" onmouseover="this.style.borderColor='var(--gold-border)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text2)'">
+      Lihat semua 13 tools →
+    </button>
     <div style="height:8px"></div>
   </div>
 </div>
 
-<!-- ========== SCREEN: CALC LIST ========== -->
-<div class="screen" id="screen-calc">
-  <div class="page-header">
-    <div class="page-title">Kalkulator</div>
-  </div>
+<!-- ========== SCREEN: TOOLS ========== -->
+<div class="screen" id="screen-tools">
+  <div class="page-header"><div class="page-title">Tools</div></div>
   <div class="content">
     <div class="search-bar">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" placeholder="Cari kalkulator..." id="calc-search" oninput="filterCalc(this.value)">
+      <input type="text" placeholder="Cari tool..." id="tools-search" oninput="filterTools(this.value)">
     </div>
-    <div class="notice" id="notice-calc">
-      <button class="notice-close" onclick="this.parentElement.style.display='none'">×</button>
-      <div class="notice-title">Gunakan kalkulator sesuai kebutuhan</div>
-      <div class="notice-text">Gunakan kalkulator sesuai kebutuhan operasional, estimasi teknis, atau pengambilan keputusan di lapangan.</div>
-    </div>
-    <div id="calc-grid" class="grid2">
+
+    <!-- PRODUKSI & ALAT -->
+    <div class="section-label" id="lbl-produksi">Produksi &amp; Alat</div>
+    <div class="grid2" id="grid-produksi" style="margin-bottom:14px">
       <div class="home-card" onclick="openTool('match-factor')" data-name="match factor fleet loader hauler">
         <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="5" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="6" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="18"/></svg></div>
         <div class="card-name">Match Factor</div>
@@ -290,153 +173,100 @@ select option{background:var(--bg3)}
       <div class="home-card" onclick="openTool('hauling-cycle')" data-name="hauling cycle siklus trip produksi hauler">
         <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
         <div class="card-name">Hauling Cycle</div>
-        <div class="card-desc">Hitung siklus, trip & produksi hauler</div>
+        <div class="card-desc">Siklus, trip & produksi hauler</div>
       </div>
-      <div class="home-card" onclick="openTool('tonase')" data-name="tonase coal ore rom clean">
+      <div class="home-card" onclick="openTool('pdt-excavator')" data-name="pdt excavator loader produktivitas output jam shift">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 20h20"/><path d="M6 20V10l6-7 4 4-4 4v9"/><path d="M6 14h8"/></svg></div>
+        <div class="card-name">PDT Excavator</div>
+        <div class="card-desc">Output excavator per jam & shift</div>
+      </div>
+      <div class="home-card" onclick="openTool('pdt-hauler')" data-name="pdt hauler dump truck produktivitas output jam shift">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="card-name">PDT Hauler</div>
+        <div class="card-desc">Output dump truck per jam & shift</div>
+      </div>
+      <div class="home-card" onclick="openTool('pdt-dozer')" data-name="pdt bulldozer dozer dozing ripping produktivitas">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 17l4-8h12l4 8H2z"/><path d="M6 9V6h12v3"/><rect x="3" y="17" width="18" height="4" rx="1"/></svg></div>
+        <div class="card-name">PDT Bulldozer</div>
+        <div class="card-desc">Produktivitas dozing & ripping</div>
+      </div>
+      <div class="home-card" onclick="openTool('ct-stopwatch')" data-name="ct stopwatch cycle time ukur lapangan timer">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="card-name">CT Stopwatch</div>
+        <div class="card-desc">Ukur cycle time di lapangan</div>
+      </div>
+    </div>
+
+    <!-- MINING & ROAD -->
+    <div class="section-label" id="lbl-mining">Mining &amp; Road</div>
+    <div class="grid2" id="grid-mining" style="margin-bottom:14px">
+      <div class="home-card" onclick="openTool('tonase')" data-name="tonase batubara coal rom clean cv kalori">
         <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-        <div class="card-name">Tonase Coal/Ore</div>
-        <div class="card-desc">Estimasi tonase ROM & clean coal</div>
+        <div class="card-name">Tonase Batubara</div>
+        <div class="card-desc">Estimasi ROM, clean coal & CV</div>
       </div>
-      <div class="home-card coming-soon" data-name="ob volume overburden bank loose">
+      <div class="home-card" onclick="openTool('ob-volume')" data-name="ob volume overburden bank loose bcm lcm">
         <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
-        <div class="card-name">OB Volume</div>
-        <div class="card-desc">Volume overburden bank & loose</div>
-        <span class="card-badge badge-soon">Soon</span>
+        <div class="card-name">Volume OB</div>
+        <div class="card-desc">Volume overburden BCM & LCM</div>
       </div>
-      <div class="home-card coming-soon" data-name="stripping ratio pengupasan ob">
+      <div class="home-card" onclick="openTool('sr')" data-name="stripping ratio sr pengupasan overburden ore">
         <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6l9-4 9 4v6c0 5.5-3.8 10.7-9 12C6.8 22.7 3 17.5 3 12V6z"/></svg></div>
         <div class="card-name">Stripping Ratio</div>
-        <div class="card-desc">Evaluasi rasio pengupasan OB</div>
-        <span class="card-badge badge-soon">Soon</span>
+        <div class="card-desc">Rasio pengupasan OB per ton batubara</div>
       </div>
-      <div class="home-card coming-soon" data-name="road grade jalan evaluasi">
+      <div class="home-card" onclick="openTool('road-grade')" data-name="road grade jalan hambatan rimpull slope">
         <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
         <div class="card-name">Road Grade</div>
-        <div class="card-desc">Evaluasi grade & status jalan</div>
-        <span class="card-badge badge-soon">Soon</span>
+        <div class="card-desc">Grade jalan, hambatan & rimpull</div>
       </div>
-      <div class="home-card coming-soon" data-name="cut fill volume net balance">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div class="card-name">Cut & Fill</div>
-        <div class="card-desc">Volume cut, fill & net balance</div>
-        <span class="card-badge badge-soon">Soon</span>
-      </div>
-      <div class="home-card coming-soon" data-name="clinometer slope bench strike dip">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="12" x2="16" y2="14"/></svg></div>
-        <div class="card-name">Clinometer</div>
-        <div class="card-desc">Slope bench & strike dip batubara</div>
-        <span class="card-badge badge-soon">Soon</span>
-      </div>
-      <div class="home-card coming-soon" data-name="koordinat latlong utm dms konversi">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
-        <div class="card-name">Konverter Koordinat</div>
-        <div class="card-desc">LatLong, UTM, DMS</div>
-        <span class="card-badge badge-soon">Soon</span>
-      </div>
-      <div class="home-card coming-soon" data-name="air limpasan debit permukaan">
-        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
-        <div class="card-name">Air Limpasan</div>
-        <div class="card-desc">Estimasi debit limpasan permukaan</div>
-        <span class="card-badge badge-soon">Soon</span>
+      <div class="home-card" onclick="openTool('grader')" data-name="motor grader jalan haul road maintenance perawatan">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 17h20M5 17V9l7-4 7 4v8"/><path d="M5 13h14"/></svg></div>
+        <div class="card-name">Motor Grader</div>
+        <div class="card-desc">Kebutuhan grader perawatan jalan</div>
       </div>
     </div>
-    <div style="height:8px"></div>
-  </div>
-</div>
 
-<!-- ========== SCREEN: PDT ========== -->
-<div class="screen" id="screen-pdt">
-  <div class="page-header">
-    <div class="page-title">Produktivitas</div>
-  </div>
-  <div class="content">
-    <div class="search-bar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" placeholder="Cari workflow produktivitas...">
-    </div>
-    <div class="notice" id="notice-pdt">
-      <button class="notice-close" onclick="this.parentElement.style.display='none'">×</button>
-      <div class="notice-title">Gunakan menu produktivitas sesuai kebutuhan</div>
-      <div class="notice-text">Gunakan menu ini untuk mengevaluasi kinerja alat, keseimbangan fleet, dan parameter kerja yang sesuai dengan kondisi fleet Anda.</div>
-    </div>
-    <div class="stat-row">
-      <div class="stat-card" onclick="openTool('pdt-excavator')">
-        <div class="stat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 20h20"/><path d="M6 20V10l6-7 4 4-4 4v9"/><path d="M6 14h8"/></svg></div>
-        <div class="stat-card-name">Excavator</div>
-        <div class="stat-card-desc">Produktivitas excavator dan loader</div>
+    <!-- ALAT SUPPORT -->
+    <div class="section-label" id="lbl-support">Alat Support</div>
+    <div class="grid2" id="grid-support" style="margin-bottom:14px">
+      <div class="home-card" onclick="openTool('water-truck')" data-name="water truck spraying dust suppression penyiraman">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2C6 2 2 7 2 12s4 10 10 10 10-4.5 10-10S18 2 12 2z"/><path d="M12 6v6l4 2"/></svg></div>
+        <div class="card-name">Water Truck</div>
+        <div class="card-desc">Kebutuhan water truck dust suppression</div>
       </div>
-      <div class="stat-card" onclick="openTool('pdt-hauler')">
-        <div class="stat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-        <div class="stat-card-name">Hauler</div>
-        <div class="stat-card-desc">Produktivitas dump truck dan hauler</div>
-      </div>
-      <div class="stat-card" onclick="openTool('match-factor')">
-        <div class="stat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="5" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
-        <div class="stat-card-name">Match Factor</div>
-        <div class="stat-card-desc">Keseimbangan loader & hauler</div>
-      </div>
-      <div class="stat-card" style="opacity:.5;cursor:default">
-        <div class="stat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <div class="stat-card-name">Cycle Time</div>
-        <div class="stat-card-desc">Stopwatch siklus loading & hauling</div>
-      </div>
-      <div class="stat-card" style="opacity:.5;cursor:default">
-        <div class="stat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 20h20"/><rect x="6" y="14" width="4" height="6"/><rect x="10" y="8" width="4" height="12"/><rect x="14" y="4" width="4" height="16"/></svg></div>
-        <div class="stat-card-name">Bulldozer</div>
-        <div class="stat-card-desc">Produktivitas dozing & ripping</div>
-      </div>
-      <div class="stat-card" style="opacity:.5;cursor:default">
-        <div class="stat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22V12M12 12L4 7M12 12l8-5M4 17l8 5 8-5M4 7V17M20 7v10"/></svg></div>
-        <div class="stat-card-name">Compactor</div>
-        <div class="stat-card-desc">Produktivitas pemadatan jalan</div>
+      <div class="home-card" onclick="openTool('dump-dozer')" data-name="dozer dump dumping area spreading push">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 17h18M3 17l3-8h12l3 8"/><path d="M7 9V6h10v3"/><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/></svg></div>
+        <div class="card-name">Dozer Dump</div>
+        <div class="card-desc">Kebutuhan dozer di area dumping</div>
       </div>
     </div>
+
+    <div id="tools-empty" style="display:none;text-align:center;padding:24px 0;color:var(--text3);font-size:13px">Tidak ada tool yang cocok</div>
     <div style="height:8px"></div>
   </div>
 </div>
 
 <!-- ========== SCREEN: SETUP ========== -->
 <div class="screen" id="screen-setup">
-  <div class="page-header">
-    <div class="page-title">Pengaturan</div>
-  </div>
+  <div class="page-header"><div class="page-title">Setup</div></div>
   <div class="content">
     <div class="card">
-      <div class="card-title">Aplikasi</div>
+      <div class="card-title">Tentang Aplikasi</div>
       <div class="setup-item">
-        <div><div class="setup-label">Versi</div><div class="setup-sub">MINETOOLS Web App</div></div>
-        <div class="setup-val">v1.0</div>
-      </div>
-      <div class="setup-item">
-        <div><div class="setup-label">Status tools</div><div class="setup-sub">5 aktif / 10 total</div></div>
-        <div class="setup-val">50%</div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">Satuan Default</div>
-      <div class="field">
-        <label>Berat</label>
-        <select><option>Ton (metrik)</option><option>Short ton</option></select>
-      </div>
-      <div class="field">
-        <label>Volume</label>
-        <select><option>m³</option><option>BCM</option><option>LCM</option></select>
-      </div>
-      <div class="field" style="margin-bottom:0">
-        <label>Jarak</label>
-        <select><option>Kilometer (km)</option><option>Meter (m)</option></select>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">Tentang</div>
-      <div class="setup-item">
-        <div><div class="setup-label">Tools aktif</div></div>
-        <div class="setup-val">Match Factor, Hauling Cycle, Tonase, PDT Excavator, PDT Hauler</div>
+        <div><div class="setup-label">MINETOOLS</div><div class="setup-sub">Kalkulator teknis mining untuk keputusan operasional harian</div></div>
+        <div class="setup-val">v2.0</div>
       </div>
       <div class="setup-item" style="border:none">
-        <div><div class="setup-label" style="color:var(--text3)">Tools segera hadir</div></div>
-        <div style="font-size:11px;color:var(--text3)">OB Volume, SR, Road Grade, Cut & Fill, Clinometer, Koordinat, Air Limpasan</div>
+        <div><div class="setup-label">Total tools aktif</div><div class="setup-sub">Produksi & Alat · Mining & Road · Alat Support</div></div>
+        <div class="setup-val">13 tools</div>
       </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Daftar Tools</div>
+      <div class="setup-item"><div><div class="setup-label">Produksi &amp; Alat</div><div class="setup-sub">Match Factor · Hauling Cycle · PDT Excavator · PDT Hauler · PDT Bulldozer · CT Stopwatch</div></div></div>
+      <div class="setup-item"><div><div class="setup-label">Mining &amp; Road</div><div class="setup-sub">Tonase Batubara · Volume OB · Stripping Ratio · Road Grade · Motor Grader</div></div></div>
+      <div class="setup-item" style="border:none"><div><div class="setup-label">Alat Support</div><div class="setup-sub">Water Truck · Dozer Dump</div></div></div>
     </div>
     <div style="height:8px"></div>
   </div>
@@ -445,42 +275,27 @@ select option{background:var(--bg3)}
 <!-- ========== TOOL: MATCH FACTOR ========== -->
 <div class="screen" id="tool-match-factor">
   <div class="page-header">
-    <button class="tool-back" onclick="closeTool()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali
-    </button>
+    <button class="tool-back" onclick="closeTool()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali</button>
     <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Match Factor</div>
     <div style="width:60px"></div>
   </div>
   <div class="content">
-
-    <!-- Loader -->
     <div class="card">
       <div class="card-title">Loader</div>
       <div class="grid3f">
-        <div class="field">
-          <label>Merek</label>
+        <div class="field"><label>Merek</label>
           <select id="mf-loaderBrand" onchange="mfOnLoaderBrand()">
-            <option value="">— merek —</option>
-            <option value="komatsu">Komatsu</option>
-            <option value="hitachi">Hitachi</option>
-            <option value="cat">Caterpillar</option>
-            <option value="custom">Manual</option>
+            <option value="">— merek —</option><option value="komatsu">Komatsu</option><option value="hitachi">Hitachi</option><option value="cat">Caterpillar</option><option value="custom">Manual</option>
           </select>
         </div>
-        <div class="field">
-          <label>Model</label>
-          <select id="mf-loaderModel" onchange="mfOnLoaderModel()" disabled>
-            <option value="">— model —</option>
-          </select>
+        <div class="field"><label>Model</label>
+          <select id="mf-loaderModel" onchange="mfOnLoaderModel()" disabled><option value="">— model —</option></select>
         </div>
         <div class="field">
           <label>Bucket cap <span class="badge-edited" id="mf-bucketBadge">edited</span></label>
           <div class="input-row">
             <input type="number" id="mf-bucketCap" value="10" step="0.1" oninput="mfOnBucketEdit()">
-            <div class="seg">
-              <button class="on" id="mf-btn-ton" onclick="mfSetBucketMode('ton')">t</button>
-              <button id="mf-btn-m3" onclick="mfSetBucketMode('m3')">m³</button>
-            </div>
+            <div class="seg"><button class="on" id="mf-btn-ton" onclick="mfSetBucketMode('ton')">t</button><button id="mf-btn-m3" onclick="mfSetBucketMode('m3')">m³</button></div>
           </div>
         </div>
       </div>
@@ -488,38 +303,23 @@ select option{background:var(--bg3)}
         <div class="field"><label>Densitas material</label><input type="number" id="mf-density" value="1.8" step="0.05" oninput="mfCalc()"><div class="unit">t/m³</div></div>
       </div>
       <div class="grid2f">
-        <div class="field"><label>Fill factor</label><input type="number" id="mf-fillFactor" value="0.9" step="0.01" oninput="mfCalc()"><div class="unit">ratio</div></div>
+        <div class="field"><label>Fill factor</label><input type="number" id="mf-fillFactor" value="0.9" step="0.01" oninput="mfCalc()"><div class="unit">ratio (0.85–1.0 tipikal)</div></div>
         <div class="field"><label>Cycle time loader</label><input type="number" id="mf-loaderCycle" value="30" step="1" oninput="mfCalc()"><div class="unit">detik/bucket</div></div>
       </div>
     </div>
-
-    <!-- Hauler -->
     <div class="card">
       <div class="card-title">Hauler</div>
       <div class="grid3f" style="margin-bottom:10px">
-        <div class="field">
-          <label>Jenis</label>
+        <div class="field"><label>Jenis</label>
           <select id="mf-haulerType" onchange="mfOnHaulerType()">
-            <option value="">— jenis —</option>
-            <option value="rigid">Rigid DT</option>
-            <option value="articulated">Articulated DT</option>
-            <option value="custom">Manual</option>
+            <option value="">— jenis —</option><option value="rigid">Rigid DT</option><option value="articulated">Articulated DT</option><option value="custom">Manual</option>
           </select>
         </div>
-        <div class="field">
-          <label>Merek</label>
-          <select id="mf-haulerBrand" onchange="mfOnHaulerBrand()" disabled><option value="">— merek —</option></select>
-        </div>
-        <div class="field">
-          <label>Model</label>
-          <select id="mf-haulerModel" onchange="mfOnHaulerModel()" disabled><option value="">— model —</option></select>
-        </div>
+        <div class="field"><label>Merek</label><select id="mf-haulerBrand" onchange="mfOnHaulerBrand()" disabled><option value="">— merek —</option></select></div>
+        <div class="field"><label>Model</label><select id="mf-haulerModel" onchange="mfOnHaulerModel()" disabled><option value="">— model —</option></select></div>
       </div>
       <div class="grid2f" style="margin-bottom:10px">
-        <div class="field">
-          <label>Vessel capacity <span class="badge-edited" id="mf-vesselBadge">edited</span></label>
-          <input type="number" id="mf-haulerCap" value="100" step="5" oninput="mfOnVesselEdit()"><div class="unit">ton</div>
-        </div>
+        <div class="field"><label>Vessel capacity <span class="badge-edited" id="mf-vesselBadge">edited</span></label><input type="number" id="mf-haulerCap" value="100" step="5" oninput="mfOnVesselEdit()"><div class="unit">ton</div></div>
         <div class="field"><label>Spotting time</label><input type="number" id="mf-spotting" value="30" step="5" oninput="mfCalc()"><div class="unit">detik</div></div>
       </div>
       <div class="field" style="max-width:180px;margin-bottom:10px">
@@ -549,8 +349,6 @@ select option{background:var(--bg3)}
         <div class="field" style="max-width:180px;margin-top:4px"><label>Queue time (avg/cycle)</label><input type="number" id="mf-queueTimeDirect" value="0" step="5" oninput="mfCalc()"><div class="unit">detik (opsional)</div></div>
       </div>
     </div>
-
-    <!-- Target -->
     <div class="card">
       <div class="card-title">Target</div>
       <div class="grid2f">
@@ -558,7 +356,6 @@ select option{background:var(--bg3)}
         <div class="field"><label>Jam operasi / shift</label><input type="number" id="mf-opHours" value="10" step="0.5" oninput="mfCalc()"><div class="unit">jam</div></div>
       </div>
     </div>
-
     <div id="mf-result"></div>
     <div style="height:8px"></div>
   </div>
@@ -567,9 +364,7 @@ select option{background:var(--bg3)}
 <!-- ========== TOOL: HAULING CYCLE ========== -->
 <div class="screen" id="tool-hauling-cycle">
   <div class="page-header">
-    <button class="tool-back" onclick="closeTool()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali
-    </button>
+    <button class="tool-back" onclick="closeTool()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali</button>
     <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Hauling Cycle</div>
     <div style="width:60px"></div>
   </div>
@@ -580,9 +375,10 @@ select option{background:var(--bg3)}
         <div class="field"><label>Payload per trip</label><input type="number" id="hc-payload" value="100" step="5" oninput="hcCalc()"><div class="unit">ton</div></div>
         <div class="field"><label>Jam operasi / shift</label><input type="number" id="hc-hours" value="10" step="0.5" oninput="hcCalc()"><div class="unit">jam</div></div>
       </div>
-      <div class="grid2f">
+      <div class="grid3f">
         <div class="field"><label>Jumlah hauler</label><input type="number" id="hc-n" value="5" step="1" oninput="hcCalc()"><div class="unit">unit</div></div>
-        <div class="field"><label>Mechanical availability</label><input type="number" id="hc-ma" value="85" step="1" oninput="hcCalc()"><div class="unit">%</div></div>
+        <div class="field"><label>Mech. availability (MA)</label><input type="number" id="hc-ma" value="85" step="1" oninput="hcCalc()"><div class="unit">%</div></div>
+        <div class="field"><label>Job efficiency (PA)</label><input type="number" id="hc-pa" value="83" step="1" oninput="hcCalc()"><div class="unit">% (50min/jam=83%)</div></div>
       </div>
     </div>
     <div class="card">
@@ -606,13 +402,11 @@ select option{background:var(--bg3)}
   </div>
 </div>
 
-<!-- ========== TOOL: TONASE COAL/ORE ========== -->
+<!-- ========== TOOL: TONASE BATUBARA ========== -->
 <div class="screen" id="tool-tonase">
   <div class="page-header">
-    <button class="tool-back" onclick="closeTool()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali
-    </button>
-    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Tonase Coal / Ore</div>
+    <button class="tool-back" onclick="closeTool()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali</button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Tonase Batubara</div>
     <div style="width:60px"></div>
   </div>
   <div class="content">
@@ -621,40 +415,204 @@ select option{background:var(--bg3)}
       <div class="toggle-row">
         <div class="seg">
           <button class="on" id="tn-btn-volume" onclick="tnSetMode('volume')">Dari Volume</button>
-          <button id="tn-btn-seam" onclick="tnSetMode('seam')">Dari Seam</button>
+          <button id="tn-btn-seam" onclick="tnSetMode('seam')">Dari Dimensi Seam</button>
         </div>
       </div>
-
       <div id="tn-mode-volume">
         <div class="grid2f">
-          <div class="field"><label>Volume bank</label><input type="number" id="tn-volume" value="1000" step="100" oninput="tnCalc()"><div class="unit">m³ (BCM)</div></div>
+          <div class="field"><label>Volume bank (BCM)</label><input type="number" id="tn-volume" value="1000" step="100" oninput="tnCalc()"><div class="unit">m³ in-situ</div></div>
           <div class="field"><label>Densitas in-situ</label><input type="number" id="tn-density" value="1.35" step="0.01" oninput="tnCalc()"><div class="unit">t/m³</div></div>
         </div>
       </div>
-
       <div id="tn-mode-seam" style="display:none">
         <div class="grid3f">
           <div class="field"><label>Panjang area</label><input type="number" id="tn-length" value="100" step="10" oninput="tnCalc()"><div class="unit">meter</div></div>
           <div class="field"><label>Lebar area</label><input type="number" id="tn-width" value="50" step="10" oninput="tnCalc()"><div class="unit">meter</div></div>
           <div class="field"><label>Tebal seam</label><input type="number" id="tn-thick" value="3" step="0.1" oninput="tnCalc()"><div class="unit">meter</div></div>
         </div>
-        <div class="field" style="max-width:180px"><label>Densitas in-situ</label><input type="number" id="tn-density2" value="1.35" step="0.01" oninput="tnCalc()"><div class="unit">t/m³</div></div>
+        <div class="field" style="max-width:180px"><label>Densitas in-situ</label><input type="number" id="tn-density2" value="1.35" step="0.01" oninput="tnCalc()"><div class="unit">t/m³ (batubara: 1.2–1.5)</div></div>
       </div>
     </div>
-
     <div class="card">
-      <div class="card-title">Parameter Kualitas</div>
+      <div class="card-title">Parameter Kualitas & Recovery</div>
       <div class="grid2f">
-        <div class="field"><label>Total moisture (TM)</label><input type="number" id="tn-tm" value="28" step="0.5" oninput="tnCalc()"><div class="unit">%</div></div>
-        <div class="field"><label>Ash content (dry basis)</label><input type="number" id="tn-ash" value="5" step="0.5" oninput="tnCalc()"><div class="unit">%</div></div>
+        <div class="field"><label>Total moisture (TM ar)</label><input type="number" id="tn-tm" value="28" step="0.5" oninput="tnCalc()"><div class="unit">% as-received</div></div>
+        <div class="field"><label>Ash content (ar)</label><input type="number" id="tn-ash" value="5" step="0.5" oninput="tnCalc()"><div class="unit">% as-received</div></div>
       </div>
       <div class="grid2f">
-        <div class="field"><label>Recovery factor</label><input type="number" id="tn-recovery" value="90" step="1" oninput="tnCalc()"><div class="unit">%</div></div>
-        <div class="field"><label>Dilution factor</label><input type="number" id="tn-dilution" value="0" step="0.5" oninput="tnCalc()"><div class="unit">% (opsional)</div></div>
+        <div class="field"><label>Mining recovery</label><input type="number" id="tn-recovery" value="90" step="1" oninput="tnCalc()"><div class="unit">% (losses saat penambangan)</div></div>
+        <div class="field"><label>Dilution factor</label><input type="number" id="tn-dilution" value="0" step="0.5" oninput="tnCalc()"><div class="unit">% material pengotor</div></div>
       </div>
     </div>
-
     <div id="tn-result"></div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<!-- ========== TOOL: VOLUME OB ========== -->
+<div class="screen" id="tool-ob-volume">
+  <div class="page-header">
+    <button class="tool-back" onclick="closeTool()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali</button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Volume OB</div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="card-title">Metode Perhitungan</div>
+      <div class="toggle-row">
+        <div class="seg">
+          <button class="on" id="ob-btn-block" onclick="obSetMode('block')">Block</button>
+          <button id="ob-btn-aea" onclick="obSetMode('aea')">End Area</button>
+          <button id="ob-btn-prismatoid" onclick="obSetMode('prismatoid')">Prismatoid</button>
+        </div>
+      </div>
+      <!-- Block Method -->
+      <div id="ob-mode-block">
+        <div class="grid3f">
+          <div class="field"><label>Panjang</label><input type="number" id="ob-length" value="200" step="10" oninput="obCalc()"><div class="unit">meter</div></div>
+          <div class="field"><label>Lebar</label><input type="number" id="ob-width" value="100" step="10" oninput="obCalc()"><div class="unit">meter</div></div>
+          <div class="field"><label>Tinggi rata-rata</label><input type="number" id="ob-height" value="20" step="1" oninput="obCalc()"><div class="unit">meter</div></div>
+        </div>
+      </div>
+      <!-- Average End Area -->
+      <div id="ob-mode-aea" style="display:none">
+        <div class="info-note">Metode Average End Area: Volume = L × (A₁ + A₂) / 2. Cocok untuk ruas jalan tambang atau bench yang memanjang.</div>
+        <div class="grid3f">
+          <div class="field"><label>Luas penampang A₁</label><input type="number" id="ob-a1" value="500" step="10" oninput="obCalc()"><div class="unit">m²</div></div>
+          <div class="field"><label>Luas penampang A₂</label><input type="number" id="ob-a2" value="600" step="10" oninput="obCalc()"><div class="unit">m²</div></div>
+          <div class="field"><label>Jarak (L)</label><input type="number" id="ob-L-aea" value="50" step="5" oninput="obCalc()"><div class="unit">meter</div></div>
+        </div>
+      </div>
+      <!-- Prismatoid -->
+      <div id="ob-mode-prismatoid" style="display:none">
+        <div class="info-note">Prismatoid: V = L × (A₁ + 4Aₘ + A₂) / 6. Lebih akurat dari end area untuk volume yang tidak beraturan.</div>
+        <div class="grid2f">
+          <div class="field"><label>Luas penampang A₁</label><input type="number" id="ob-p1" value="500" step="10" oninput="obCalc()"><div class="unit">m²</div></div>
+          <div class="field"><label>Luas penampang tengah Aₘ</label><input type="number" id="ob-pm" value="550" step="10" oninput="obCalc()"><div class="unit">m²</div></div>
+        </div>
+        <div class="grid2f">
+          <div class="field"><label>Luas penampang A₂</label><input type="number" id="ob-p2" value="600" step="10" oninput="obCalc()"><div class="unit">m²</div></div>
+          <div class="field"><label>Jarak (L)</label><input type="number" id="ob-L-pri" value="50" step="5" oninput="obCalc()"><div class="unit">meter</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Material & Swell Factor</div>
+      <div class="grid2f">
+        <div class="field">
+          <label>Jenis material</label>
+          <select id="ob-material" onchange="obSetMaterial()">
+            <option value="1.30">OB Campuran (SF 1.30)</option>
+            <option value="1.25">Tanah / Lempung (SF 1.25)</option>
+            <option value="1.35">Batupasir / Sandstone (SF 1.35)</option>
+            <option value="1.30">Serpih / Shale (SF 1.30)</option>
+            <option value="1.45">Batugamping (SF 1.45)</option>
+            <option value="custom">Masukkan manual</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Swell factor</label>
+          <input type="number" id="ob-sf" value="1.30" step="0.01" oninput="obCalc()">
+          <div class="unit">BCM × SF = LCM</div>
+        </div>
+      </div>
+      <div class="field" style="max-width:200px">
+        <label>Densitas OB (in-situ)</label>
+        <input type="number" id="ob-density" value="2.0" step="0.05" oninput="obCalc()">
+        <div class="unit">t/m³</div>
+      </div>
+    </div>
+    <div id="ob-result"></div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<!-- ========== TOOL: STRIPPING RATIO ========== -->
+<div class="screen" id="tool-sr">
+  <div class="page-header">
+    <button class="tool-back" onclick="closeTool()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali</button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Stripping Ratio</div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="card-title">Data Overburden</div>
+      <div class="toggle-row">
+        <span class="toggle-label">Input OB —</span>
+        <div class="seg">
+          <button class="on" id="sr-btn-vol" onclick="srSetMode('vol')">Volume (BCM)</button>
+          <button id="sr-btn-mass" onclick="srSetMode('mass')">Massa (ton)</button>
+        </div>
+      </div>
+      <div id="sr-mode-vol">
+        <div class="grid2f">
+          <div class="field"><label>Volume OB</label><input type="number" id="sr-ob-vol" value="500000" step="1000" oninput="srCalc()"><div class="unit">BCM (m³ bank)</div></div>
+          <div class="field"><label>Densitas OB in-situ</label><input type="number" id="sr-ob-density" value="2.0" step="0.05" oninput="srCalc()"><div class="unit">t/m³</div></div>
+        </div>
+      </div>
+      <div id="sr-mode-mass" style="display:none">
+        <div class="field" style="max-width:220px"><label>Massa OB</label><input type="number" id="sr-ob-mass" value="1000000" step="1000" oninput="srCalc()"><div class="unit">ton</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Data Batubara</div>
+      <div class="grid2f">
+        <div class="field"><label>Tonase ROM batubara</label><input type="number" id="sr-coal-ton" value="100000" step="1000" oninput="srCalc()"><div class="unit">ton</div></div>
+        <div class="field"><label>Harga jual batubara</label><input type="number" id="sr-coal-price" value="80" step="1" oninput="srCalc()"><div class="unit">USD/ton (opsional)</div></div>
+      </div>
+      <div class="field" style="max-width:220px">
+        <label>Biaya OB removal</label><input type="number" id="sr-ob-cost" value="3.5" step="0.1" oninput="srCalc()"><div class="unit">USD/BCM (opsional)</div>
+      </div>
+    </div>
+    <div id="sr-result"></div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<!-- ========== TOOL: ROAD GRADE ========== -->
+<div class="screen" id="tool-road-grade">
+  <div class="page-header">
+    <button class="tool-back" onclick="closeTool()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali</button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Road Grade</div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="card-title">Data Geometri Jalan</div>
+      <div class="toggle-row">
+        <div class="seg">
+          <button class="on" id="rg-btn-survey" onclick="rgSetMode('survey')">Dari Survey</button>
+          <button id="rg-btn-direct" onclick="rgSetMode('direct')">Input Grade Langsung</button>
+        </div>
+      </div>
+      <div id="rg-mode-survey">
+        <div class="grid2f">
+          <div class="field"><label>Jarak horizontal</label><input type="number" id="rg-dist" value="500" step="10" oninput="rgCalc()"><div class="unit">meter</div></div>
+          <div class="field"><label>Beda elevasi</label><input type="number" id="rg-elev" value="25" step="1" oninput="rgCalc()"><div class="unit">meter (naik = positif)</div></div>
+        </div>
+      </div>
+      <div id="rg-mode-direct" style="display:none">
+        <div class="field" style="max-width:200px"><label>Grade jalan</label><input type="number" id="rg-grade-direct" value="5" step="0.1" oninput="rgCalc()"><div class="unit">% (naik = positif)</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Kondisi Jalan & Muatan</div>
+      <div class="grid2f">
+        <div class="field">
+          <label>Rolling resistance</label>
+          <select id="rg-rr" onchange="rgCalc()">
+            <option value="2">Baik — aspal/beton (2%)</option>
+            <option value="3" selected>Sedang — gravel padat (3%)</option>
+            <option value="4">Buruk — gravel lepas (4%)</option>
+            <option value="5">Sangat buruk — tanah basah (5%)</option>
+            <option value="custom">Manual</option>
+          </select>
+        </div>
+        <div class="field"><label>RR manual</label><input type="number" id="rg-rr-custom" value="3" step="0.5" oninput="rgCalc()" style="display:none"><div class="unit">%</div></div>
+        <div class="field"><label>Berat kendaraan isi</label><input type="number" id="rg-gwt" value="200" step="10" oninput="rgCalc()"><div class="unit">ton (GVW)</div></div>
+      </div>
+    </div>
+    <div id="rg-result"></div>
     <div style="height:8px"></div>
   </div>
 </div>
@@ -662,10 +620,8 @@ select option{background:var(--bg3)}
 <!-- ========== TOOL: PDT EXCAVATOR ========== -->
 <div class="screen" id="tool-pdt-excavator">
   <div class="page-header">
-    <button class="tool-back" onclick="closeTool()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali
-    </button>
-    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Produktivitas Excavator</div>
+    <button class="tool-back" onclick="closeTool()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali</button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">PDT Excavator</div>
     <div style="width:60px"></div>
   </div>
   <div class="content">
@@ -680,10 +636,10 @@ select option{background:var(--bg3)}
         <div class="field"><label>Cycle time</label><input type="number" id="ex-cycle" value="25" step="1" oninput="exCalc()"><div class="unit">detik/siklus</div></div>
         <div class="field"><label>Swing angle</label>
           <select id="ex-swing" onchange="exCalc()">
-            <option value="1.0">45°–90° (1.00)</option>
-            <option value="0.96">90°–120° (0.96)</option>
-            <option value="0.91">120°–150° (0.91)</option>
-            <option value="0.87">150°–180° (0.87)</option>
+            <option value="1.0">45°–90° (faktor 1.00)</option>
+            <option value="0.96">90°–120° (faktor 0.96)</option>
+            <option value="0.91">120°–150° (faktor 0.91)</option>
+            <option value="0.87">150°–180° (faktor 0.87)</option>
           </select>
         </div>
       </div>
@@ -692,7 +648,7 @@ select option{background:var(--bg3)}
       <div class="card-title">Parameter Operasi</div>
       <div class="grid2f">
         <div class="field"><label>Jam operasi / shift</label><input type="number" id="ex-hours" value="10" step="0.5" oninput="exCalc()"><div class="unit">jam</div></div>
-        <div class="field"><label>Job efficiency</label><input type="number" id="ex-eff" value="83" step="1" oninput="exCalc()"><div class="unit">% (50min/jam = 83%)</div></div>
+        <div class="field"><label>Job efficiency</label><input type="number" id="ex-eff" value="83" step="1" oninput="exCalc()"><div class="unit">% (50 min/jam = 83%)</div></div>
       </div>
       <div class="grid2f">
         <div class="field"><label>Mechanical availability (MA)</label><input type="number" id="ex-ma" value="85" step="1" oninput="exCalc()"><div class="unit">%</div></div>
@@ -707,10 +663,8 @@ select option{background:var(--bg3)}
 <!-- ========== TOOL: PDT HAULER ========== -->
 <div class="screen" id="tool-pdt-hauler">
   <div class="page-header">
-    <button class="tool-back" onclick="closeTool()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali
-    </button>
-    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Produktivitas Hauler</div>
+    <button class="tool-back" onclick="closeTool()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali</button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">PDT Hauler</div>
     <div style="width:60px"></div>
   </div>
   <div class="content">
@@ -741,7 +695,7 @@ select option{background:var(--bg3)}
       <div class="card-title">Parameter Operasi</div>
       <div class="grid3f">
         <div class="field"><label>Jam operasi / shift</label><input type="number" id="ph-hours" value="10" step="0.5" oninput="phCalc()"><div class="unit">jam</div></div>
-        <div class="field"><label>Mechanical availability</label><input type="number" id="ph-ma" value="85" step="1" oninput="phCalc()"><div class="unit">%</div></div>
+        <div class="field"><label>Mech. availability (MA)</label><input type="number" id="ph-ma" value="85" step="1" oninput="phCalc()"><div class="unit">%</div></div>
         <div class="field"><label>Job efficiency</label><input type="number" id="ph-eff" value="83" step="1" oninput="phCalc()"><div class="unit">%</div></div>
       </div>
     </div>
@@ -750,88 +704,459 @@ select option{background:var(--bg3)}
   </div>
 </div>
 
+<!-- ========== TOOL: PDT BULLDOZER ========== -->
+<div class="screen" id="tool-pdt-dozer">
+  <div class="page-header">
+    <button class="tool-back" onclick="closeTool()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali</button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">PDT Bulldozer</div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="card-title">Spesifikasi Unit</div>
+      <div class="grid3f">
+        <div class="field"><label>Merek</label>
+          <select id="dz-brand" onchange="dzOnBrand()">
+            <option value="">— merek —</option><option value="cat">Caterpillar</option><option value="komatsu">Komatsu</option><option value="custom">Manual</option>
+          </select>
+        </div>
+        <div class="field"><label>Model</label>
+          <select id="dz-model" onchange="dzOnModel()" disabled><option value="">— model —</option></select>
+        </div>
+        <div class="field"><label>Kapasitas blade</label><input type="number" id="dz-blade" value="8.0" step="0.5" oninput="dzCalc()"><div class="unit">m³ (struck)</div></div>
+      </div>
+      <div class="grid2f">
+        <div class="field"><label>Fill factor blade</label><input type="number" id="dz-fill" value="0.85" step="0.05" oninput="dzCalc()"><div class="unit">0.7–1.1 sesuai material</div></div>
+        <div class="field"><label>Densitas material</label><input type="number" id="dz-density" value="1.8" step="0.05" oninput="dzCalc()"><div class="unit">t/m³</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Parameter Operasi Dozing</div>
+      <div class="grid2f">
+        <div class="field"><label>Jarak dorong</label><input type="number" id="dz-dist" value="50" step="5" oninput="dzCalc()"><div class="unit">meter</div></div>
+        <div class="field"><label>Kecepatan dorong</label><input type="number" id="dz-push-spd" value="3.5" step="0.5" oninput="dzCalc()"><div class="unit">km/h (gigi 1–2)</div></div>
+      </div>
+      <div class="grid2f">
+        <div class="field"><label>Kecepatan balik</label><input type="number" id="dz-return-spd" value="6.0" step="0.5" oninput="dzCalc()"><div class="unit">km/h (gear mundur)</div></div>
+        <div class="field"><label>Waktu manuver</label><input type="number" id="dz-maneuver" value="15" step="5" oninput="dzCalc()"><div class="unit">detik (ganti gigi)</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Faktor Ketersediaan</div>
+      <div class="grid3f">
+        <div class="field"><label>Jam operasi / shift</label><input type="number" id="dz-hours" value="10" step="0.5" oninput="dzCalc()"><div class="unit">jam</div></div>
+        <div class="field"><label>Mech. availability (MA)</label><input type="number" id="dz-ma" value="85" step="1" oninput="dzCalc()"><div class="unit">%</div></div>
+        <div class="field"><label>Job efficiency</label><input type="number" id="dz-eff" value="83" step="1" oninput="dzCalc()"><div class="unit">%</div></div>
+      </div>
+    </div>
+    <div id="dz-result"></div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<!-- ========== TOOL: CT STOPWATCH ========== -->
+<div class="screen" id="tool-ct-stopwatch">
+  <div class="page-header">
+    <button class="tool-back" onclick="closeTool();swReset()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali</button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">CT Stopwatch</div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="sw-timer" id="sw-display">0:00</div>
+      <div class="sw-phase-name" id="sw-phase-name">Tekan MULAI untuk memulai siklus</div>
+      <div class="sw-phase-elapsed" id="sw-phase-elapsed"></div>
+      <div class="sw-phases" id="sw-phases">
+        <div class="sw-phase-row"><div class="sw-pdot" id="sw-dot-0"></div><span class="sw-plabel" id="sw-lbl-0">Spotting</span><span class="sw-ptime" id="sw-time-0">—</span></div>
+        <div class="sw-phase-row"><div class="sw-pdot" id="sw-dot-1"></div><span class="sw-plabel" id="sw-lbl-1">Loading</span><span class="sw-ptime" id="sw-time-1">—</span></div>
+        <div class="sw-phase-row"><div class="sw-pdot" id="sw-dot-2"></div><span class="sw-plabel" id="sw-lbl-2">Travel Isi</span><span class="sw-ptime" id="sw-time-2">—</span></div>
+        <div class="sw-phase-row"><div class="sw-pdot" id="sw-dot-3"></div><span class="sw-plabel" id="sw-lbl-3">Dumping</span><span class="sw-ptime" id="sw-time-3">—</span></div>
+        <div class="sw-phase-row"><div class="sw-pdot" id="sw-dot-4"></div><span class="sw-plabel" id="sw-lbl-4">Travel Kosong</span><span class="sw-ptime" id="sw-time-4">—</span></div>
+      </div>
+      <div class="sw-btn-row">
+        <button class="sw-btn sw-start" id="sw-btn-main" onclick="swAction()">MULAI</button>
+        <button class="sw-btn sw-reset" onclick="swReset()">RESET</button>
+      </div>
+    </div>
+    <div id="sw-cycles-result"></div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<!-- ========== TOOL: WATER TRUCK ========== -->
+<div class="screen" id="tool-water-truck">
+  <div class="page-header">
+    <button class="tool-back" onclick="closeTool()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali</button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Water Truck</div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="content">
+    <div class="info-note">Menghitung jumlah water truck yang dibutuhkan agar seluruh area jalan tambang tersirami sesuai frekuensi yang ditetapkan per shift.</div>
+
+    <div class="card">
+      <div class="card-title">Area & Kebutuhan Penyiraman</div>
+      <div class="grid2f">
+        <div class="field">
+          <label>Total panjang jalan disiram</label>
+          <input type="number" id="wt-road-len" value="5" step="0.5" oninput="wtCalc()">
+          <div class="unit">km (haul road aktif)</div>
+        </div>
+        <div class="field">
+          <label>Lebar jalan</label>
+          <input type="number" id="wt-road-width" value="20" step="1" oninput="wtCalc()">
+          <div class="unit">meter (termasuk bahu jalan)</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Application rate</label>
+        <input type="number" id="wt-app-rate" value="2.0" step="0.1" oninput="wtCalc()">
+        <div class="unit">liter/m² per pass</div>
+        <div class="site-note"><b>⚙ Bergantung kondisi:</b> dry season debu halus → 2.5–3 L/m². Musim hujan / debu kasar → 1.5–2 L/m². <i>Contoh umum: 2 L/m².</i></div>
+      </div>
+      <div class="field">
+        <label>Frekuensi penyiraman per shift</label>
+        <input type="number" id="wt-freq" value="4" step="1" oninput="wtCalc()">
+        <div class="unit">passes/shift (berapa kali jalan disiram ulang)</div>
+        <div class="site-note"><b>⚙ Bergantung traffic & cuaca:</b> Jalan dengan 50+ hauler/jam → 4–6×/shift. Jalan sekunder → 2–3×/shift. <i>Contoh: site kering aktif = 4–5 passes/shift.</i></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Spesifikasi Water Truck</div>
+      <div class="grid2f">
+        <div class="field">
+          <label>Kapasitas tangki</label>
+          <input type="number" id="wt-tank" value="20000" step="1000" oninput="wtCalc()">
+          <div class="unit">liter (tipikal: 15.000–30.000 L)</div>
+        </div>
+        <div class="field">
+          <label>Fill factor tangki</label>
+          <input type="number" id="wt-fill-factor" value="0.90" step="0.05" oninput="wtCalc()">
+          <div class="unit">ratio (biasanya 0.85–0.95)</div>
+        </div>
+      </div>
+      <div class="grid3f">
+        <div class="field">
+          <label>Waktu pengisian (fill)</label>
+          <input type="number" id="wt-fill-time" value="8" step="1" oninput="wtCalc()">
+          <div class="unit">menit</div>
+        </div>
+        <div class="field">
+          <label>Jarak ke sumber air</label>
+          <input type="number" id="wt-water-dist" value="1.5" step="0.5" oninput="wtCalc()">
+          <div class="unit">km (one way)</div>
+        </div>
+        <div class="field">
+          <label>Kecepatan rata-rata</label>
+          <input type="number" id="wt-speed" value="30" step="5" oninput="wtCalc()">
+          <div class="unit">km/h</div>
+        </div>
+      </div>
+      <div class="field" style="max-width:200px">
+        <label>Spray rate (debit semprot)</label>
+        <input type="number" id="wt-spray-rate" value="600" step="50" oninput="wtCalc()">
+        <div class="unit">liter/menit</div>
+        <div class="site-note"><b>⚙ Bergantung nozzle & tekanan pompa:</b> Spray bar lebar → 400–800 L/menit. <i>Cek spec unit atau ukur langsung di lapangan.</i></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Parameter Operasi</div>
+      <div class="grid3f">
+        <div class="field"><label>Jam operasi / shift</label><input type="number" id="wt-hours" value="10" step="0.5" oninput="wtCalc()"><div class="unit">jam</div></div>
+        <div class="field"><label>Mech. availability (MA)</label><input type="number" id="wt-ma" value="85" step="1" oninput="wtCalc()"><div class="unit">%</div></div>
+        <div class="field"><label>Job efficiency (PA)</label><input type="number" id="wt-pa" value="83" step="1" oninput="wtCalc()"><div class="unit">%</div></div>
+      </div>
+    </div>
+    <div id="wt-result"></div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<!-- ========== TOOL: MOTOR GRADER ========== -->
+<div class="screen" id="tool-grader">
+  <div class="page-header">
+    <button class="tool-back" onclick="closeTool()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali</button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Motor Grader</div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="content">
+    <div class="info-note">Menghitung jumlah motor grader berdasarkan total kilometer jalan yang harus di-grade per shift, kecepatan operasi, dan jumlah passes yang dibutuhkan.</div>
+
+    <div class="card">
+      <div class="card-title">Data Jalan & Frekuensi Grading</div>
+      <div class="grid2f">
+        <div class="field">
+          <label>Total panjang jalan di-grade</label>
+          <input type="number" id="gr-road-km" value="8" step="0.5" oninput="grCalc()">
+          <div class="unit">km (total haul road yang dikelola)</div>
+        </div>
+        <div class="field">
+          <label>Lebar jalan</label>
+          <input type="number" id="gr-road-width" value="20" step="1" oninput="grCalc()">
+          <div class="unit">meter</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Frekuensi grading per shift</label>
+        <input type="number" id="gr-freq" value="1" step="0.5" oninput="grCalc()">
+        <div class="unit">× per shift (1 = semua jalan di-grade 1× per shift)</div>
+        <div class="site-note"><b>⚙ Bergantung volume traffic & kondisi material:</b>
+          Main haul road aktif (basah/rusak) → 2–3×/shift.
+          Main haul road normal → 1×/shift.
+          Secondary road → 0.5×/shift (every 2 shifts).
+          <i>Contoh: haul road 50 HD, kondisi kering = 1–2×/shift.</i></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Spesifikasi Grader</div>
+      <div class="grid3f">
+        <div class="field">
+          <label>Panjang blade</label>
+          <input type="number" id="gr-blade" value="3.7" step="0.1" oninput="grCalc()">
+          <div class="unit">meter (CAT 14M=3.7m, 16M=4.9m)</div>
+        </div>
+        <div class="field">
+          <label>Sudut blade (blade angle)</label>
+          <input type="number" id="gr-angle" value="45" step="5" oninput="grCalc()">
+          <div class="unit">derajat (tipikal 30°–60°)</div>
+        </div>
+        <div class="field">
+          <label>Overlap antar pass</label>
+          <input type="number" id="gr-overlap" value="0.3" step="0.1" oninput="grCalc()">
+          <div class="unit">meter (biasanya 0.2–0.5 m)</div>
+        </div>
+      </div>
+      <div class="grid2f">
+        <div class="field">
+          <label>Kecepatan grading</label>
+          <input type="number" id="gr-speed" value="5" step="0.5" oninput="grCalc()">
+          <div class="unit">km/h</div>
+          <div class="site-note"><b>⚙ Bergantung kondisi kerja:</b> Light touch-up (perawatan rutin) → 6–10 km/h. Grading normal → 4–6 km/h. Kondisi rusak/basah → 2–4 km/h. <i>Contoh umum: 5 km/h.</i></div>
+        </div>
+        <div class="field">
+          <label>Passes per section (arah)</label>
+          <input type="number" id="gr-passes" value="2" step="1" oninput="grCalc()">
+          <div class="unit">pass per satu arah jalan</div>
+          <div class="site-note"><b>⚙ Bergantung kondisi jalan:</b> Maintenance rutin → 1–2 pass. Jalan rusak ringan → 2–3 pass. Restorasi total → 3–5 pass. <i>Contoh normal: 2 pass.</i></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Parameter Operasi</div>
+      <div class="grid3f">
+        <div class="field"><label>Jam operasi / shift</label><input type="number" id="gr-hours" value="10" step="0.5" oninput="grCalc()"><div class="unit">jam</div></div>
+        <div class="field"><label>Mech. availability (MA)</label><input type="number" id="gr-ma" value="85" step="1" oninput="grCalc()"><div class="unit">%</div></div>
+        <div class="field"><label>Job efficiency (PA)</label><input type="number" id="gr-pa" value="75" step="1" oninput="grCalc()"><div class="unit">% (termasuk waktu turning)</div></div>
+      </div>
+    </div>
+    <div id="gr-result"></div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<!-- ========== TOOL: DOZER DUMP ========== -->
+<div class="screen" id="tool-dump-dozer">
+  <div class="page-header">
+    <button class="tool-back" onclick="closeTool()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg> Kembali</button>
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600">Dozer Dump</div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="content">
+    <div class="info-note">Menghitung jumlah bulldozer di area dumping berdasarkan laju kedatangan material hauler dan kapasitas push dozer. Dozer dump harus mampu menyebarkan material lebih cepat dari laju kedatangan.</div>
+
+    <div class="card">
+      <div class="card-title">Laju Kedatangan Material ke Dump</div>
+      <div class="toggle-row">
+        <div class="seg">
+          <button class="on" id="dd-btn-fleet" onclick="ddSetMode('fleet')">Dari Fleet Hauler</button>
+          <button id="dd-btn-direct" onclick="ddSetMode('direct')">Input Langsung</button>
+        </div>
+      </div>
+      <div id="dd-mode-fleet">
+        <div class="grid3f">
+          <div class="field"><label>Jumlah hauler aktif</label><input type="number" id="dd-trucks" value="5" step="1" oninput="ddCalc()"><div class="unit">unit</div></div>
+          <div class="field"><label>Payload per trip</label><input type="number" id="dd-payload" value="100" step="5" oninput="ddCalc()"><div class="unit">ton</div></div>
+          <div class="field"><label>Trips / hauler / jam</label><input type="number" id="dd-trips-h" value="2.5" step="0.5" oninput="ddCalc()"><div class="unit">trip/jam</div></div>
+        </div>
+      </div>
+      <div id="dd-mode-direct" style="display:none">
+        <div class="field" style="max-width:220px">
+          <label>Laju kedatangan</label>
+          <input type="number" id="dd-delivery" value="1250" step="50" oninput="ddCalc()">
+          <div class="unit">ton/jam ke area dump</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Spesifikasi Dozer di Dump</div>
+      <div class="grid3f">
+        <div class="field"><label>Kapasitas blade</label><input type="number" id="dd-blade" value="11.5" step="0.5" oninput="ddCalc()"><div class="unit">m³ (struck)</div></div>
+        <div class="field"><label>Fill factor blade</label><input type="number" id="dd-fill" value="0.80" step="0.05" oninput="ddCalc()"><div class="unit">0.7–0.9 sesuai material</div></div>
+        <div class="field"><label>Densitas material</label><input type="number" id="dd-density" value="1.8" step="0.05" oninput="ddCalc()"><div class="unit">t/m³</div></div>
+      </div>
+      <div class="grid3f">
+        <div class="field"><label>Jarak dorong di dump</label><input type="number" id="dd-dist" value="30" step="5" oninput="ddCalc()"><div class="unit">meter</div></div>
+        <div class="field"><label>Speed dorong</label><input type="number" id="dd-push-spd" value="3.0" step="0.5" oninput="ddCalc()"><div class="unit">km/h</div></div>
+        <div class="field"><label>Speed balik</label><input type="number" id="dd-return-spd" value="5.5" step="0.5" oninput="ddCalc()"><div class="unit">km/h</div></div>
+      </div>
+      <div class="grid3f">
+        <div class="field"><label>Waktu manuver</label><input type="number" id="dd-maneuver" value="15" step="5" oninput="ddCalc()"><div class="unit">detik</div></div>
+        <div class="field"><label>Mech. availability (MA)</label><input type="number" id="dd-ma" value="85" step="1" oninput="ddCalc()"><div class="unit">%</div></div>
+        <div class="field"><label>Job efficiency</label><input type="number" id="dd-eff" value="80" step="1" oninput="ddCalc()"><div class="unit">%</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Safety Factor</div>
+      <div class="field">
+        <label>Safety factor dozer</label>
+        <select id="dd-sf-sel" onchange="ddSetSF()">
+          <option value="1.1">1.10 — Single bench, dump flat & teratur</option>
+          <option value="1.2" selected>1.20 — Multi-bench atau dump tidak teratur (umum)</option>
+          <option value="1.3">1.30 — Dump sempit, dozer juga bertugas road making</option>
+          <option value="custom">Masukkan manual</option>
+        </select>
+        <div class="site-note"><b>⚙ Bergantung konfigurasi dump:</b>
+          SF 1.1 = dump tunggal, material seragam, dozer hanya spreading.
+          SF 1.2 = operasi normal multi-bench atau ada waktu idle akibat antrean hauler.
+          SF 1.3 = dozer merangkap pekerjaan lain (road making, leveling), dump area sempit, atau traffic hauler tidak merata.
+          <i>Contoh umum operasi tambang batubara Indonesia: SF 1.2.</i></div>
+      </div>
+      <div id="dd-sf-custom-wrap" style="display:none;max-width:180px">
+        <div class="field"><label>Safety factor manual</label><input type="number" id="dd-sf-custom" value="1.2" step="0.05" oninput="ddCalc()"><div class="unit">faktor pengali</div></div>
+      </div>
+    </div>
+    <div id="dd-result"></div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
 <!-- ========== BOTTOM NAV ========== -->
 <div class="nav" id="main-nav">
   <button class="nav-btn active" id="nav-home" onclick="showScreen('home')">
-    <div class="nav-icon-wrap">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    </div>
+    <div class="nav-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
     HOME
   </button>
-  <button class="nav-btn" id="nav-calc" onclick="showScreen('calc')">
-    <div class="nav-icon-wrap">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg>
-    </div>
-    CALC
-  </button>
-  <button class="nav-btn" id="nav-pdt" onclick="showScreen('pdt')">
-    <div class="nav-icon-wrap">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-    </div>
-    PDT'Y
+  <button class="nav-btn" id="nav-tools" onclick="showScreen('tools')">
+    <div class="nav-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg></div>
+    TOOLS
   </button>
   <button class="nav-btn" id="nav-setup" onclick="showScreen('setup')">
-    <div class="nav-icon-wrap">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-    </div>
+    <div class="nav-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
     SETUP
   </button>
 </div>
 
 <script>
 // ==================== NAVIGATION ====================
-let prevScreen = 'home';
-let currentScreen = 'home';
+let prevScreen='home',currentScreen='home';
 
-function showScreen(name) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-' + name).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('nav-' + name).classList.add('active');
-  document.getElementById('main-nav').style.display = 'flex';
-  currentScreen = name;
+// Tool metadata for dynamic card rendering (recent tools)
+const TOOL_META={
+  'match-factor':  {name:'Match Factor',    desc:'Keseimbangan fleet loader & hauler',   icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="5" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="6" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="18"/></svg>'},
+  'hauling-cycle': {name:'Hauling Cycle',   desc:'Siklus, trip & produksi hauler',       icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>'},
+  'tonase':        {name:'Tonase Batubara', desc:'Estimasi ROM, clean coal & CV',        icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>'},
+  'ob-volume':     {name:'Volume OB',       desc:'Volume overburden BCM & LCM',          icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>'},
+  'sr':            {name:'Stripping Ratio', desc:'Rasio pengupasan OB per ton batubara', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6l9-4 9 4v6c0 5.5-3.8 10.7-9 12C6.8 22.7 3 17.5 3 12V6z"/></svg>'},
+  'road-grade':    {name:'Road Grade',      desc:'Grade jalan, hambatan & rimpull',      icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>'},
+  'pdt-excavator': {name:'PDT Excavator',   desc:'Output excavator per jam & shift',     icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 20h20"/><path d="M6 20V10l6-7 4 4-4 4v9"/><path d="M6 14h8"/></svg>'},
+  'pdt-hauler':    {name:'PDT Hauler',      desc:'Output dump truck per jam & shift',    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>'},
+  'pdt-dozer':     {name:'PDT Bulldozer',   desc:'Produktivitas dozing & ripping',       icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 17l4-8h12l4 8H2z"/><path d="M6 9V6h12v3"/><rect x="3" y="17" width="18" height="4" rx="1"/></svg>'},
+  'ct-stopwatch':  {name:'CT Stopwatch',    desc:'Ukur cycle time di lapangan',          icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'},
+  'water-truck':   {name:'Water Truck',     desc:'Kebutuhan water truck dust suppression',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2C6 2 2 7 2 12s4 10 10 10 10-4.5 10-10S18 2 12 2z"/><path d="M12 6v6l4 2"/></svg>'},
+  'grader':        {name:'Motor Grader',    desc:'Kebutuhan grader perawatan jalan',     icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 17h20M5 17V9l7-4 7 4v8"/><path d="M5 13h14"/></svg>'},
+  'dump-dozer':    {name:'Dozer Dump',      desc:'Kebutuhan dozer di area dumping',      icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 17h18M3 17l3-8h12l3 8"/><path d="M7 9V6h10v3"/><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/></svg>'},
+};
+const DEFAULT_RECENT=['match-factor','hauling-cycle','tonase'];
+let recentTools=[...DEFAULT_RECENT];
+
+function loadRecent(){
+  try{const s=localStorage.getItem('mt_recent');if(s)recentTools=JSON.parse(s);}catch(e){}
+  if(!recentTools||!recentTools.length)recentTools=[...DEFAULT_RECENT];
+  renderHomeRecent();
+}
+function trackRecent(id){
+  recentTools=[id,...recentTools.filter(t=>t!==id)].slice(0,3);
+  try{localStorage.setItem('mt_recent',JSON.stringify(recentTools));}catch(e){}
+}
+function renderHomeRecent(){
+  const c=document.getElementById('home-recent');
+  if(!c)return;
+  c.innerHTML=recentTools.map(id=>{
+    const m=TOOL_META[id];if(!m)return'';
+    return`<div class="home-card" onclick="openTool('${id}')"><div class="card-icon">${m.icon}</div><div class="card-name">${m.name}</div><div class="card-desc">${m.desc}</div></div>`;
+  }).join('');
 }
 
-function openTool(name) {
-  prevScreen = currentScreen;
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('tool-' + name).classList.add('active');
-  document.getElementById('main-nav').style.display = 'none';
+function showScreen(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const nb=document.getElementById('nav-'+name);if(nb)nb.classList.add('active');
+  document.getElementById('main-nav').style.display='flex';
+  currentScreen=name;
+  // Reset search when leaving tools screen
+  if(name!=='tools'){const si=document.getElementById('tools-search');if(si)si.value='';filterTools('');}
+}
+function openTool(name){
+  prevScreen=currentScreen;
+  trackRecent(name);
+  // Update home recent immediately if we came from home
+  if(prevScreen==='home')renderHomeRecent();
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('tool-'+name).classList.add('active');
+  document.getElementById('main-nav').style.display='none';
   window.scrollTo(0,0);
-  if(name==='match-factor') mfCalc();
-  if(name==='hauling-cycle') hcCalc();
-  if(name==='tonase') tnCalc();
-  if(name==='pdt-excavator') exCalc();
-  if(name==='pdt-hauler') phCalc();
+  const calcMap={'match-factor':mfCalc,'hauling-cycle':hcCalc,'tonase':tnCalc,'ob-volume':obCalc,'sr':srCalc,'road-grade':rgCalc,'pdt-excavator':exCalc,'pdt-hauler':phCalc,'pdt-dozer':dzCalc,'water-truck':wtCalc,'grader':grCalc,'dump-dozer':ddCalc};
+  if(calcMap[name])calcMap[name]();
 }
-
-function closeTool() {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-' + prevScreen).classList.add('active');
-  document.getElementById('main-nav').style.display = 'flex';
+function closeTool(){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+prevScreen).classList.add('active');
+  document.getElementById('main-nav').style.display='flex';
+  // Re-activate correct nav button
+  const nb=document.getElementById('nav-'+prevScreen);
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  if(nb)nb.classList.add('active');
   window.scrollTo(0,0);
 }
 
-function filterCalc(q) {
-  const cards = document.querySelectorAll('#calc-grid .home-card');
-  cards.forEach(c => {
-    const name = c.dataset.name || '';
-    c.style.display = name.includes(q.toLowerCase()) ? '' : 'none';
+function filterTools(q){
+  const lower=q.toLowerCase().trim();
+  const sections=['produksi','mining','support'];
+  document.querySelectorAll('#screen-tools .home-card').forEach(card=>{
+    card.style.display=(!lower||(card.dataset.name||'').includes(lower))?'':'none';
   });
+  let anyVisible=false;
+  sections.forEach(sec=>{
+    const grid=document.getElementById('grid-'+sec);
+    const lbl=document.getElementById('lbl-'+sec);
+    if(!grid)return;
+    const has=Array.from(grid.querySelectorAll('.home-card')).some(c=>c.style.display!=='none');
+    if(grid)grid.style.display=has?'':'none';
+    if(lbl)lbl.style.display=has?'':'none';
+    if(has)anyVisible=true;
+  });
+  const empty=document.getElementById('tools-empty');
+  if(empty)empty.style.display=(!anyVisible&&lower)?'block':'none';
 }
 
 // ==================== HELPERS ====================
-function v(id){ return parseFloat(document.getElementById(id).value)||0; }
-function fmtT(s){ const m=Math.floor(s/60),sec=Math.round(s%60); return m>0?`${m}m ${sec}s`:`${sec}s`; }
-function fmtN(n){ return n.toLocaleString('id-ID'); }
+function v(id){return parseFloat(document.getElementById(id).value)||0;}
+function fmtT(s){const m=Math.floor(s/60),sec=Math.round(s%60);return m>0?`${m}m ${sec}s`:`${sec}s`;}
+function fmtN(n){return n.toLocaleString('id-ID');}
 
 // ==================== MATCH FACTOR DATA ====================
-const MF_LOADERS = {
+const MF_LOADERS={
   komatsu:[{model:'PC200',bM3:0.93,bT:1.6},{model:'PC400',bM3:1.9,bT:3.2},{model:'PC800',bM3:4.0,bT:6.8},{model:'PC1250',bM3:5.8,bT:9.9},{model:'PC2000',bM3:10.0,bT:17.0},{model:'PC3000',bM3:15.0,bT:25.5},{model:'PC4000',bM3:22.0,bT:37.4}],
   hitachi:[{model:'EX1200',bM3:5.6,bT:9.5},{model:'EX1900',bM3:10.5,bT:17.9},{model:'EX2500',bM3:15.0,bT:25.5},{model:'EX3600',bM3:21.0,bT:35.7},{model:'EX5500',bM3:29.0,bT:49.3},{model:'EX8000',bM3:42.0,bT:71.4}],
   cat:[{model:'390F',bM3:3.8,bT:6.5},{model:'395',bM3:4.2,bT:7.1},{model:'6015B',bM3:15.0,bT:25.5},{model:'6020B',bM3:20.0,bT:34.0},{model:'6030',bM3:28.0,bT:47.6},{model:'6040',bM3:36.5,bT:62.1},{model:'6060',bM3:52.0,bT:88.4}],
 };
-const MF_HAULERS = {
+const MF_HAULERS={
   rigid:{
     cat:[{model:'777G',p:99},{model:'785D',p:136},{model:'789D',p:181},{model:'793F',p:227},{model:'795F AC',p:272},{model:'797F',p:363}],
     komatsu:[{model:'HD785-8',p:91},{model:'HD985-7',p:100},{model:'930E-5',p:291},{model:'960E-2',p:327},{model:'980E-5',p:363}],
@@ -843,7 +1168,7 @@ const MF_HAULERS = {
     cat:[{model:'730',p:28},{model:'735',p:32.7},{model:'740',p:39.5},{model:'745',p:41.8}],
   },
 };
-const MF_HLABELS = {cat:'Caterpillar',komatsu:'Komatsu',liebherr:'Liebherr',bell:'Bell',volvo:'Volvo'};
+const MF_HLABELS={cat:'Caterpillar',komatsu:'Komatsu',liebherr:'Liebherr',bell:'Bell',volvo:'Volvo'};
 let mfBucketMode='ton',mfMode='breakdown',mfLoaderPreset=null,mfHaulerPreset=null;
 
 function mfSetBucketMode(m){
@@ -852,8 +1177,7 @@ function mfSetBucketMode(m){
   document.getElementById('mf-btn-m3').className=m==='m3'?'on':'';
   document.getElementById('mf-density-field').style.display=m==='m3'?'':'none';
   if(mfLoaderPreset){
-    const b=document.getElementById('mf-loaderBrand').value;
-    const mod=document.getElementById('mf-loaderModel').value;
+    const b=document.getElementById('mf-loaderBrand').value,mod=document.getElementById('mf-loaderModel').value;
     const d=MF_LOADERS[b]?.find(x=>x.model===mod);
     if(d){const val=m==='ton'?d.bT:d.bM3;document.getElementById('mf-bucketCap').value=val;mfLoaderPreset=val;document.getElementById('mf-bucketBadge').style.display='none';}
   }
@@ -878,51 +1202,45 @@ function mfOnVesselEdit(){
   mfCalc();
 }
 function mfOnLoaderBrand(){
-  const b=document.getElementById('mf-loaderBrand').value;
-  const sel=document.getElementById('mf-loaderModel');
-  sel.innerHTML='<option value="">— model —</option>';
-  sel.disabled=!b||b==='custom';
-  mfLoaderPreset=null;
+  const b=document.getElementById('mf-loaderBrand').value,sel=document.getElementById('mf-loaderModel');
+  sel.innerHTML='<option value="">— model —</option>';sel.disabled=!b||b==='custom';mfLoaderPreset=null;
   document.getElementById('mf-bucketBadge').style.display='none';
   if(b&&b!=='custom') MF_LOADERS[b].forEach(d=>{const o=document.createElement('option');o.value=d.model;o.textContent=`${d.model} (${mfBucketMode==='ton'?d.bT+' t':d.bM3+' m³'})`;sel.appendChild(o);});
   mfCalc();
 }
 function mfOnLoaderModel(){
-  const b=document.getElementById('mf-loaderBrand').value;const m=document.getElementById('mf-loaderModel').value;
+  const b=document.getElementById('mf-loaderBrand').value,m=document.getElementById('mf-loaderModel').value;
   if(!m||!MF_LOADERS[b])return;
   const d=MF_LOADERS[b].find(x=>x.model===m);if(!d)return;
   const val=mfBucketMode==='ton'?d.bT:d.bM3;
   document.getElementById('mf-bucketCap').value=val;mfLoaderPreset=val;document.getElementById('mf-bucketBadge').style.display='none';mfCalc();
 }
 function mfOnHaulerType(){
-  const t=document.getElementById('mf-haulerType').value;
-  const bs=document.getElementById('mf-haulerBrand');const ms=document.getElementById('mf-haulerModel');
+  const t=document.getElementById('mf-haulerType').value,bs=document.getElementById('mf-haulerBrand'),ms=document.getElementById('mf-haulerModel');
   bs.innerHTML='<option value="">— merek —</option>';ms.innerHTML='<option value="">— model —</option>';
   bs.disabled=!t||t==='custom';ms.disabled=true;mfHaulerPreset=null;document.getElementById('mf-vesselBadge').style.display='none';
   if(t&&t!=='custom') Object.keys(MF_HAULERS[t]).forEach(b=>{const o=document.createElement('option');o.value=b;o.textContent=MF_HLABELS[b]||b;bs.appendChild(o);});
   mfCalc();
 }
 function mfOnHaulerBrand(){
-  const t=document.getElementById('mf-haulerType').value;const b=document.getElementById('mf-haulerBrand').value;
+  const t=document.getElementById('mf-haulerType').value,b=document.getElementById('mf-haulerBrand').value;
   const ms=document.getElementById('mf-haulerModel');ms.innerHTML='<option value="">— model —</option>';
   ms.disabled=!b;mfHaulerPreset=null;document.getElementById('mf-vesselBadge').style.display='none';
   if(b&&MF_HAULERS[t]?.[b]) MF_HAULERS[t][b].forEach(d=>{const o=document.createElement('option');o.value=d.model;o.textContent=`${d.model} (${d.p} t)`;ms.appendChild(o);});
   mfCalc();
 }
 function mfOnHaulerModel(){
-  const t=document.getElementById('mf-haulerType').value;const b=document.getElementById('mf-haulerBrand').value;const m=document.getElementById('mf-haulerModel').value;
+  const t=document.getElementById('mf-haulerType').value,b=document.getElementById('mf-haulerBrand').value,m=document.getElementById('mf-haulerModel').value;
   if(!m||!MF_HAULERS[t]?.[b])return;
   const d=MF_HAULERS[t][b].find(x=>x.model===m);if(!d)return;
   document.getElementById('mf-haulerCap').value=d.p;mfHaulerPreset=d.p;document.getElementById('mf-vesselBadge').style.display='none';mfCalc();
 }
-
 function mfStatusBadge(mf){
   if(mf<0.85)return['background:rgba(248,113,113,.15);color:#f87171','Loader idle'];
   if(mf<=1.0)return['background:rgba(74,222,128,.15);color:#4ade80','Optimal'];
   if(mf<=1.15)return['background:rgba(251,146,60,.15);color:#fb923c','Slight over-truck'];
   return['background:rgba(248,113,113,.15);color:#f87171','Over-trucked'];
 }
-
 function mfCalc(){
   const fillFactor=v('mf-fillFactor'),loaderCycle=v('mf-loaderCycle'),haulerCap=v('mf-haulerCap');
   const spotting=v('mf-spotting'),dumping=v('mf-dumping'),targetMF=v('mf-targetMF'),opHours=v('mf-opHours');
@@ -930,27 +1248,26 @@ function mfCalc(){
   const bucketFill=bucketCapTon*fillFactor;
   if(bucketFill<=0||haulerCap<=0)return;
   const bucketsPerTruck=Math.ceil(haulerCap/bucketFill);
-  const payload=bucketsPerTruck*bucketFill;
+  const payload=Math.min(bucketsPerTruck*bucketFill,haulerCap*1.05);
   const loadingTime=bucketsPerTruck*loaderCycle;
   let travelL,travelE,queueT;
   if(mfMode==='breakdown'){
     const dist=v('mf-distance'),spL=v('mf-speedLoaded'),spE=v('mf-speedEmpty');
     travelL=spL>0?(dist/spL)*3600:0;travelE=spE>0?(dist/spE)*3600:0;queueT=v('mf-queueTime');
-  } else {travelL=v('mf-travelLoaded');travelE=v('mf-travelEmpty');queueT=v('mf-queueTimeDirect');}
+  }else{travelL=v('mf-travelLoaded');travelE=v('mf-travelEmpty');queueT=v('mf-queueTimeDirect');}
   const ctLoader=spotting+loadingTime;
   const ctHauler=spotting+loadingTime+travelL+dumping+travelE+queueT;
   if(ctLoader<=0||ctHauler<=0)return;
   const mfPerTruck=ctHauler/ctLoader;
   const nExact=targetMF*mfPerTruck;
-  const nFloor=Math.max(1,Math.floor(nExact));
-  const nCeil=Math.ceil(nExact);
+  const nFloor=Math.max(1,Math.floor(nExact)),nCeil=Math.ceil(nExact);
   const prodPerTruckH=(3600/ctHauler)*payload;
   const loaderOutputH=(3600/ctLoader)*payload;
   const minN=Math.max(1,nFloor-1),maxN=nCeil+2;
   const rows=[];for(let n=minN;n<=maxN;n++)rows.push([n,n*ctLoader/ctHauler]);
   const bkData=[
     ['Spotting',spotting,'#60a5fa'],['Loading',loadingTime,'#f0b429'],
-    ['Travel (loaded)',travelL,'#4ade80'],['Dumping',dumping,'#c084fc'],['Travel (empty)',travelE,'#34d399'],
+    ['Travel isi',travelL,'#4ade80'],['Dumping',dumping,'#c084fc'],['Travel kosong',travelE,'#34d399'],
     queueT>0?['Queuing',queueT,'#f87171']:null
   ].filter(Boolean);
   document.getElementById('mf-result').innerHTML=`
@@ -962,8 +1279,7 @@ function mfCalc(){
   </div>
   <div class="card">
     <div class="card-title">Breakdown Waktu Siklus Hauler</div>
-    ${bkData.map(([lbl,val,col])=>`
-    <div class="breakdown-row">
+    ${bkData.map(([lbl,val,col])=>`<div class="breakdown-row">
       <span class="bk-label">${lbl}</span>
       <div class="bk-bar"><div class="bk-fill" style="width:${(val/ctHauler*100).toFixed(1)}%;background:${col}"></div></div>
       <span class="bk-val">${fmtT(val)} <span style="color:var(--text3);font-size:10px">${(val/ctHauler*100).toFixed(0)}%</span></span>
@@ -975,61 +1291,48 @@ function mfCalc(){
   </div>
   <div class="card">
     <div class="card-title">Hasil Match Factor</div>
-    <div style="font-size:12px;color:var(--text2);margin-bottom:8px">
-      MF per truck = CTH / CTL = ${ctHauler.toFixed(1)}s / ${ctLoader.toFixed(1)}s = <strong style="color:var(--text);font-size:14px">${mfPerTruck.toFixed(3)}</strong>
-    </div>
-    <div style="font-size:12px;color:var(--text2);margin-bottom:12px">
-      Hauler dibutuhkan = Target MF × MF per truck = ${targetMF} × ${mfPerTruck.toFixed(3)} = <strong style="color:var(--gold);font-size:14px">${nExact.toFixed(2)} unit</strong>
-    </div>
-    <table class="data-table">
-      <thead><tr><th>Fleet</th><th>MF</th><th>Util Loader</th><th>Prod/shift</th><th>Status</th></tr></thead>
-      <tbody>
-      ${rows.map(([n,mf])=>{
-        const [st,lbl]=mfStatusBadge(mf);
-        const effProd=Math.min(n*prodPerTruckH,loaderOutputH)*opHours;
-        const isT=n===nFloor||n===nCeil;
-        return`<tr class="${isT?'highlight':''}">
-          <td style="font-weight:${isT?600:400}">${n} unit${isT?' ★':''}</td>
-          <td>${mf.toFixed(3)}</td>
-          <td>${(Math.min(1,mf)*100).toFixed(1)}%</td>
-          <td>${fmtN(Math.round(effProd))}</td>
-          <td><span class="status-badge" style="${st}">${lbl}</span></td>
-        </tr>`;}).join('')}
-      </tbody>
-    </table>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:8px">MF per truck = CTH / CTL = ${ctHauler.toFixed(1)}s / ${ctLoader.toFixed(1)}s = <strong style="color:var(--text);font-size:14px">${mfPerTruck.toFixed(3)}</strong></div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:12px">Hauler dibutuhkan = Target MF × MF/truck = ${targetMF} × ${mfPerTruck.toFixed(3)} = <strong style="color:var(--gold);font-size:14px">${nExact.toFixed(2)} unit</strong></div>
+    <table class="data-table"><thead><tr><th>Fleet</th><th>MF</th><th>Util Loader</th><th>Prod/shift</th><th>Status</th></tr></thead><tbody>
+    ${rows.map(([n,mf])=>{
+      const[st,lbl]=mfStatusBadge(mf);
+      const effProd=Math.min(n*prodPerTruckH,loaderOutputH)*opHours;
+      const isT=n===nFloor||n===nCeil;
+      return`<tr class="${isT?'highlight':''}"><td style="font-weight:${isT?600:400}">${n} unit${isT?' ★':''}</td><td>${mf.toFixed(3)}</td><td>${(Math.min(1,mf)*100).toFixed(1)}%</td><td>${fmtN(Math.round(effProd))}</td><td><span class="status-badge" style="${st}">${lbl}</span></td></tr>`;
+    }).join('')}
+    </tbody></table>
     <div style="font-size:10px;color:var(--text3);margin-top:8px">★ = paling dekat target MF ${targetMF}</div>
   </div>`;
 }
 
-// ==================== HAULING CYCLE ====================
+// ==================== HAULING CYCLE (+ job efficiency PA) ====================
 function hcCalc(){
-  const payload=v('hc-payload'),hours=v('hc-hours'),n=v('hc-n'),ma=v('hc-ma')/100;
+  const payload=v('hc-payload'),hours=v('hc-hours'),n=v('hc-n');
+  const ma=v('hc-ma')/100,pa=v('hc-pa')/100;
   const loading=v('hc-loading'),spot=v('hc-spot'),dist=v('hc-dist');
   const spL=v('hc-speedL'),spE=v('hc-speedE'),dump=v('hc-dump'),queue=v('hc-queue');
   const tL=spL>0?(dist/spL)*3600:0,tE=spE>0?(dist/spE)*3600:0;
   const ct=spot+loading+tL+dump+tE+queue;
   if(ct<=0||payload<=0)return;
   const tripsPerHour=3600/ct;
-  const tripsPerShift=tripsPerHour*hours*ma;
-  const prodPerUnitH=tripsPerHour*payload;
-  const prodPerUnitShift=prodPerUnitH*hours*ma;
+  const tripsPerShift=tripsPerHour*hours*ma*pa;
+  const prodPerUnitShift=payload*tripsPerShift;
   const totalProdShift=prodPerUnitShift*n;
   const bkData=[
     ['Spotting',spot,'#60a5fa'],['Loading',loading,'#f0b429'],
-    ['Travel (loaded)',tL,'#4ade80'],['Dumping',dump,'#c084fc'],['Travel (empty)',tE,'#34d399'],
+    ['Travel isi',tL,'#4ade80'],['Dumping',dump,'#c084fc'],['Travel kosong',tE,'#34d399'],
     queue>0?['Queuing',queue,'#f87171']:null
   ].filter(Boolean);
   document.getElementById('hc-result').innerHTML=`
   <div class="kpi-row">
     <div class="kpi"><div class="kpi-lbl">Cycle time</div><div class="kpi-val gold">${fmtT(ct)}</div><div class="kpi-sub">per trip</div></div>
-    <div class="kpi"><div class="kpi-lbl">Trips / shift / unit</div><div class="kpi-val">${tripsPerShift.toFixed(1)}</div><div class="kpi-sub">dgn MA ${(ma*100).toFixed(0)}%</div></div>
+    <div class="kpi"><div class="kpi-lbl">Trips / shift / unit</div><div class="kpi-val">${tripsPerShift.toFixed(1)}</div><div class="kpi-sub">MA ${(ma*100).toFixed(0)}% × PA ${(pa*100).toFixed(0)}%</div></div>
     <div class="kpi"><div class="kpi-lbl">Prod / unit / shift</div><div class="kpi-val">${fmtN(Math.round(prodPerUnitShift))} t</div><div class="kpi-sub">${tripsPerShift.toFixed(1)} trip × ${payload} t</div></div>
-    <div class="kpi"><div class="kpi-lbl">Total ${n} unit / shift</div><div class="kpi-val gold">${fmtN(Math.round(totalProdShift))} t</div><div class="kpi-sub">target produksi</div></div>
+    <div class="kpi"><div class="kpi-lbl">Total ${n} unit / shift</div><div class="kpi-val gold">${fmtN(Math.round(totalProdShift))} t</div><div class="kpi-sub">target produksi fleet</div></div>
   </div>
   <div class="card">
     <div class="card-title">Breakdown Waktu Siklus</div>
-    ${bkData.map(([lbl,val,col])=>`
-    <div class="breakdown-row">
+    ${bkData.map(([lbl,val,col])=>`<div class="breakdown-row">
       <span class="bk-label">${lbl}</span>
       <div class="bk-bar"><div class="bk-fill" style="width:${(val/ct*100).toFixed(1)}%;background:${col}"></div></div>
       <span class="bk-val">${fmtT(val)} <span style="color:var(--text3);font-size:10px">${(val/ct*100).toFixed(0)}%</span></span>
@@ -1041,7 +1344,7 @@ function hcCalc(){
   </div>`;
 }
 
-// ==================== TONASE ====================
+// ==================== TONASE BATUBARA (formula fix) ====================
 let tnMode='volume';
 function tnSetMode(m){
   tnMode=m;
@@ -1055,27 +1358,172 @@ function tnCalc(){
   let volBCM=0,density=0;
   if(tnMode==='volume'){volBCM=v('tn-volume');density=v('tn-density');}
   else{volBCM=v('tn-length')*v('tn-width')*v('tn-thick');density=v('tn-density2');}
-  const tm=v('tn-tm')/100,ash=v('tn-ash')/100,recovery=v('tn-recovery')/100,dilution=v('tn-dilution')/100;
+  const tm=v('tn-tm')/100,ash=v('tn-ash')/100;
+  const recovery=v('tn-recovery')/100,dilution=v('tn-dilution')/100;
   if(volBCM<=0||density<=0)return;
   const romTon=volBCM*density;
   const grossTon=romTon*(1+dilution);
-  const airDried=grossTon*(1-tm);
-  const cleanTon=grossTon*recovery*(1-ash);
-  const cv=6700*(1-tm)*(1-ash)-600*tm;
+  // FIX: clean coal = gross tonnage × recovery saja
+  // (ash & TM menentukan kualitas, bukan mengurangi tonase dua kali)
+  const cleanTon=grossTon*recovery;
+  const tm_pct=tm*100,ash_pct=ash*100;
+  // CV formula empiris untuk batubara Indonesia (basis as-received)
+  // CV_ar ≈ 8131 − 117×TM − 81.7×Ash + 0.4×TM² + 0.6×TM×Ash (kcal/kg)
+  const cv=Math.max(0,8131-117*tm_pct-81.7*ash_pct+0.4*tm_pct*tm_pct+0.6*tm_pct*ash_pct);
   document.getElementById('tn-result').innerHTML=`
   <div class="kpi-row">
     <div class="kpi"><div class="kpi-lbl">Volume BCM</div><div class="kpi-val">${fmtN(Math.round(volBCM))} m³</div><div class="kpi-sub">in-situ bank</div></div>
     <div class="kpi"><div class="kpi-lbl">ROM Tonase</div><div class="kpi-val gold">${fmtN(Math.round(romTon))} t</div><div class="kpi-sub">sebelum dilusi</div></div>
     <div class="kpi"><div class="kpi-lbl">Gross Tonase</div><div class="kpi-val">${fmtN(Math.round(grossTon))} t</div><div class="kpi-sub">+dilusi ${(dilution*100).toFixed(1)}%</div></div>
-    <div class="kpi"><div class="kpi-lbl">Clean Coal/Ore</div><div class="kpi-val gold">${fmtN(Math.round(cleanTon))} t</div><div class="kpi-sub">recovery × (1-ash)</div></div>
+    <div class="kpi"><div class="kpi-lbl">Clean Coal (produk)</div><div class="kpi-val gold">${fmtN(Math.round(cleanTon))} t</div><div class="kpi-sub">recovery ${(recovery*100).toFixed(0)}%</div></div>
   </div>
   <div class="card">
-    <div class="card-title">Detail Kalkulasi</div>
-    <div class="breakdown-row"><span class="bk-label">Volume × Densitas</span><div class="bk-bar"></div><span class="bk-val">${fmtN(Math.round(volBCM))} × ${density} = ${fmtN(Math.round(romTon))} t</span></div>
-    <div class="breakdown-row"><span class="bk-label">Total moisture</span><div class="bk-bar"><div class="bk-fill" style="width:${(tm*100).toFixed(0)}%;background:#60a5fa"></div></div><span class="bk-val">${(tm*100).toFixed(1)}%</span></div>
-    <div class="breakdown-row"><span class="bk-label">Ash content</span><div class="bk-bar"><div class="bk-fill" style="width:${(ash*100).toFixed(0)}%;background:#f87171"></div></div><span class="bk-val">${(ash*100).toFixed(1)}%</span></div>
-    <div class="breakdown-row"><span class="bk-label">Recovery factor</span><div class="bk-bar"><div class="bk-fill" style="width:${(recovery*100).toFixed(0)}%;background:#4ade80"></div></div><span class="bk-val">${(recovery*100).toFixed(1)}%</span></div>
-    <div class="breakdown-row" style="border-bottom:none"><span class="bk-label">Est. Calorific Value</span><div class="bk-bar"></div><span class="bk-val" style="color:var(--gold)">${Math.round(cv).toLocaleString()} kcal/kg</span></div>
+    <div class="card-title">Detail & Kualitas</div>
+    <div class="breakdown-row"><span class="bk-label">Volume × Densitas</span><div class="bk-bar"></div><span class="bk-val">${fmtN(Math.round(volBCM))} × ${density} t/m³</span></div>
+    <div class="breakdown-row"><span class="bk-label">Total moisture (TM)</span><div class="bk-bar"><div class="bk-fill" style="width:${Math.min(100,tm_pct).toFixed(0)}%;background:#60a5fa"></div></div><span class="bk-val">${tm_pct.toFixed(1)}%</span></div>
+    <div class="breakdown-row"><span class="bk-label">Ash content (ar)</span><div class="bk-bar"><div class="bk-fill" style="width:${Math.min(100,ash_pct).toFixed(0)}%;background:#f87171"></div></div><span class="bk-val">${ash_pct.toFixed(1)}%</span></div>
+    <div class="breakdown-row"><span class="bk-label">Recovery</span><div class="bk-bar"><div class="bk-fill" style="width:${(recovery*100).toFixed(0)}%;background:#4ade80"></div></div><span class="bk-val">${(recovery*100).toFixed(1)}%</span></div>
+    <div class="breakdown-row" style="border-bottom:none"><span class="bk-label">Est. CV (ar)</span><div class="bk-bar"></div><span class="bk-val" style="color:var(--gold)">${Math.round(cv).toLocaleString()} kcal/kg</span></div>
+  </div>
+  <div class="info-note">CV dihitung dengan formula empiris untuk batubara Indonesia (as-received basis). Gunakan hasil lab untuk nilai akurat.</div>`;
+}
+
+// ==================== VOLUME OB ====================
+let obMode='block';
+function obSetMode(m){
+  obMode=m;
+  ['block','aea','prismatoid'].forEach(x=>{
+    document.getElementById('ob-mode-'+x).style.display=x===m?'':'none';
+    document.getElementById('ob-btn-'+x).className=x===m?'on':'';
+  });
+  obCalc();
+}
+function obSetMaterial(){
+  const sel=document.getElementById('ob-material'),sf=document.getElementById('ob-sf');
+  if(sel.value==='custom') return;
+  sf.value=sel.value;
+  obCalc();
+}
+function obCalc(){
+  let bcm=0;
+  if(obMode==='block') bcm=v('ob-length')*v('ob-width')*v('ob-height');
+  else if(obMode==='aea') bcm=v('ob-L-aea')*(v('ob-a1')+v('ob-a2'))/2;
+  else bcm=v('ob-L-pri')*(v('ob-p1')+4*v('ob-pm')+v('ob-p2'))/6;
+  const sf=v('ob-sf'),density=v('ob-density');
+  if(bcm<=0||sf<=0)return;
+  const lcm=bcm*sf,massTon=bcm*density;
+  document.getElementById('ob-result').innerHTML=`
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-lbl">Volume BCM</div><div class="kpi-val gold">${fmtN(Math.round(bcm))} m³</div><div class="kpi-sub">bank cubic meter</div></div>
+    <div class="kpi"><div class="kpi-lbl">Volume LCM</div><div class="kpi-val">${fmtN(Math.round(lcm))} m³</div><div class="kpi-sub">loose × SF ${sf.toFixed(2)}</div></div>
+    <div class="kpi"><div class="kpi-lbl">Massa OB</div><div class="kpi-val gold">${fmtN(Math.round(massTon))} t</div><div class="kpi-sub">BCM × ${density} t/m³</div></div>
+    <div class="kpi"><div class="kpi-lbl">Ekspansi material</div><div class="kpi-val">${((sf-1)*100).toFixed(0)}%</div><div class="kpi-sub">penambahan volume saat loose</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Konversi Volume</div>
+    <div class="breakdown-row"><span class="bk-label">Bank (BCM)</span><div class="bk-bar"><div class="bk-fill" style="width:${(1/sf*100).toFixed(0)}%;background:#f0b429"></div></div><span class="bk-val">${fmtN(Math.round(bcm))} m³</span></div>
+    <div class="breakdown-row" style="border-bottom:none"><span class="bk-label">Loose (LCM)</span><div class="bk-bar"><div class="bk-fill" style="width:100%;background:#60a5fa"></div></div><span class="bk-val">${fmtN(Math.round(lcm))} m³</span></div>
+  </div>`;
+}
+
+// ==================== STRIPPING RATIO ====================
+let srMode='vol';
+function srSetMode(m){
+  srMode=m;
+  document.getElementById('sr-mode-vol').style.display=m==='vol'?'':'none';
+  document.getElementById('sr-mode-mass').style.display=m==='mass'?'':'none';
+  document.getElementById('sr-btn-vol').className=m==='vol'?'on':'';
+  document.getElementById('sr-btn-mass').className=m==='mass'?'on':'';
+  srCalc();
+}
+function srCalc(){
+  let obBCM=0,obMass=0;
+  if(srMode==='vol'){obBCM=v('sr-ob-vol');obMass=obBCM*v('sr-ob-density');}
+  else{obMass=v('sr-ob-mass');obBCM=obMass/v('sr-ob-density');}
+  const coalTon=v('sr-coal-ton'),price=v('sr-coal-price'),obCost=v('sr-ob-cost');
+  if(obBCM<=0||coalTon<=0)return;
+  const srVol=obBCM/coalTon;     // BCM per ton coal
+  const srMass=obMass/coalTon;   // ton OB per ton coal
+  let srClass,srColor;
+  if(srVol<5){srClass='Sangat Rendah';srColor='var(--success)';}
+  else if(srVol<10){srClass='Rendah';srColor='#4ade80';}
+  else if(srVol<15){srClass='Sedang';srColor='var(--warn)';}
+  else if(srVol<20){srClass='Tinggi';srColor='#f97316';}
+  else{srClass='Sangat Tinggi';srColor='var(--danger)';}
+  const revenuePerTon=price>0?price:0;
+  const obCostTotal=obCost>0?obBCM*obCost:0;
+  const grossRevenue=price>0?coalTon*price:0;
+  const netRevenue=price>0&&obCost>0?grossRevenue-obCostTotal:0;
+  document.getElementById('sr-result').innerHTML=`
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-lbl">SR Volume</div><div class="kpi-val gold">${srVol.toFixed(2)}</div><div class="kpi-sub">BCM per ton batubara</div></div>
+    <div class="kpi"><div class="kpi-lbl">SR Massa</div><div class="kpi-val">${srMass.toFixed(2)}</div><div class="kpi-sub">ton OB per ton batubara</div></div>
+    <div class="kpi"><div class="kpi-lbl">Klasifikasi</div><div class="kpi-val" style="color:${srColor};font-size:14px">${srClass}</div><div class="kpi-sub">berdasarkan SR Volume</div></div>
+    <div class="kpi"><div class="kpi-lbl">Total OB</div><div class="kpi-val">${fmtN(Math.round(obBCM))}</div><div class="kpi-sub">BCM harus digali</div></div>
+  </div>
+  ${price>0&&obCost>0?`<div class="card">
+    <div class="card-title">Analisis Ekonomi (Estimasi)</div>
+    <div class="breakdown-row"><span class="bk-label">Gross revenue</span><div class="bk-bar"></div><span class="bk-val">USD ${fmtN(Math.round(grossRevenue))}</span></div>
+    <div class="breakdown-row"><span class="bk-label">Biaya OB removal</span><div class="bk-bar"><div class="bk-fill" style="width:${Math.min(100,obCostTotal/grossRevenue*100).toFixed(0)}%;background:#f87171"></div></div><span class="bk-val">USD ${fmtN(Math.round(obCostTotal))}</span></div>
+    <div class="breakdown-row" style="border-bottom:none"><span class="bk-label" style="color:var(--text);font-weight:600">Net (setelah OB)</span><div class="bk-bar"></div><span class="bk-val" style="color:${netRevenue>0?'var(--gold)':'var(--danger)'}">USD ${fmtN(Math.round(netRevenue))}</span></div>
+  </div>`:''}
+  <div class="info-note">Panduan umum SR batubara Indonesia: &lt;5 (open pit sangat ekonomis) · 5–15 (typical operasi) · 15–25 (batas ekonomis tergantung harga) · &gt;25 (perlu kajian mendalam).</div>`;
+}
+
+// ==================== ROAD GRADE ====================
+let rgMode='survey';
+function rgSetMode(m){
+  rgMode=m;
+  document.getElementById('rg-mode-survey').style.display=m==='survey'?'':'none';
+  document.getElementById('rg-mode-direct').style.display=m==='direct'?'':'none';
+  document.getElementById('rg-btn-survey').className=m==='survey'?'on':'';
+  document.getElementById('rg-btn-direct').className=m==='direct'?'on':'';
+  const rrCustom=document.getElementById('rg-rr-custom');
+  rgCalc();
+}
+function rgCalc(){
+  const rrSel=document.getElementById('rg-rr').value;
+  const rrCustomEl=document.getElementById('rg-rr-custom');
+  rrCustomEl.style.display=rrSel==='custom'?'block':'none';
+  const rr=rrSel==='custom'?v('rg-rr-custom'):parseFloat(rrSel)||3;
+  let grade_pct=0;
+  if(rgMode==='survey'){
+    const dist=v('rg-dist');
+    if(dist<=0)return;
+    grade_pct=(v('rg-elev')/dist)*100;
+  }else{grade_pct=v('rg-grade-direct');}
+  const gwt=v('rg-gwt');
+  const ag=Math.abs(grade_pct);
+  const gradeForce=ag*10; // kg/ton
+  const rrForce=rr*10;
+  const totalForce=gradeForce+rrForce;
+  const totalRes=ag+rr;
+  let cls,clsColor;
+  if(ag<=5){cls='Optimal';clsColor='var(--success)';}
+  else if(ag<=8){cls='Acceptable';clsColor='var(--warn)';}
+  else if(ag<=12){cls='Kritis';clsColor='#f97316';}
+  else{cls='Berbahaya';clsColor='var(--danger)';}
+  const rimpullKg=gwt>0?totalForce*gwt:0;
+  document.getElementById('rg-result').innerHTML=`
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-lbl">Grade jalan</div><div class="kpi-val gold">${grade_pct.toFixed(1)}%</div><div class="kpi-sub">${ag>0?'menanjak':'menurun / datar'}</div></div>
+    <div class="kpi"><div class="kpi-lbl">Status</div><div class="kpi-val" style="color:${clsColor};font-size:16px">${cls}</div><div class="kpi-sub">standar haul road tambang</div></div>
+    <div class="kpi"><div class="kpi-lbl">Total resistance</div><div class="kpi-val">${totalRes.toFixed(1)}%</div><div class="kpi-sub">grade + rolling (${rr}%)</div></div>
+    ${gwt>0?`<div class="kpi"><div class="kpi-lbl">Rimpull dibutuhkan</div><div class="kpi-val gold">${fmtN(Math.round(rimpullKg))} kg</div><div class="kpi-sub">untuk GVW ${gwt} ton</div></div>`:'<div class="kpi"><div class="kpi-lbl">Resistansi</div><div class="kpi-val">${totalForce.toFixed(0)} kg/t</div><div class="kpi-sub">per ton GVW</div></div>'}
+  </div>
+  <div class="card">
+    <div class="card-title">Breakdown Hambatan</div>
+    <div class="breakdown-row"><span class="bk-label">Grade resistance</span><div class="bk-bar"><div class="bk-fill" style="width:${totalForce>0?(gradeForce/totalForce*100).toFixed(0):0}%;background:#f87171"></div></div><span class="bk-val">${gradeForce.toFixed(0)} kg/t · ${ag.toFixed(1)}%</span></div>
+    <div class="breakdown-row" style="border-bottom:none"><span class="bk-label">Rolling resistance</span><div class="bk-bar"><div class="bk-fill" style="width:${totalForce>0?(rrForce/totalForce*100).toFixed(0):0}%;background:#60a5fa"></div></div><span class="bk-val">${rrForce.toFixed(0)} kg/t · ${rr}%</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Rekomendasi Operasional</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.7">
+    ${ag<=5?'Grade optimal. Tidak ada pembatasan kecepatan akibat grade. Fokus pemeliharaan road surface untuk menjaga rolling resistance.':''}
+    ${ag>5&&ag<=8?`Grade normal operasi. Perkiraan pengurangan kecepatan hauler ~${Math.round((ag-5)*3)}–${Math.round((ag-5)*5)} km/h saat loaded. Pastikan RR tidak melebihi 3% pada grade ini.`:''}
+    ${ag>8&&ag<=12?`⚠ Grade kritis. Total resistance ${totalRes.toFixed(1)}% berdampak signifikan pada fuel consumption (+${Math.round(totalRes*2)}% est.) dan cycle time. Pertimbangkan redesign alignment atau switchback.`:''}
+    ${ag>12?`⛔ Melebihi batas aman operasi haul road standar (maks 10–12%). Risiko brake fade pada hauler bermuatan berat. Harus segera dilakukan redesign jalan atau gunakan alat dengan grade ability tinggi.`:''}
+    </div>
   </div>`;
 }
 
@@ -1094,7 +1542,7 @@ function exCalc(){
   document.getElementById('ex-result').innerHTML=`
   <div class="kpi-row">
     <div class="kpi"><div class="kpi-lbl">Kapasitas efektif</div><div class="kpi-val gold">${effectiveCap.toFixed(2)} t</div><div class="kpi-sub">bucket × fill × density × swing</div></div>
-    <div class="kpi"><div class="kpi-lbl">Siklus / jam</div><div class="kpi-val">${cyclesPerHour.toFixed(0)}</div><div class="kpi-sub">${cycle}s cycle time</div></div>
+    <div class="kpi"><div class="kpi-lbl">Siklus / jam</div><div class="kpi-val">${cyclesPerHour.toFixed(0)}</div><div class="kpi-sub">CT ${cycle}s</div></div>
     <div class="kpi"><div class="kpi-lbl">Produksi / jam</div><div class="kpi-val">${fmtN(Math.round(prodPerHour))} t</div><div class="kpi-sub">efisiensi ${(eff*100).toFixed(0)}%</div></div>
     <div class="kpi"><div class="kpi-lbl">Produksi / shift</div><div class="kpi-val gold">${fmtN(Math.round(prodPerShift))} t</div><div class="kpi-sub">MA ${(ma*100).toFixed(0)}% × UA ${(ua*100).toFixed(0)}%</div></div>
   </div>
@@ -1104,7 +1552,7 @@ function exCalc(){
     <div class="breakdown-row"><span class="bk-label">× Job efficiency</span><div class="bk-bar"><div class="bk-fill" style="width:${(eff*100).toFixed(0)}%;background:#f0b429"></div></div><span class="bk-val">${(eff*100).toFixed(0)}%</span></div>
     <div class="breakdown-row"><span class="bk-label">× MA</span><div class="bk-bar"><div class="bk-fill" style="width:${(ma*100).toFixed(0)}%;background:#4ade80"></div></div><span class="bk-val">${(ma*100).toFixed(0)}%</span></div>
     <div class="breakdown-row"><span class="bk-label">× UA</span><div class="bk-bar"><div class="bk-fill" style="width:${(ua*100).toFixed(0)}%;background:#60a5fa"></div></div><span class="bk-val">${(ua*100).toFixed(0)}%</span></div>
-    <div class="breakdown-row" style="border-bottom:none"><span class="bk-label" style="color:var(--text);font-weight:600">Produksi / shift</span><div class="bk-bar"></div><span class="bk-val" style="color:var(--gold)">${fmtN(Math.round(prodPerShift))} t</span></div>
+    <div class="breakdown-row" style="border-bottom:none"><span class="bk-label" style="color:var(--text);font-weight:600">Prod / shift</span><div class="bk-bar"></div><span class="bk-val" style="color:var(--gold)">${fmtN(Math.round(prodPerShift))} t</span></div>
   </div>`;
 }
 
@@ -1120,10 +1568,10 @@ function phCalc(){
   const prodPerUnitH=tripsPerHour*payload*eff*ma;
   const prodPerUnitShift=prodPerUnitH*hours;
   const totalProdShift=prodPerUnitShift*n;
-  const tripsPerShift=(tripsPerHour*eff*ma)*hours;
+  const tripsPerShift=tripsPerHour*eff*ma*hours;
   const bkData=[
     ['Spotting',spot,'#60a5fa'],['Loading',loading,'#f0b429'],
-    ['Travel (loaded)',tL,'#4ade80'],['Dumping',dump,'#c084fc'],['Travel (empty)',tE,'#34d399'],
+    ['Travel isi',tL,'#4ade80'],['Dumping',dump,'#c084fc'],['Travel kosong',tE,'#34d399'],
     queue>0?['Queuing',queue,'#f87171']:null
   ].filter(Boolean);
   document.getElementById('ph-result').innerHTML=`
@@ -1135,8 +1583,7 @@ function phCalc(){
   </div>
   <div class="card">
     <div class="card-title">Breakdown Waktu Siklus</div>
-    ${bkData.map(([lbl,val,col])=>`
-    <div class="breakdown-row">
+    ${bkData.map(([lbl,val,col])=>`<div class="breakdown-row">
       <span class="bk-label">${lbl}</span>
       <div class="bk-bar"><div class="bk-fill" style="width:${(val/ct*100).toFixed(1)}%;background:${col}"></div></div>
       <span class="bk-val">${fmtT(val)} <span style="color:var(--text3);font-size:10px">${(val/ct*100).toFixed(0)}%</span></span>
@@ -1148,8 +1595,287 @@ function phCalc(){
   </div>`;
 }
 
+// ==================== PDT BULLDOZER ====================
+const DZ_MODELS={
+  cat:[
+    {model:'D6T',blade:6.3},{model:'D7E',blade:9.0},{model:'D8T',blade:11.5},
+    {model:'D9T',blade:16.5},{model:'D10T2',blade:22.0},{model:'D11T',blade:37.0}
+  ],
+  komatsu:[
+    {model:'D65EX',blade:6.2},{model:'D85EX',blade:9.5},{model:'D155AX',blade:16.0},
+    {model:'D275AX',blade:22.0},{model:'D375AX',blade:28.0},{model:'D475AX',blade:39.0}
+  ]
+};
+function dzOnBrand(){
+  const b=document.getElementById('dz-brand').value,sel=document.getElementById('dz-model');
+  sel.innerHTML='<option value="">— model —</option>';sel.disabled=!b||b==='custom';
+  if(b&&DZ_MODELS[b]) DZ_MODELS[b].forEach(d=>{const o=document.createElement('option');o.value=d.blade;o.textContent=`${d.model} (blade ${d.blade} m³)`;sel.appendChild(o);});
+  dzCalc();
+}
+function dzOnModel(){
+  const val=document.getElementById('dz-model').value;
+  if(val) document.getElementById('dz-blade').value=val;
+  dzCalc();
+}
+function dzCalc(){
+  const blade=v('dz-blade'),fill=v('dz-fill'),density=v('dz-density');
+  const dist=v('dz-dist'),pushSpd=v('dz-push-spd'),returnSpd=v('dz-return-spd'),maneuver=v('dz-maneuver');
+  const hours=v('dz-hours'),ma=v('dz-ma')/100,eff=v('dz-eff')/100;
+  if(blade<=0||pushSpd<=0||returnSpd<=0||dist<=0)return;
+  const pushMs=pushSpd/3.6,returnMs=returnSpd/3.6;
+  const pushTime=dist/pushMs,returnTime=dist/returnMs;
+  const ct=pushTime+returnTime+maneuver; // seconds
+  const prodPerCycle=blade*fill; // m³ BCM
+  const cyclesPerHour=3600/ct;
+  const grossProdHour=cyclesPerHour*prodPerCycle;
+  const netProdHour=grossProdHour*eff*ma;
+  const netProdShift=netProdHour*hours;
+  const netProdTon=netProdShift*density;
+  document.getElementById('dz-result').innerHTML=`
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-lbl">Cycle time</div><div class="kpi-val gold">${fmtT(ct)}</div><div class="kpi-sub">push + balik + manuver</div></div>
+    <div class="kpi"><div class="kpi-lbl">Siklus / jam</div><div class="kpi-val">${cyclesPerHour.toFixed(1)}</div><div class="kpi-sub">teoritis</div></div>
+    <div class="kpi"><div class="kpi-lbl">Produksi / jam</div><div class="kpi-val">${netProdHour.toFixed(0)} m³</div><div class="kpi-sub">BCM · eff ${(eff*100).toFixed(0)}% · MA ${(ma*100).toFixed(0)}%</div></div>
+    <div class="kpi"><div class="kpi-lbl">Produksi / shift</div><div class="kpi-val gold">${fmtN(Math.round(netProdTon))} t</div><div class="kpi-sub">${fmtN(Math.round(netProdShift))} BCM × ${density} t/m³</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Breakdown Cycle Time</div>
+    <div class="breakdown-row"><span class="bk-label">Waktu dorong</span><div class="bk-bar"><div class="bk-fill" style="width:${(pushTime/ct*100).toFixed(0)}%;background:#f0b429"></div></div><span class="bk-val">${fmtT(pushTime)} (${(pushTime/ct*100).toFixed(0)}%)</span></div>
+    <div class="breakdown-row"><span class="bk-label">Waktu balik</span><div class="bk-bar"><div class="bk-fill" style="width:${(returnTime/ct*100).toFixed(0)}%;background:#60a5fa"></div></div><span class="bk-val">${fmtT(returnTime)} (${(returnTime/ct*100).toFixed(0)}%)</span></div>
+    <div class="breakdown-row" style="border-bottom:none"><span class="bk-label">Manuver</span><div class="bk-bar"><div class="bk-fill" style="width:${(maneuver/ct*100).toFixed(0)}%;background:#c084fc"></div></div><span class="bk-val">${fmtT(maneuver)} (${(maneuver/ct*100).toFixed(0)}%)</span></div>
+  </div>`;
+}
+
+// ==================== CT STOPWATCH ====================
+const SW_PHASES=['Spotting','Loading','Travel Isi','Dumping','Travel Kosong'];
+let swRunning=false,swPhaseIdx=-1,swPhaseStart=0,swPhaseTimes=[],swCycles=[],swInterval=null;
+
+function swAction(){
+  if(!swRunning&&swPhaseIdx===-1){
+    // Start
+    swRunning=true;swPhaseIdx=0;swPhaseStart=Date.now();
+    swPhaseTimes=new Array(SW_PHASES.length).fill(0);
+    clearInterval(swInterval);
+    swInterval=setInterval(swTick,100);
+    document.getElementById('sw-btn-main').textContent='NEXT: '+SW_PHASES[1]||'SELESAI';
+    document.getElementById('sw-btn-main').className='sw-btn sw-next';
+    swRenderPhases(0,0);
+  } else if(swRunning){
+    // Next phase
+    const elapsed=(Date.now()-swPhaseStart)/1000;
+    swPhaseTimes[swPhaseIdx]=elapsed;
+    document.getElementById('sw-time-'+swPhaseIdx).textContent=fmtT(elapsed);
+    document.getElementById('sw-dot-'+swPhaseIdx).className='sw-pdot done';
+    document.getElementById('sw-lbl-'+swPhaseIdx).className='sw-plabel';
+    swPhaseIdx++;
+    if(swPhaseIdx>=SW_PHASES.length){
+      // Selesai
+      clearInterval(swInterval);swRunning=false;
+      const total=swPhaseTimes.reduce((a,b)=>a+b,0);
+      document.getElementById('sw-display').textContent=fmtT(total);
+      document.getElementById('sw-phase-name').textContent='Siklus selesai — '+fmtT(total);
+      document.getElementById('sw-phase-elapsed').textContent='';
+      document.getElementById('sw-btn-main').textContent='MULAI SIKLUS BARU';
+      document.getElementById('sw-btn-main').className='sw-btn sw-start';
+      swCycles.push([...swPhaseTimes]);
+      swPhaseIdx=-1;swPhaseTimes=[];
+      swRenderCycles();
+    } else {
+      swPhaseStart=Date.now();
+      document.getElementById('sw-dot-'+swPhaseIdx).className='sw-pdot active';
+      document.getElementById('sw-lbl-'+swPhaseIdx).className='sw-plabel active';
+      const nextLabel=swPhaseIdx<SW_PHASES.length-1?'NEXT: '+SW_PHASES[swPhaseIdx+1]:'SELESAI';
+      document.getElementById('sw-btn-main').textContent=nextLabel;
+    }
+  }
+}
+function swTick(){
+  const elapsed=(Date.now()-swPhaseStart)/1000;
+  const total=swPhaseTimes.reduce((a,b)=>a+b,0)+elapsed;
+  document.getElementById('sw-display').textContent=fmtT(total);
+  document.getElementById('sw-phase-name').textContent=swPhaseIdx<SW_PHASES.length?SW_PHASES[swPhaseIdx]:'';
+  document.getElementById('sw-phase-elapsed').textContent=fmtT(elapsed);
+}
+function swRenderPhases(activeIdx){
+  SW_PHASES.forEach((_,i)=>{
+    document.getElementById('sw-dot-'+i).className='sw-pdot'+(i===activeIdx?' active':'');
+    document.getElementById('sw-lbl-'+i).className='sw-plabel'+(i===activeIdx?' active':'');
+    document.getElementById('sw-time-'+i).className='sw-ptime';
+    document.getElementById('sw-time-'+i).textContent='—';
+  });
+}
+function swReset(){
+  clearInterval(swInterval);swRunning=false;swPhaseIdx=-1;swPhaseTimes=[];
+  document.getElementById('sw-display').textContent='0:00';
+  document.getElementById('sw-phase-name').textContent='Tekan MULAI untuk memulai siklus';
+  document.getElementById('sw-phase-elapsed').textContent='';
+  document.getElementById('sw-btn-main').textContent='MULAI';
+  document.getElementById('sw-btn-main').className='sw-btn sw-start';
+  swRenderPhases(-1);
+}
+function swRenderCycles(){
+  if(!swCycles.length){document.getElementById('sw-cycles-result').innerHTML='';return;}
+  const avgPhase=SW_PHASES.map((_,i)=>swCycles.reduce((s,c)=>s+c[i],0)/swCycles.length);
+  const avgTotal=avgPhase.reduce((a,b)=>a+b,0);
+  const rows=swCycles.map((c,idx)=>{
+    const tot=c.reduce((a,b)=>a+b,0);
+    return`<tr><td style="color:var(--text2)">Siklus ${idx+1}</td>${c.map(t=>`<td>${fmtT(t)}</td>`).join('')}<td style="color:var(--gold);font-weight:600">${fmtT(tot)}</td></tr>`;
+  }).join('');
+  document.getElementById('sw-cycles-result').innerHTML=`
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-lbl">Siklus tercatat</div><div class="kpi-val gold">${swCycles.length}</div><div class="kpi-sub">total observasi</div></div>
+    <div class="kpi"><div class="kpi-lbl">Avg cycle time</div><div class="kpi-val">${fmtT(avgTotal)}</div><div class="kpi-sub">rata-rata ${swCycles.length} siklus</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Riwayat Siklus</div>
+    <div style="overflow-x:auto">
+    <table class="data-table"><thead><tr><th>#</th>${SW_PHASES.map(p=>`<th>${p}</th>`).join('')}<th>Total</th></tr></thead>
+    <tbody>${rows}
+    <tr class="highlight"><td style="font-weight:600">Rata²</td>${avgPhase.map(t=>`<td style="color:var(--text)">${fmtT(t)}</td>`).join('')}<td style="color:var(--gold);font-weight:600">${fmtT(avgTotal)}</td></tr>
+    </tbody></table>
+    </div>
+    <button onclick="swCycles=[];swRenderCycles()" style="margin-top:10px;background:none;border:1px solid var(--border);border-radius:8px;color:var(--text3);font-size:11px;padding:6px 12px;cursor:pointer;width:100%">Hapus riwayat</button>
+  </div>`;
+}
+
+// ==================== WATER TRUCK ====================
+function wtCalc(){
+  const roadLen=v('wt-road-len')*1000; // km→m
+  const roadWidth=v('wt-road-width');
+  const appRate=v('wt-app-rate');
+  const freq=v('wt-freq');
+  const tankCap=v('wt-tank');
+  const fillFactor=v('wt-fill-factor');
+  const fillTime=v('wt-fill-time')*60; // min→sec
+  const waterDist=v('wt-water-dist');
+  const speed=v('wt-speed');
+  const sprayRate=v('wt-spray-rate'); // L/min
+  const hours=v('wt-hours'),ma=v('wt-ma')/100,pa=v('wt-pa')/100;
+  if(roadLen<=0||tankCap<=0||speed<=0||sprayRate<=0)return;
+  const totalArea=roadLen*roadWidth; // m²
+  const totalWaterNeeded=totalArea*appRate*freq; // liters per shift
+  const effectiveTank=tankCap*fillFactor; // liters
+  const travelSec=(waterDist/speed)*3600*2; // to source and back
+  const spraySec=(effectiveTank/sprayRate)*60; // spray out full tank
+  const ct=fillTime+travelSec+spraySec; // cycle time in seconds
+  const tripsPerTruckShift=(hours*3600*ma*pa)/ct;
+  const waterPerTruckShift=tripsPerTruckShift*effectiveTank;
+  const nTrucksExact=totalWaterNeeded/waterPerTruckShift;
+  const nTrucks=Math.ceil(nTrucksExact);
+  document.getElementById('wt-result').innerHTML=`
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-lbl">Air dibutuhkan / shift</div><div class="kpi-val gold">${fmtN(Math.round(totalWaterNeeded/1000))} m³</div><div class="kpi-sub">${fmtN(Math.round(totalArea))} m² × ${appRate} L/m² × ${freq}×</div></div>
+    <div class="kpi"><div class="kpi-lbl">Cycle time / trip</div><div class="kpi-val">${fmtT(ct)}</div><div class="kpi-sub">fill + travel + spray</div></div>
+    <div class="kpi"><div class="kpi-lbl">Air / truck / shift</div><div class="kpi-val">${fmtN(Math.round(waterPerTruckShift/1000))} m³</div><div class="kpi-sub">${tripsPerTruckShift.toFixed(1)} trips × ${Math.round(effectiveTank)} L</div></div>
+    <div class="kpi"><div class="kpi-lbl">Jumlah WTruck</div><div class="kpi-val gold">${nTrucks} unit</div><div class="kpi-sub">dibutuhkan (${nTrucksExact.toFixed(2)} exact)</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Breakdown Cycle Time</div>
+    <div class="breakdown-row"><span class="bk-label">Pengisian (fill)</span><div class="bk-bar"><div class="bk-fill" style="width:${(fillTime/ct*100).toFixed(0)}%;background:#f0b429"></div></div><span class="bk-val">${fmtT(fillTime)} (${(fillTime/ct*100).toFixed(0)}%)</span></div>
+    <div class="breakdown-row"><span class="bk-label">Travel PP ke sumber</span><div class="bk-bar"><div class="bk-fill" style="width:${(travelSec/ct*100).toFixed(0)}%;background:#60a5fa"></div></div><span class="bk-val">${fmtT(travelSec)} (${(travelSec/ct*100).toFixed(0)}%)</span></div>
+    <div class="breakdown-row" style="border-bottom:none"><span class="bk-label">Penyiraman (spray)</span><div class="bk-bar"><div class="bk-fill" style="width:${(spraySec/ct*100).toFixed(0)}%;background:#4ade80"></div></div><span class="bk-val">${fmtT(spraySec)} (${(spraySec/ct*100).toFixed(0)}%)</span></div>
+  </div>`;
+}
+
+// ==================== MOTOR GRADER ====================
+function grCalc(){
+  const roadKm=v('gr-road-km');
+  const roadWidth=v('gr-road-width');
+  const freq=v('gr-freq');
+  const bladeLen=v('gr-blade');
+  const angleRad=v('gr-angle')*Math.PI/180;
+  const overlap=v('gr-overlap');
+  const speed=v('gr-speed'); // km/h
+  const passesLong=v('gr-passes'); // longitudinal passes per section
+  const hours=v('gr-hours'),ma=v('gr-ma')/100,pa=v('gr-pa')/100;
+  if(roadKm<=0||bladeLen<=0||speed<=0)return;
+  const effectiveWidth=bladeLen*Math.sin(angleRad)-overlap;
+  if(effectiveWidth<=0)return;
+  const lateralPasses=Math.ceil(roadWidth/effectiveWidth);
+  const totalPasses=passesLong*lateralPasses;
+  // Production per grader per shift in km of road
+  // = (speed × hours × MA × PA) / (passes × 2 for back-and-forth per km)
+  // Factor 2: grader passes going and returning, but both are productive passes
+  // so total productive km driven = speed × hours × MA × PA
+  // Each km of road needs (totalPasses × 2) km of grader travel (two directions)
+  const graderKmDriven=speed*hours*ma*pa; // km actually driven per shift
+  const kmRoadGradedPerUnit=graderKmDriven/(totalPasses); // one pass = one direction
+  const totalKmToGrade=roadKm*freq;
+  const nGradersExact=totalKmToGrade/kmRoadGradedPerUnit;
+  const nGraders=Math.ceil(nGradersExact);
+  document.getElementById('gr-result').innerHTML=`
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-lbl">Effective blade width</div><div class="kpi-val gold">${effectiveWidth.toFixed(2)} m</div><div class="kpi-sub">blade×sin(${v('gr-angle')}°) − overlap</div></div>
+    <div class="kpi"><div class="kpi-lbl">Lateral passes / km</div><div class="kpi-val">${lateralPasses}</div><div class="kpi-sub">jalan ${roadWidth}m ÷ ${effectiveWidth.toFixed(1)}m coverage</div></div>
+    <div class="kpi"><div class="kpi-lbl">Produksi / grader / shift</div><div class="kpi-val">${kmRoadGradedPerUnit.toFixed(2)} km</div><div class="kpi-sub">jalan ter-grade</div></div>
+    <div class="kpi"><div class="kpi-lbl">Jumlah Grader</div><div class="kpi-val gold">${nGraders} unit</div><div class="kpi-sub">${totalKmToGrade.toFixed(1)} km/shift target (${nGradersExact.toFixed(2)} exact)</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Detail Perhitungan</div>
+    <div class="breakdown-row"><span class="bk-label">Total km di-grade/shift</span><div class="bk-bar"></div><span class="bk-val">${roadKm} km × ${freq}× = ${totalKmToGrade.toFixed(1)} km</span></div>
+    <div class="breakdown-row"><span class="bk-label">Total passes per km</span><div class="bk-bar"></div><span class="bk-val">${passesLong} long × ${lateralPasses} lat = ${totalPasses}×</span></div>
+    <div class="breakdown-row"><span class="bk-label">Grader km dikendarai/shift</span><div class="bk-bar"></div><span class="bk-val">${graderKmDriven.toFixed(1)} km</span></div>
+    <div class="breakdown-row" style="border-bottom:none"><span class="bk-label" style="color:var(--text);font-weight:600">Grader dibutuhkan</span><div class="bk-bar"></div><span class="bk-val" style="color:var(--gold)">${nGraders} unit</span></div>
+  </div>`;
+}
+
+// ==================== DOZER DUMP ====================
+let ddMode='fleet';
+function ddSetMode(m){
+  ddMode=m;
+  document.getElementById('dd-mode-fleet').style.display=m==='fleet'?'':'none';
+  document.getElementById('dd-mode-direct').style.display=m==='direct'?'':'none';
+  document.getElementById('dd-btn-fleet').className=m==='fleet'?'on':'';
+  document.getElementById('dd-btn-direct').className=m==='direct'?'on':'';
+  ddCalc();
+}
+function ddSetSF(){
+  const sel=document.getElementById('dd-sf-sel').value;
+  document.getElementById('dd-sf-custom-wrap').style.display=sel==='custom'?'':'none';
+  ddCalc();
+}
+function ddCalc(){
+  let deliveryTonH=0;
+  if(ddMode==='fleet'){
+    deliveryTonH=v('dd-trucks')*v('dd-payload')*v('dd-trips-h');
+  }else{
+    deliveryTonH=v('dd-delivery');
+  }
+  const blade=v('dd-blade'),fill=v('dd-fill'),density=v('dd-density');
+  const dist=v('dd-dist'),pushSpd=v('dd-push-spd'),returnSpd=v('dd-return-spd'),maneuver=v('dd-maneuver');
+  const ma=v('dd-ma')/100,eff=v('dd-eff')/100;
+  const sfSel=document.getElementById('dd-sf-sel').value;
+  const sf=sfSel==='custom'?v('dd-sf-custom'):parseFloat(sfSel)||1.2;
+  if(blade<=0||pushSpd<=0||returnSpd<=0||dist<=0||deliveryTonH<=0)return;
+  const pushTime=dist/(pushSpd/3.6);
+  const returnTime=dist/(returnSpd/3.6);
+  const ct=pushTime+returnTime+maneuver;
+  const cyclesPerH=3600/ct;
+  const dozerTonH=cyclesPerH*blade*fill*density*eff*ma;
+  const requiredTonH=deliveryTonH*sf;
+  const nDozersExact=requiredTonH/dozerTonH;
+  const nDozers=Math.ceil(nDozersExact);
+  const utilPct=(nDozersExact/nDozers*100).toFixed(0);
+  document.getElementById('dd-result').innerHTML=`
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-lbl">Laju kedatangan</div><div class="kpi-val gold">${fmtN(Math.round(deliveryTonH))} t/jam</div><div class="kpi-sub">material masuk ke dump</div></div>
+    <div class="kpi"><div class="kpi-lbl">Kapasitas dozer</div><div class="kpi-val">${fmtN(Math.round(dozerTonH))} t/jam</div><div class="kpi-sub">per unit · CT ${fmtT(ct)}</div></div>
+    <div class="kpi"><div class="kpi-lbl">Kebutuhan (×SF ${sf})</div><div class="kpi-val">${nDozersExact.toFixed(2)} unit</div><div class="kpi-sub">teoritis dengan safety factor</div></div>
+    <div class="kpi"><div class="kpi-lbl">Jumlah Dozer Dump</div><div class="kpi-val gold">${nDozers} unit</div><div class="kpi-sub">utilisasi ${utilPct}% dari kapasitas</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Breakdown Cycle Time Dozer</div>
+    <div class="breakdown-row"><span class="bk-label">Waktu dorong</span><div class="bk-bar"><div class="bk-fill" style="width:${(pushTime/ct*100).toFixed(0)}%;background:#f0b429"></div></div><span class="bk-val">${fmtT(pushTime)} (${(pushTime/ct*100).toFixed(0)}%)</span></div>
+    <div class="breakdown-row"><span class="bk-label">Waktu balik</span><div class="bk-bar"><div class="bk-fill" style="width:${(returnTime/ct*100).toFixed(0)}%;background:#60a5fa"></div></div><span class="bk-val">${fmtT(returnTime)} (${(returnTime/ct*100).toFixed(0)}%)</span></div>
+    <div class="breakdown-row" style="border-bottom:none"><span class="bk-label">Manuver</span><div class="bk-bar"><div class="bk-fill" style="width:${(maneuver/ct*100).toFixed(0)}%;background:#c084fc"></div></div><span class="bk-val">${fmtT(maneuver)} (${(maneuver/ct*100).toFixed(0)}%)</span></div>
+  </div>
+  <div class="info-note">Dozer dump bukan hanya spreading — pastikan safety factor mencakup waktu idle saat tidak ada hauler datang, manuver di tepi bench, dan pekerjaan sampingan (leveling, road touch-up di area dump).</div>`;
+}
+
 // init
-mfCalc();hcCalc();tnCalc();exCalc();phCalc();
+mfCalc();hcCalc();tnCalc();obCalc();srCalc();exCalc();phCalc();dzCalc();wtCalc();grCalc();ddCalc();
+document.getElementById('rg-rr').value='3';rgCalc();
+loadRecent();
 </script>
 </body>
 </html>
